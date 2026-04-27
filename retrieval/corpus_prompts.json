@@ -1,0 +1,37 @@
+[
+  {
+    "id": "battle_001",
+    "prompt": "intense battle music for a JRPG, fast tempo, driving percussion, electric guitar and brass, energetic and heroic",
+    "category": "battle",
+    "mood_tags": [
+      "intense",
+      "heroic",
+      "driving"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "electric guitar",
+      "brass",
+      "percussion"
+    ],
+    "bpm_hint": 160,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_001",
+    "prompt": "peaceful overworld exploration theme, slow tempo, acoustic piano and strings, calm and adventurous, Nintendo-style",
+    "category": "exploration",
+    "mood_tags": [
+      "peaceful",
+      "adventurous",
+      "calm"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "piano",
+      "strings"
+    ],
+    "bpm_hint": 90,
+    "duration_seconds": 15
+  }
+]
