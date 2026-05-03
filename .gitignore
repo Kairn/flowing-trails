@@ -1,5 +1,4 @@
 ### Python ###
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -238,4 +237,7 @@ __marimo__/
 .history
 .ionide
 
-# Custom
+### Custom ###
+# Project meta files
+CLAUDE.md
+.project/
