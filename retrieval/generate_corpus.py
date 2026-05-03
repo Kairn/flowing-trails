@@ -63,8 +63,16 @@ image = (
     timeout=3600,
 )
 def generate_corpus(prompts: list[dict]) -> dict:
+    import logging
+
     import soundfile as sf
     from audiocraft.models import MusicGen  # type: ignore
+
+    # stdlib logging — structlog isn't in the Modal container image
+    logging.basicConfig(
+        level=logging.INFO, format="%(levelname)s | %(name)s | %(message)s"
+    )
+    log = logging.getLogger("flowing-trails.corpus-gen")
 
     model = MusicGen.get_pretrained(MUSICGEN_BASE_MODEL)
 
@@ -90,10 +98,10 @@ def generate_corpus(prompts: list[dict]) -> dict:
             )
 
             manifest.append({**item, "corpus_file_path": filename})
-            print(f"[ok] {clip_id}")
+            log.info("Generated %s", clip_id)
 
         except Exception as e:
-            print(f"[fail] {clip_id}: {e}")
+            log.error("Failed %s: %s", clip_id, e)
             failed.append({"id": clip_id, "error": str(e)})
 
     with open("/corpus/corpus_manifest.json", "w") as f:
@@ -109,6 +117,14 @@ def generate_corpus(prompts: list[dict]) -> dict:
 
 @app.local_entrypoint()
 def main():
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    from otel_utils import get_logger, setup_logging
+
+    setup_logging()
+    log = get_logger("corpus-gen")
+
     prompts_path = Path(__file__).parent / "corpus_prompts.json"
     if not prompts_path.exists():
         raise FileNotFoundError(
@@ -119,8 +135,12 @@ def main():
     with open(prompts_path) as f:
         prompts = json.load(f)
 
-    print(f"Submitting {len(prompts)} prompts to Modal...")
+    log.info("Submitting prompts to Modal", count=len(prompts))
     result = generate_corpus.remote(prompts)
-    print(f"Done: {result['generated']} generated, {result['failed']} failed")
+    log.info(
+        "Generation complete",
+        generated=result["generated"],
+        failed=result["failed"],
+    )
     if result.get("failed_ids"):
-        print(f"Failed IDs: {result['failed_ids']}")
+        log.warning("Failed clip IDs", ids=result["failed_ids"])

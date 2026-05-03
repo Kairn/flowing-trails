@@ -16,8 +16,12 @@ Tune the TOP-LEVEL CONFIG section to:
 """
 
 import json
-import random
 import math
+import random
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from pathlib import Path
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -348,6 +352,11 @@ def generate_prompts(categories, duration, seed, global_suffix):
 
 
 def main():
+    from otel_utils import get_logger, setup_logging
+
+    setup_logging()
+    log = get_logger("corpus-prompts")
+
     prompts = generate_prompts(
         categories=CATEGORIES,
         duration=DURATION_SECONDS,
@@ -359,12 +368,10 @@ def main():
     out_path = Path(__file__).parent / "corpus_prompts.json"
     out_path.write_text(json.dumps(prompts, indent=2))
 
-    print(f"Written {total} prompts to {out_path}")
     breakdown = {}
     for p in prompts:
         breakdown[p["category_label"]] = breakdown.get(p["category_label"], 0) + 1
-    for label, n in breakdown.items():
-        print(f"  {label}: {n}")
+    log.info("Written prompts", count=total, path=str(out_path), breakdown=breakdown)
 
 
 if __name__ == "__main__":
