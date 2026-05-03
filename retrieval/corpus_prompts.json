@@ -1,8 +1,9 @@
 [
   {
     "id": "battle_001",
-    "prompt": "intense battle music for a JRPG, fast tempo, driving percussion, electric guitar and brass, energetic and heroic",
+    "prompt": "intense battle music for a JRPG, fast tempo, driving rhythm, electric guitar, brass, percussion, intense, heroic, driving",
     "category": "battle",
+    "category_label": "Battle / Combat",
     "mood_tags": [
       "intense",
       "heroic",
@@ -14,24 +15,2838 @@
       "brass",
       "percussion"
     ],
-    "bpm_hint": 160,
+    "bpm_hint": 140,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_002",
+    "prompt": "high-energy combat theme, relentless and aggressive, orchestra, drums, distorted bass, fierce, urgent, relentless",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "fierce",
+      "urgent",
+      "relentless"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "orchestra",
+      "drums",
+      "distorted bass"
+    ],
+    "bpm_hint": 142,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_003",
+    "prompt": "action-packed fight scene underscore, tense and propulsive, brass fanfare, snare, electric guitar, powerful, tense, energetic",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "powerful",
+      "tense",
+      "energetic"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "brass fanfare",
+      "snare",
+      "electric guitar"
+    ],
+    "bpm_hint": 144,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_004",
+    "prompt": "heroic battle anthem, powerful and driving, full orchestra, taiko drums, strings, aggressive, bold, cinematic",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "aggressive",
+      "bold",
+      "cinematic"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "full orchestra",
+      "taiko drums",
+      "strings"
+    ],
+    "bpm_hint": 146,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_005",
+    "prompt": "intense battle music for a JRPG, fast tempo, driving rhythm, electric guitar, brass, percussion, intense, heroic, driving",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "intense",
+      "heroic",
+      "driving"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "electric guitar",
+      "brass",
+      "percussion"
+    ],
+    "bpm_hint": 148,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_006",
+    "prompt": "high-energy combat theme, relentless and aggressive, orchestra, drums, distorted bass, fierce, urgent, relentless",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "fierce",
+      "urgent",
+      "relentless"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "orchestra",
+      "drums",
+      "distorted bass"
+    ],
+    "bpm_hint": 151,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_007",
+    "prompt": "action-packed fight scene underscore, tense and propulsive, brass fanfare, snare, electric guitar, powerful, tense, energetic",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "powerful",
+      "tense",
+      "energetic"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "brass fanfare",
+      "snare",
+      "electric guitar"
+    ],
+    "bpm_hint": 153,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_008",
+    "prompt": "heroic battle anthem, powerful and driving, full orchestra, taiko drums, strings, aggressive, bold, cinematic",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "aggressive",
+      "bold",
+      "cinematic"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "full orchestra",
+      "taiko drums",
+      "strings"
+    ],
+    "bpm_hint": 155,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_009",
+    "prompt": "intense battle music for a JRPG, fast tempo, driving rhythm, electric guitar, brass, percussion, intense, heroic, driving",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "intense",
+      "heroic",
+      "driving"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "electric guitar",
+      "brass",
+      "percussion"
+    ],
+    "bpm_hint": 157,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_010",
+    "prompt": "high-energy combat theme, relentless and aggressive, orchestra, drums, distorted bass, fierce, urgent, relentless",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "fierce",
+      "urgent",
+      "relentless"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "orchestra",
+      "drums",
+      "distorted bass"
+    ],
+    "bpm_hint": 159,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_011",
+    "prompt": "action-packed fight scene underscore, tense and propulsive, brass fanfare, snare, electric guitar, powerful, tense, energetic",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "powerful",
+      "tense",
+      "energetic"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "brass fanfare",
+      "snare",
+      "electric guitar"
+    ],
+    "bpm_hint": 161,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_012",
+    "prompt": "heroic battle anthem, powerful and driving, full orchestra, taiko drums, strings, aggressive, bold, cinematic",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "aggressive",
+      "bold",
+      "cinematic"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "full orchestra",
+      "taiko drums",
+      "strings"
+    ],
+    "bpm_hint": 163,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_013",
+    "prompt": "intense battle music for a JRPG, fast tempo, driving rhythm, electric guitar, brass, percussion, intense, heroic, driving",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "intense",
+      "heroic",
+      "driving"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "electric guitar",
+      "brass",
+      "percussion"
+    ],
+    "bpm_hint": 165,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_014",
+    "prompt": "high-energy combat theme, relentless and aggressive, orchestra, drums, distorted bass, fierce, urgent, relentless",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "fierce",
+      "urgent",
+      "relentless"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "orchestra",
+      "drums",
+      "distorted bass"
+    ],
+    "bpm_hint": 167,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_015",
+    "prompt": "action-packed fight scene underscore, tense and propulsive, brass fanfare, snare, electric guitar, powerful, tense, energetic",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "powerful",
+      "tense",
+      "energetic"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "brass fanfare",
+      "snare",
+      "electric guitar"
+    ],
+    "bpm_hint": 169,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_016",
+    "prompt": "heroic battle anthem, powerful and driving, full orchestra, taiko drums, strings, aggressive, bold, cinematic",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "aggressive",
+      "bold",
+      "cinematic"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "full orchestra",
+      "taiko drums",
+      "strings"
+    ],
+    "bpm_hint": 172,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_017",
+    "prompt": "intense battle music for a JRPG, fast tempo, driving rhythm, electric guitar, brass, percussion, intense, heroic, driving",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "intense",
+      "heroic",
+      "driving"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "electric guitar",
+      "brass",
+      "percussion"
+    ],
+    "bpm_hint": 174,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_018",
+    "prompt": "high-energy combat theme, relentless and aggressive, orchestra, drums, distorted bass, fierce, urgent, relentless",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "fierce",
+      "urgent",
+      "relentless"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "orchestra",
+      "drums",
+      "distorted bass"
+    ],
+    "bpm_hint": 176,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_019",
+    "prompt": "action-packed fight scene underscore, tense and propulsive, brass fanfare, snare, electric guitar, powerful, tense, energetic",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "powerful",
+      "tense",
+      "energetic"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "brass fanfare",
+      "snare",
+      "electric guitar"
+    ],
+    "bpm_hint": 178,
+    "duration_seconds": 15
+  },
+  {
+    "id": "battle_020",
+    "prompt": "heroic battle anthem, powerful and driving, full orchestra, taiko drums, strings, aggressive, bold, cinematic",
+    "category": "battle",
+    "category_label": "Battle / Combat",
+    "mood_tags": [
+      "aggressive",
+      "bold",
+      "cinematic"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "full orchestra",
+      "taiko drums",
+      "strings"
+    ],
+    "bpm_hint": 180,
+    "duration_seconds": 15
+  },
+  {
+    "id": "boss_001",
+    "prompt": "dark and menacing boss battle theme, heavy and dramatic, heavy brass, deep drums, distorted guitar, dark, menacing, overwhelming, darker and heavier than a standard battle theme",
+    "category": "boss",
+    "category_label": "Boss Fight",
+    "mood_tags": [
+      "dark",
+      "menacing",
+      "overwhelming"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "heavy brass",
+      "deep drums",
+      "distorted guitar"
+    ],
+    "bpm_hint": 150,
+    "duration_seconds": 15
+  },
+  {
+    "id": "boss_002",
+    "prompt": "epic final boss music, overwhelming and intense, choir, orchestra, heavy percussion, sinister, epic, dread-inducing, darker and heavier than a standard battle theme",
+    "category": "boss",
+    "category_label": "Boss Fight",
+    "mood_tags": [
+      "sinister",
+      "epic",
+      "dread-inducing"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "choir",
+      "orchestra",
+      "heavy percussion"
+    ],
+    "bpm_hint": 153,
+    "duration_seconds": 15
+  },
+  {
+    "id": "boss_003",
+    "prompt": "sinister boss encounter theme, imposing and relentless, organ, brass, low strings, taiko, ominous, powerful, climactic, darker and heavier than a standard battle theme",
+    "category": "boss",
+    "category_label": "Boss Fight",
+    "mood_tags": [
+      "ominous",
+      "powerful",
+      "climactic"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "organ",
+      "brass",
+      "low strings",
+      "taiko"
+    ],
+    "bpm_hint": 156,
+    "duration_seconds": 15
+  },
+  {
+    "id": "boss_004",
+    "prompt": "dark and menacing boss battle theme, heavy and dramatic, heavy brass, deep drums, distorted guitar, dark, menacing, overwhelming, darker and heavier than a standard battle theme",
+    "category": "boss",
+    "category_label": "Boss Fight",
+    "mood_tags": [
+      "dark",
+      "menacing",
+      "overwhelming"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "heavy brass",
+      "deep drums",
+      "distorted guitar"
+    ],
+    "bpm_hint": 159,
+    "duration_seconds": 15
+  },
+  {
+    "id": "boss_005",
+    "prompt": "epic final boss music, overwhelming and intense, choir, orchestra, heavy percussion, sinister, epic, dread-inducing, darker and heavier than a standard battle theme",
+    "category": "boss",
+    "category_label": "Boss Fight",
+    "mood_tags": [
+      "sinister",
+      "epic",
+      "dread-inducing"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "choir",
+      "orchestra",
+      "heavy percussion"
+    ],
+    "bpm_hint": 161,
+    "duration_seconds": 15
+  },
+  {
+    "id": "boss_006",
+    "prompt": "sinister boss encounter theme, imposing and relentless, organ, brass, low strings, taiko, ominous, powerful, climactic, darker and heavier than a standard battle theme",
+    "category": "boss",
+    "category_label": "Boss Fight",
+    "mood_tags": [
+      "ominous",
+      "powerful",
+      "climactic"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "organ",
+      "brass",
+      "low strings",
+      "taiko"
+    ],
+    "bpm_hint": 164,
+    "duration_seconds": 15
+  },
+  {
+    "id": "boss_007",
+    "prompt": "dark and menacing boss battle theme, heavy and dramatic, heavy brass, deep drums, distorted guitar, dark, menacing, overwhelming, darker and heavier than a standard battle theme",
+    "category": "boss",
+    "category_label": "Boss Fight",
+    "mood_tags": [
+      "dark",
+      "menacing",
+      "overwhelming"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "heavy brass",
+      "deep drums",
+      "distorted guitar"
+    ],
+    "bpm_hint": 167,
+    "duration_seconds": 15
+  },
+  {
+    "id": "boss_008",
+    "prompt": "epic final boss music, overwhelming and intense, choir, orchestra, heavy percussion, sinister, epic, dread-inducing, darker and heavier than a standard battle theme",
+    "category": "boss",
+    "category_label": "Boss Fight",
+    "mood_tags": [
+      "sinister",
+      "epic",
+      "dread-inducing"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "choir",
+      "orchestra",
+      "heavy percussion"
+    ],
+    "bpm_hint": 170,
+    "duration_seconds": 15
+  },
+  {
+    "id": "boss_009",
+    "prompt": "sinister boss encounter theme, imposing and relentless, organ, brass, low strings, taiko, ominous, powerful, climactic, darker and heavier than a standard battle theme",
+    "category": "boss",
+    "category_label": "Boss Fight",
+    "mood_tags": [
+      "ominous",
+      "powerful",
+      "climactic"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "organ",
+      "brass",
+      "low strings",
+      "taiko"
+    ],
+    "bpm_hint": 173,
+    "duration_seconds": 15
+  },
+  {
+    "id": "boss_010",
+    "prompt": "dark and menacing boss battle theme, heavy and dramatic, heavy brass, deep drums, distorted guitar, dark, menacing, overwhelming, darker and heavier than a standard battle theme",
+    "category": "boss",
+    "category_label": "Boss Fight",
+    "mood_tags": [
+      "dark",
+      "menacing",
+      "overwhelming"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "heavy brass",
+      "deep drums",
+      "distorted guitar"
+    ],
+    "bpm_hint": 176,
+    "duration_seconds": 15
+  },
+  {
+    "id": "boss_011",
+    "prompt": "epic final boss music, overwhelming and intense, choir, orchestra, heavy percussion, sinister, epic, dread-inducing, darker and heavier than a standard battle theme",
+    "category": "boss",
+    "category_label": "Boss Fight",
+    "mood_tags": [
+      "sinister",
+      "epic",
+      "dread-inducing"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "choir",
+      "orchestra",
+      "heavy percussion"
+    ],
+    "bpm_hint": 179,
+    "duration_seconds": 15
+  },
+  {
+    "id": "boss_012",
+    "prompt": "sinister boss encounter theme, imposing and relentless, organ, brass, low strings, taiko, ominous, powerful, climactic, darker and heavier than a standard battle theme",
+    "category": "boss",
+    "category_label": "Boss Fight",
+    "mood_tags": [
+      "ominous",
+      "powerful",
+      "climactic"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "organ",
+      "brass",
+      "low strings",
+      "taiko"
+    ],
+    "bpm_hint": 181,
+    "duration_seconds": 15
+  },
+  {
+    "id": "boss_013",
+    "prompt": "dark and menacing boss battle theme, heavy and dramatic, heavy brass, deep drums, distorted guitar, dark, menacing, overwhelming, darker and heavier than a standard battle theme",
+    "category": "boss",
+    "category_label": "Boss Fight",
+    "mood_tags": [
+      "dark",
+      "menacing",
+      "overwhelming"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "heavy brass",
+      "deep drums",
+      "distorted guitar"
+    ],
+    "bpm_hint": 184,
+    "duration_seconds": 15
+  },
+  {
+    "id": "boss_014",
+    "prompt": "epic final boss music, overwhelming and intense, choir, orchestra, heavy percussion, sinister, epic, dread-inducing, darker and heavier than a standard battle theme",
+    "category": "boss",
+    "category_label": "Boss Fight",
+    "mood_tags": [
+      "sinister",
+      "epic",
+      "dread-inducing"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "choir",
+      "orchestra",
+      "heavy percussion"
+    ],
+    "bpm_hint": 187,
+    "duration_seconds": 15
+  },
+  {
+    "id": "boss_015",
+    "prompt": "sinister boss encounter theme, imposing and relentless, organ, brass, low strings, taiko, ominous, powerful, climactic, darker and heavier than a standard battle theme",
+    "category": "boss",
+    "category_label": "Boss Fight",
+    "mood_tags": [
+      "ominous",
+      "powerful",
+      "climactic"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "organ",
+      "brass",
+      "low strings",
+      "taiko"
+    ],
+    "bpm_hint": 190,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_001",
+    "prompt": "peaceful overworld exploration theme, adventurous and melodic, acoustic piano, strings, flute, peaceful, adventurous, optimistic",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "peaceful",
+      "adventurous",
+      "optimistic"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "acoustic piano",
+      "strings",
+      "flute"
+    ],
+    "bpm_hint": 80,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_002",
+    "prompt": "open world traversal music, uplifting and expansive, acoustic guitar, woodwinds, light percussion, wandering, hopeful, uplifting",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "wandering",
+      "hopeful",
+      "uplifting"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "acoustic guitar",
+      "woodwinds",
+      "light percussion"
+    ],
+    "bpm_hint": 82,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_003",
+    "prompt": "journey underscore, wandering and optimistic, orchestra, harp, oboe, curious, expansive, warm",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "curious",
+      "expansive",
+      "warm"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "orchestra",
+      "harp",
+      "oboe"
+    ],
+    "bpm_hint": 83,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_004",
+    "prompt": "field exploration theme, lighthearted and melodic, piano, marimba, strings, light, breezy, cheerful",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "light",
+      "breezy",
+      "cheerful"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "piano",
+      "marimba",
+      "strings"
+    ],
+    "bpm_hint": 85,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_005",
+    "prompt": "peaceful overworld exploration theme, adventurous and melodic, acoustic piano, strings, flute, peaceful, adventurous, optimistic",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "peaceful",
+      "adventurous",
+      "optimistic"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "acoustic piano",
+      "strings",
+      "flute"
+    ],
+    "bpm_hint": 86,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_006",
+    "prompt": "open world traversal music, uplifting and expansive, acoustic guitar, woodwinds, light percussion, wandering, hopeful, uplifting",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "wandering",
+      "hopeful",
+      "uplifting"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "acoustic guitar",
+      "woodwinds",
+      "light percussion"
+    ],
+    "bpm_hint": 88,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_007",
+    "prompt": "journey underscore, wandering and optimistic, orchestra, harp, oboe, curious, expansive, warm",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "curious",
+      "expansive",
+      "warm"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "orchestra",
+      "harp",
+      "oboe"
+    ],
+    "bpm_hint": 89,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_008",
+    "prompt": "field exploration theme, lighthearted and melodic, piano, marimba, strings, light, breezy, cheerful",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "light",
+      "breezy",
+      "cheerful"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "piano",
+      "marimba",
+      "strings"
+    ],
+    "bpm_hint": 91,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_009",
+    "prompt": "peaceful overworld exploration theme, adventurous and melodic, acoustic piano, strings, flute, peaceful, adventurous, optimistic",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "peaceful",
+      "adventurous",
+      "optimistic"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "acoustic piano",
+      "strings",
+      "flute"
+    ],
+    "bpm_hint": 93,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_010",
+    "prompt": "open world traversal music, uplifting and expansive, acoustic guitar, woodwinds, light percussion, wandering, hopeful, uplifting",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "wandering",
+      "hopeful",
+      "uplifting"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "acoustic guitar",
+      "woodwinds",
+      "light percussion"
+    ],
+    "bpm_hint": 94,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_011",
+    "prompt": "journey underscore, wandering and optimistic, orchestra, harp, oboe, curious, expansive, warm",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "curious",
+      "expansive",
+      "warm"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "orchestra",
+      "harp",
+      "oboe"
+    ],
+    "bpm_hint": 96,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_012",
+    "prompt": "field exploration theme, lighthearted and melodic, piano, marimba, strings, light, breezy, cheerful",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "light",
+      "breezy",
+      "cheerful"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "piano",
+      "marimba",
+      "strings"
+    ],
+    "bpm_hint": 97,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_013",
+    "prompt": "peaceful overworld exploration theme, adventurous and melodic, acoustic piano, strings, flute, peaceful, adventurous, optimistic",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "peaceful",
+      "adventurous",
+      "optimistic"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "acoustic piano",
+      "strings",
+      "flute"
+    ],
+    "bpm_hint": 99,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_014",
+    "prompt": "open world traversal music, uplifting and expansive, acoustic guitar, woodwinds, light percussion, wandering, hopeful, uplifting",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "wandering",
+      "hopeful",
+      "uplifting"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "acoustic guitar",
+      "woodwinds",
+      "light percussion"
+    ],
+    "bpm_hint": 101,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_015",
+    "prompt": "journey underscore, wandering and optimistic, orchestra, harp, oboe, curious, expansive, warm",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "curious",
+      "expansive",
+      "warm"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "orchestra",
+      "harp",
+      "oboe"
+    ],
+    "bpm_hint": 102,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_016",
+    "prompt": "field exploration theme, lighthearted and melodic, piano, marimba, strings, light, breezy, cheerful",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "light",
+      "breezy",
+      "cheerful"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "piano",
+      "marimba",
+      "strings"
+    ],
+    "bpm_hint": 104,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_017",
+    "prompt": "peaceful overworld exploration theme, adventurous and melodic, acoustic piano, strings, flute, peaceful, adventurous, optimistic",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "peaceful",
+      "adventurous",
+      "optimistic"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "acoustic piano",
+      "strings",
+      "flute"
+    ],
+    "bpm_hint": 105,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_018",
+    "prompt": "open world traversal music, uplifting and expansive, acoustic guitar, woodwinds, light percussion, wandering, hopeful, uplifting",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "wandering",
+      "hopeful",
+      "uplifting"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "acoustic guitar",
+      "woodwinds",
+      "light percussion"
+    ],
+    "bpm_hint": 107,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_019",
+    "prompt": "journey underscore, wandering and optimistic, orchestra, harp, oboe, curious, expansive, warm",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "curious",
+      "expansive",
+      "warm"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "orchestra",
+      "harp",
+      "oboe"
+    ],
+    "bpm_hint": 108,
+    "duration_seconds": 15
+  },
+  {
+    "id": "exploration_020",
+    "prompt": "field exploration theme, lighthearted and melodic, piano, marimba, strings, light, breezy, cheerful",
+    "category": "exploration",
+    "category_label": "Overworld / Exploration",
+    "mood_tags": [
+      "light",
+      "breezy",
+      "cheerful"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "piano",
+      "marimba",
+      "strings"
+    ],
+    "bpm_hint": 110,
     "duration_seconds": 15
   },
   {
     "id": "ambient_001",
-    "prompt": "peaceful overworld exploration theme, slow tempo, acoustic piano and strings, calm and adventurous, Nintendo-style",
-    "category": "exploration",
+    "prompt": "slow atmospheric ambient music, mysterious and spacious, synth pads, ambient textures, light bells, mysterious, ethereal, spacious, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
     "mood_tags": [
-      "peaceful",
-      "adventurous",
-      "calm"
+      "mysterious",
+      "ethereal",
+      "spacious"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "synth pads",
+      "ambient textures",
+      "light bells"
+    ],
+    "bpm_hint": 50,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_002",
+    "prompt": "textural soundscape, minimal and ethereal, piano, reverb strings, atmospheric synth, calm, otherworldly, introspective, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "calm",
+      "otherworldly",
+      "introspective"
     ],
     "energy": "low",
     "instrumentation": [
       "piano",
-      "strings"
+      "reverb strings",
+      "atmospheric synth"
+    ],
+    "bpm_hint": 52,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_003",
+    "prompt": "meditative ambient underscore, calm and otherworldly, choir pads, minimal piano, wind sounds, dreamy, quiet, floating, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "dreamy",
+      "quiet",
+      "floating"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "choir pads",
+      "minimal piano",
+      "wind sounds"
+    ],
+    "bpm_hint": 53,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_004",
+    "prompt": "sparse atmospheric pad music, quiet and introspective, synth drone, music box, soft strings, melancholic, serene, distant, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "melancholic",
+      "serene",
+      "distant"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "synth drone",
+      "music box",
+      "soft strings"
+    ],
+    "bpm_hint": 55,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_005",
+    "prompt": "slow atmospheric ambient music, mysterious and spacious, synth pads, ambient textures, light bells, mysterious, ethereal, spacious, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "mysterious",
+      "ethereal",
+      "spacious"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "synth pads",
+      "ambient textures",
+      "light bells"
+    ],
+    "bpm_hint": 56,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_006",
+    "prompt": "textural soundscape, minimal and ethereal, piano, reverb strings, atmospheric synth, calm, otherworldly, introspective, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "calm",
+      "otherworldly",
+      "introspective"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "piano",
+      "reverb strings",
+      "atmospheric synth"
+    ],
+    "bpm_hint": 58,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_007",
+    "prompt": "meditative ambient underscore, calm and otherworldly, choir pads, minimal piano, wind sounds, dreamy, quiet, floating, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "dreamy",
+      "quiet",
+      "floating"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "choir pads",
+      "minimal piano",
+      "wind sounds"
+    ],
+    "bpm_hint": 59,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_008",
+    "prompt": "sparse atmospheric pad music, quiet and introspective, synth drone, music box, soft strings, melancholic, serene, distant, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "melancholic",
+      "serene",
+      "distant"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "synth drone",
+      "music box",
+      "soft strings"
+    ],
+    "bpm_hint": 61,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_009",
+    "prompt": "slow atmospheric ambient music, mysterious and spacious, synth pads, ambient textures, light bells, mysterious, ethereal, spacious, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "mysterious",
+      "ethereal",
+      "spacious"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "synth pads",
+      "ambient textures",
+      "light bells"
+    ],
+    "bpm_hint": 63,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_010",
+    "prompt": "textural soundscape, minimal and ethereal, piano, reverb strings, atmospheric synth, calm, otherworldly, introspective, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "calm",
+      "otherworldly",
+      "introspective"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "piano",
+      "reverb strings",
+      "atmospheric synth"
+    ],
+    "bpm_hint": 64,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_011",
+    "prompt": "meditative ambient underscore, calm and otherworldly, choir pads, minimal piano, wind sounds, dreamy, quiet, floating, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "dreamy",
+      "quiet",
+      "floating"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "choir pads",
+      "minimal piano",
+      "wind sounds"
+    ],
+    "bpm_hint": 66,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_012",
+    "prompt": "sparse atmospheric pad music, quiet and introspective, synth drone, music box, soft strings, melancholic, serene, distant, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "melancholic",
+      "serene",
+      "distant"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "synth drone",
+      "music box",
+      "soft strings"
+    ],
+    "bpm_hint": 67,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_013",
+    "prompt": "slow atmospheric ambient music, mysterious and spacious, synth pads, ambient textures, light bells, mysterious, ethereal, spacious, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "mysterious",
+      "ethereal",
+      "spacious"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "synth pads",
+      "ambient textures",
+      "light bells"
+    ],
+    "bpm_hint": 69,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_014",
+    "prompt": "textural soundscape, minimal and ethereal, piano, reverb strings, atmospheric synth, calm, otherworldly, introspective, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "calm",
+      "otherworldly",
+      "introspective"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "piano",
+      "reverb strings",
+      "atmospheric synth"
+    ],
+    "bpm_hint": 71,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_015",
+    "prompt": "meditative ambient underscore, calm and otherworldly, choir pads, minimal piano, wind sounds, dreamy, quiet, floating, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "dreamy",
+      "quiet",
+      "floating"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "choir pads",
+      "minimal piano",
+      "wind sounds"
+    ],
+    "bpm_hint": 72,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_016",
+    "prompt": "sparse atmospheric pad music, quiet and introspective, synth drone, music box, soft strings, melancholic, serene, distant, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "melancholic",
+      "serene",
+      "distant"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "synth drone",
+      "music box",
+      "soft strings"
+    ],
+    "bpm_hint": 74,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_017",
+    "prompt": "slow atmospheric ambient music, mysterious and spacious, synth pads, ambient textures, light bells, mysterious, ethereal, spacious, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "mysterious",
+      "ethereal",
+      "spacious"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "synth pads",
+      "ambient textures",
+      "light bells"
+    ],
+    "bpm_hint": 75,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_018",
+    "prompt": "textural soundscape, minimal and ethereal, piano, reverb strings, atmospheric synth, calm, otherworldly, introspective, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "calm",
+      "otherworldly",
+      "introspective"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "piano",
+      "reverb strings",
+      "atmospheric synth"
+    ],
+    "bpm_hint": 77,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_019",
+    "prompt": "meditative ambient underscore, calm and otherworldly, choir pads, minimal piano, wind sounds, dreamy, quiet, floating, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "dreamy",
+      "quiet",
+      "floating"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "choir pads",
+      "minimal piano",
+      "wind sounds"
+    ],
+    "bpm_hint": 78,
+    "duration_seconds": 15
+  },
+  {
+    "id": "ambient_020",
+    "prompt": "sparse atmospheric pad music, quiet and introspective, synth drone, music box, soft strings, melancholic, serene, distant, minimal percussion, emphasis on texture and atmosphere",
+    "category": "ambient",
+    "category_label": "Ambient / Atmospheric",
+    "mood_tags": [
+      "melancholic",
+      "serene",
+      "distant"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "synth drone",
+      "music box",
+      "soft strings"
+    ],
+    "bpm_hint": 80,
+    "duration_seconds": 15
+  },
+  {
+    "id": "town_001",
+    "prompt": "cheerful town theme, warm and inviting, for a village in an RPG, accordion, acoustic guitar, woodwinds, cheerful, warm, inviting",
+    "category": "town",
+    "category_label": "Town / Village",
+    "mood_tags": [
+      "cheerful",
+      "warm",
+      "inviting"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "accordion",
+      "acoustic guitar",
+      "woodwinds"
     ],
     "bpm_hint": 90,
+    "duration_seconds": 15
+  },
+  {
+    "id": "town_002",
+    "prompt": "upbeat market or plaza music, lively and friendly, flute, pizzicato strings, light percussion, lively, friendly, nostalgic",
+    "category": "town",
+    "category_label": "Town / Village",
+    "mood_tags": [
+      "lively",
+      "friendly",
+      "nostalgic"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "flute",
+      "pizzicato strings",
+      "light percussion"
+    ],
+    "bpm_hint": 92,
+    "duration_seconds": 15
+  },
+  {
+    "id": "town_003",
+    "prompt": "cozy settlement music, folk-inspired and warm, piano, clarinet, acoustic bass, cozy, lighthearted, homey",
+    "category": "town",
+    "category_label": "Town / Village",
+    "mood_tags": [
+      "cozy",
+      "lighthearted",
+      "homey"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "piano",
+      "clarinet",
+      "acoustic bass"
+    ],
+    "bpm_hint": 94,
+    "duration_seconds": 15
+  },
+  {
+    "id": "town_004",
+    "prompt": "cheerful town theme, warm and inviting, for a village in an RPG, accordion, acoustic guitar, woodwinds, cheerful, warm, inviting",
+    "category": "town",
+    "category_label": "Town / Village",
+    "mood_tags": [
+      "cheerful",
+      "warm",
+      "inviting"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "accordion",
+      "acoustic guitar",
+      "woodwinds"
+    ],
+    "bpm_hint": 96,
+    "duration_seconds": 15
+  },
+  {
+    "id": "town_005",
+    "prompt": "upbeat market or plaza music, lively and friendly, flute, pizzicato strings, light percussion, lively, friendly, nostalgic",
+    "category": "town",
+    "category_label": "Town / Village",
+    "mood_tags": [
+      "lively",
+      "friendly",
+      "nostalgic"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "flute",
+      "pizzicato strings",
+      "light percussion"
+    ],
+    "bpm_hint": 99,
+    "duration_seconds": 15
+  },
+  {
+    "id": "town_006",
+    "prompt": "cozy settlement music, folk-inspired and warm, piano, clarinet, acoustic bass, cozy, lighthearted, homey",
+    "category": "town",
+    "category_label": "Town / Village",
+    "mood_tags": [
+      "cozy",
+      "lighthearted",
+      "homey"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "piano",
+      "clarinet",
+      "acoustic bass"
+    ],
+    "bpm_hint": 101,
+    "duration_seconds": 15
+  },
+  {
+    "id": "town_007",
+    "prompt": "cheerful town theme, warm and inviting, for a village in an RPG, accordion, acoustic guitar, woodwinds, cheerful, warm, inviting",
+    "category": "town",
+    "category_label": "Town / Village",
+    "mood_tags": [
+      "cheerful",
+      "warm",
+      "inviting"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "accordion",
+      "acoustic guitar",
+      "woodwinds"
+    ],
+    "bpm_hint": 103,
+    "duration_seconds": 15
+  },
+  {
+    "id": "town_008",
+    "prompt": "upbeat market or plaza music, lively and friendly, flute, pizzicato strings, light percussion, lively, friendly, nostalgic",
+    "category": "town",
+    "category_label": "Town / Village",
+    "mood_tags": [
+      "lively",
+      "friendly",
+      "nostalgic"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "flute",
+      "pizzicato strings",
+      "light percussion"
+    ],
+    "bpm_hint": 105,
+    "duration_seconds": 15
+  },
+  {
+    "id": "town_009",
+    "prompt": "cozy settlement music, folk-inspired and warm, piano, clarinet, acoustic bass, cozy, lighthearted, homey",
+    "category": "town",
+    "category_label": "Town / Village",
+    "mood_tags": [
+      "cozy",
+      "lighthearted",
+      "homey"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "piano",
+      "clarinet",
+      "acoustic bass"
+    ],
+    "bpm_hint": 107,
+    "duration_seconds": 15
+  },
+  {
+    "id": "town_010",
+    "prompt": "cheerful town theme, warm and inviting, for a village in an RPG, accordion, acoustic guitar, woodwinds, cheerful, warm, inviting",
+    "category": "town",
+    "category_label": "Town / Village",
+    "mood_tags": [
+      "cheerful",
+      "warm",
+      "inviting"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "accordion",
+      "acoustic guitar",
+      "woodwinds"
+    ],
+    "bpm_hint": 109,
+    "duration_seconds": 15
+  },
+  {
+    "id": "town_011",
+    "prompt": "upbeat market or plaza music, lively and friendly, flute, pizzicato strings, light percussion, lively, friendly, nostalgic",
+    "category": "town",
+    "category_label": "Town / Village",
+    "mood_tags": [
+      "lively",
+      "friendly",
+      "nostalgic"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "flute",
+      "pizzicato strings",
+      "light percussion"
+    ],
+    "bpm_hint": 111,
+    "duration_seconds": 15
+  },
+  {
+    "id": "town_012",
+    "prompt": "cozy settlement music, folk-inspired and warm, piano, clarinet, acoustic bass, cozy, lighthearted, homey",
+    "category": "town",
+    "category_label": "Town / Village",
+    "mood_tags": [
+      "cozy",
+      "lighthearted",
+      "homey"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "piano",
+      "clarinet",
+      "acoustic bass"
+    ],
+    "bpm_hint": 114,
+    "duration_seconds": 15
+  },
+  {
+    "id": "town_013",
+    "prompt": "cheerful town theme, warm and inviting, for a village in an RPG, accordion, acoustic guitar, woodwinds, cheerful, warm, inviting",
+    "category": "town",
+    "category_label": "Town / Village",
+    "mood_tags": [
+      "cheerful",
+      "warm",
+      "inviting"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "accordion",
+      "acoustic guitar",
+      "woodwinds"
+    ],
+    "bpm_hint": 116,
+    "duration_seconds": 15
+  },
+  {
+    "id": "town_014",
+    "prompt": "upbeat market or plaza music, lively and friendly, flute, pizzicato strings, light percussion, lively, friendly, nostalgic",
+    "category": "town",
+    "category_label": "Town / Village",
+    "mood_tags": [
+      "lively",
+      "friendly",
+      "nostalgic"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "flute",
+      "pizzicato strings",
+      "light percussion"
+    ],
+    "bpm_hint": 118,
+    "duration_seconds": 15
+  },
+  {
+    "id": "town_015",
+    "prompt": "cozy settlement music, folk-inspired and warm, piano, clarinet, acoustic bass, cozy, lighthearted, homey",
+    "category": "town",
+    "category_label": "Town / Village",
+    "mood_tags": [
+      "cozy",
+      "lighthearted",
+      "homey"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "piano",
+      "clarinet",
+      "acoustic bass"
+    ],
+    "bpm_hint": 120,
+    "duration_seconds": 15
+  },
+  {
+    "id": "dungeon_001",
+    "prompt": "dark dungeon crawl music, ominous and tense, low strings, sparse piano, ambient noise, dark, ominous, tense, echo-heavy, sparse, sense of danger and isolation",
+    "category": "dungeon",
+    "category_label": "Dungeon / Cave",
+    "mood_tags": [
+      "dark",
+      "ominous",
+      "tense"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "low strings",
+      "sparse piano",
+      "ambient noise"
+    ],
+    "bpm_hint": 55,
+    "duration_seconds": 15
+  },
+  {
+    "id": "dungeon_002",
+    "prompt": "cave exploration underscore, eerie and foreboding, bass clarinet, tense strings, quiet percussion, eerie, foreboding, mysterious, echo-heavy, sparse, sense of danger and isolation",
+    "category": "dungeon",
+    "category_label": "Dungeon / Cave",
+    "mood_tags": [
+      "eerie",
+      "foreboding",
+      "mysterious"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "bass clarinet",
+      "tense strings",
+      "quiet percussion"
+    ],
+    "bpm_hint": 57,
+    "duration_seconds": 15
+  },
+  {
+    "id": "dungeon_003",
+    "prompt": "mysterious underground theme, sparse and unsettling, cello, synth drone, distant bells, unsettling, haunting, sparse, echo-heavy, sparse, sense of danger and isolation",
+    "category": "dungeon",
+    "category_label": "Dungeon / Cave",
+    "mood_tags": [
+      "unsettling",
+      "haunting",
+      "sparse"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "cello",
+      "synth drone",
+      "distant bells"
+    ],
+    "bpm_hint": 59,
+    "duration_seconds": 15
+  },
+  {
+    "id": "dungeon_004",
+    "prompt": "dark dungeon crawl music, ominous and tense, low strings, sparse piano, ambient noise, dark, ominous, tense, echo-heavy, sparse, sense of danger and isolation",
+    "category": "dungeon",
+    "category_label": "Dungeon / Cave",
+    "mood_tags": [
+      "dark",
+      "ominous",
+      "tense"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "low strings",
+      "sparse piano",
+      "ambient noise"
+    ],
+    "bpm_hint": 61,
+    "duration_seconds": 15
+  },
+  {
+    "id": "dungeon_005",
+    "prompt": "cave exploration underscore, eerie and foreboding, bass clarinet, tense strings, quiet percussion, eerie, foreboding, mysterious, echo-heavy, sparse, sense of danger and isolation",
+    "category": "dungeon",
+    "category_label": "Dungeon / Cave",
+    "mood_tags": [
+      "eerie",
+      "foreboding",
+      "mysterious"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "bass clarinet",
+      "tense strings",
+      "quiet percussion"
+    ],
+    "bpm_hint": 64,
+    "duration_seconds": 15
+  },
+  {
+    "id": "dungeon_006",
+    "prompt": "mysterious underground theme, sparse and unsettling, cello, synth drone, distant bells, unsettling, haunting, sparse, echo-heavy, sparse, sense of danger and isolation",
+    "category": "dungeon",
+    "category_label": "Dungeon / Cave",
+    "mood_tags": [
+      "unsettling",
+      "haunting",
+      "sparse"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "cello",
+      "synth drone",
+      "distant bells"
+    ],
+    "bpm_hint": 66,
+    "duration_seconds": 15
+  },
+  {
+    "id": "dungeon_007",
+    "prompt": "dark dungeon crawl music, ominous and tense, low strings, sparse piano, ambient noise, dark, ominous, tense, echo-heavy, sparse, sense of danger and isolation",
+    "category": "dungeon",
+    "category_label": "Dungeon / Cave",
+    "mood_tags": [
+      "dark",
+      "ominous",
+      "tense"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "low strings",
+      "sparse piano",
+      "ambient noise"
+    ],
+    "bpm_hint": 68,
+    "duration_seconds": 15
+  },
+  {
+    "id": "dungeon_008",
+    "prompt": "cave exploration underscore, eerie and foreboding, bass clarinet, tense strings, quiet percussion, eerie, foreboding, mysterious, echo-heavy, sparse, sense of danger and isolation",
+    "category": "dungeon",
+    "category_label": "Dungeon / Cave",
+    "mood_tags": [
+      "eerie",
+      "foreboding",
+      "mysterious"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "bass clarinet",
+      "tense strings",
+      "quiet percussion"
+    ],
+    "bpm_hint": 70,
+    "duration_seconds": 15
+  },
+  {
+    "id": "dungeon_009",
+    "prompt": "mysterious underground theme, sparse and unsettling, cello, synth drone, distant bells, unsettling, haunting, sparse, echo-heavy, sparse, sense of danger and isolation",
+    "category": "dungeon",
+    "category_label": "Dungeon / Cave",
+    "mood_tags": [
+      "unsettling",
+      "haunting",
+      "sparse"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "cello",
+      "synth drone",
+      "distant bells"
+    ],
+    "bpm_hint": 72,
+    "duration_seconds": 15
+  },
+  {
+    "id": "dungeon_010",
+    "prompt": "dark dungeon crawl music, ominous and tense, low strings, sparse piano, ambient noise, dark, ominous, tense, echo-heavy, sparse, sense of danger and isolation",
+    "category": "dungeon",
+    "category_label": "Dungeon / Cave",
+    "mood_tags": [
+      "dark",
+      "ominous",
+      "tense"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "low strings",
+      "sparse piano",
+      "ambient noise"
+    ],
+    "bpm_hint": 74,
+    "duration_seconds": 15
+  },
+  {
+    "id": "dungeon_011",
+    "prompt": "cave exploration underscore, eerie and foreboding, bass clarinet, tense strings, quiet percussion, eerie, foreboding, mysterious, echo-heavy, sparse, sense of danger and isolation",
+    "category": "dungeon",
+    "category_label": "Dungeon / Cave",
+    "mood_tags": [
+      "eerie",
+      "foreboding",
+      "mysterious"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "bass clarinet",
+      "tense strings",
+      "quiet percussion"
+    ],
+    "bpm_hint": 76,
+    "duration_seconds": 15
+  },
+  {
+    "id": "dungeon_012",
+    "prompt": "mysterious underground theme, sparse and unsettling, cello, synth drone, distant bells, unsettling, haunting, sparse, echo-heavy, sparse, sense of danger and isolation",
+    "category": "dungeon",
+    "category_label": "Dungeon / Cave",
+    "mood_tags": [
+      "unsettling",
+      "haunting",
+      "sparse"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "cello",
+      "synth drone",
+      "distant bells"
+    ],
+    "bpm_hint": 79,
+    "duration_seconds": 15
+  },
+  {
+    "id": "dungeon_013",
+    "prompt": "dark dungeon crawl music, ominous and tense, low strings, sparse piano, ambient noise, dark, ominous, tense, echo-heavy, sparse, sense of danger and isolation",
+    "category": "dungeon",
+    "category_label": "Dungeon / Cave",
+    "mood_tags": [
+      "dark",
+      "ominous",
+      "tense"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "low strings",
+      "sparse piano",
+      "ambient noise"
+    ],
+    "bpm_hint": 81,
+    "duration_seconds": 15
+  },
+  {
+    "id": "dungeon_014",
+    "prompt": "cave exploration underscore, eerie and foreboding, bass clarinet, tense strings, quiet percussion, eerie, foreboding, mysterious, echo-heavy, sparse, sense of danger and isolation",
+    "category": "dungeon",
+    "category_label": "Dungeon / Cave",
+    "mood_tags": [
+      "eerie",
+      "foreboding",
+      "mysterious"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "bass clarinet",
+      "tense strings",
+      "quiet percussion"
+    ],
+    "bpm_hint": 83,
+    "duration_seconds": 15
+  },
+  {
+    "id": "dungeon_015",
+    "prompt": "mysterious underground theme, sparse and unsettling, cello, synth drone, distant bells, unsettling, haunting, sparse, echo-heavy, sparse, sense of danger and isolation",
+    "category": "dungeon",
+    "category_label": "Dungeon / Cave",
+    "mood_tags": [
+      "unsettling",
+      "haunting",
+      "sparse"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "cello",
+      "synth drone",
+      "distant bells"
+    ],
+    "bpm_hint": 85,
+    "duration_seconds": 15
+  },
+  {
+    "id": "puzzle_001",
+    "prompt": "light and playful puzzle music, quirky and rhythmic, marimba, bells, light piano, playful, quirky, light",
+    "category": "puzzle",
+    "category_label": "Puzzle / Thinking",
+    "mood_tags": [
+      "playful",
+      "quirky",
+      "light"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "marimba",
+      "bells",
+      "light piano"
+    ],
+    "bpm_hint": 90,
+    "duration_seconds": 15
+  },
+  {
+    "id": "puzzle_002",
+    "prompt": "thoughtful puzzle underscore, gentle and curious, xylophone, pizzicato strings, ukulele, curious, thoughtful, gentle",
+    "category": "puzzle",
+    "category_label": "Puzzle / Thinking",
+    "mood_tags": [
+      "curious",
+      "thoughtful",
+      "gentle"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "xylophone",
+      "pizzicato strings",
+      "ukulele"
+    ],
+    "bpm_hint": 92,
+    "duration_seconds": 15
+  },
+  {
+    "id": "puzzle_003",
+    "prompt": "whimsical problem-solving theme, fun and light, celesta, glockenspiel, acoustic guitar, whimsical, fun, focused",
+    "category": "puzzle",
+    "category_label": "Puzzle / Thinking",
+    "mood_tags": [
+      "whimsical",
+      "fun",
+      "focused"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "celesta",
+      "glockenspiel",
+      "acoustic guitar"
+    ],
+    "bpm_hint": 94,
+    "duration_seconds": 15
+  },
+  {
+    "id": "puzzle_004",
+    "prompt": "light and playful puzzle music, quirky and rhythmic, marimba, bells, light piano, playful, quirky, light",
+    "category": "puzzle",
+    "category_label": "Puzzle / Thinking",
+    "mood_tags": [
+      "playful",
+      "quirky",
+      "light"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "marimba",
+      "bells",
+      "light piano"
+    ],
+    "bpm_hint": 96,
+    "duration_seconds": 15
+  },
+  {
+    "id": "puzzle_005",
+    "prompt": "thoughtful puzzle underscore, gentle and curious, xylophone, pizzicato strings, ukulele, curious, thoughtful, gentle",
+    "category": "puzzle",
+    "category_label": "Puzzle / Thinking",
+    "mood_tags": [
+      "curious",
+      "thoughtful",
+      "gentle"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "xylophone",
+      "pizzicato strings",
+      "ukulele"
+    ],
+    "bpm_hint": 99,
+    "duration_seconds": 15
+  },
+  {
+    "id": "puzzle_006",
+    "prompt": "whimsical problem-solving theme, fun and light, celesta, glockenspiel, acoustic guitar, whimsical, fun, focused",
+    "category": "puzzle",
+    "category_label": "Puzzle / Thinking",
+    "mood_tags": [
+      "whimsical",
+      "fun",
+      "focused"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "celesta",
+      "glockenspiel",
+      "acoustic guitar"
+    ],
+    "bpm_hint": 101,
+    "duration_seconds": 15
+  },
+  {
+    "id": "puzzle_007",
+    "prompt": "light and playful puzzle music, quirky and rhythmic, marimba, bells, light piano, playful, quirky, light",
+    "category": "puzzle",
+    "category_label": "Puzzle / Thinking",
+    "mood_tags": [
+      "playful",
+      "quirky",
+      "light"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "marimba",
+      "bells",
+      "light piano"
+    ],
+    "bpm_hint": 103,
+    "duration_seconds": 15
+  },
+  {
+    "id": "puzzle_008",
+    "prompt": "thoughtful puzzle underscore, gentle and curious, xylophone, pizzicato strings, ukulele, curious, thoughtful, gentle",
+    "category": "puzzle",
+    "category_label": "Puzzle / Thinking",
+    "mood_tags": [
+      "curious",
+      "thoughtful",
+      "gentle"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "xylophone",
+      "pizzicato strings",
+      "ukulele"
+    ],
+    "bpm_hint": 105,
+    "duration_seconds": 15
+  },
+  {
+    "id": "puzzle_009",
+    "prompt": "whimsical problem-solving theme, fun and light, celesta, glockenspiel, acoustic guitar, whimsical, fun, focused",
+    "category": "puzzle",
+    "category_label": "Puzzle / Thinking",
+    "mood_tags": [
+      "whimsical",
+      "fun",
+      "focused"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "celesta",
+      "glockenspiel",
+      "acoustic guitar"
+    ],
+    "bpm_hint": 107,
+    "duration_seconds": 15
+  },
+  {
+    "id": "puzzle_010",
+    "prompt": "light and playful puzzle music, quirky and rhythmic, marimba, bells, light piano, playful, quirky, light",
+    "category": "puzzle",
+    "category_label": "Puzzle / Thinking",
+    "mood_tags": [
+      "playful",
+      "quirky",
+      "light"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "marimba",
+      "bells",
+      "light piano"
+    ],
+    "bpm_hint": 109,
+    "duration_seconds": 15
+  },
+  {
+    "id": "puzzle_011",
+    "prompt": "thoughtful puzzle underscore, gentle and curious, xylophone, pizzicato strings, ukulele, curious, thoughtful, gentle",
+    "category": "puzzle",
+    "category_label": "Puzzle / Thinking",
+    "mood_tags": [
+      "curious",
+      "thoughtful",
+      "gentle"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "xylophone",
+      "pizzicato strings",
+      "ukulele"
+    ],
+    "bpm_hint": 111,
+    "duration_seconds": 15
+  },
+  {
+    "id": "puzzle_012",
+    "prompt": "whimsical problem-solving theme, fun and light, celesta, glockenspiel, acoustic guitar, whimsical, fun, focused",
+    "category": "puzzle",
+    "category_label": "Puzzle / Thinking",
+    "mood_tags": [
+      "whimsical",
+      "fun",
+      "focused"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "celesta",
+      "glockenspiel",
+      "acoustic guitar"
+    ],
+    "bpm_hint": 114,
+    "duration_seconds": 15
+  },
+  {
+    "id": "puzzle_013",
+    "prompt": "light and playful puzzle music, quirky and rhythmic, marimba, bells, light piano, playful, quirky, light",
+    "category": "puzzle",
+    "category_label": "Puzzle / Thinking",
+    "mood_tags": [
+      "playful",
+      "quirky",
+      "light"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "marimba",
+      "bells",
+      "light piano"
+    ],
+    "bpm_hint": 116,
+    "duration_seconds": 15
+  },
+  {
+    "id": "puzzle_014",
+    "prompt": "thoughtful puzzle underscore, gentle and curious, xylophone, pizzicato strings, ukulele, curious, thoughtful, gentle",
+    "category": "puzzle",
+    "category_label": "Puzzle / Thinking",
+    "mood_tags": [
+      "curious",
+      "thoughtful",
+      "gentle"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "xylophone",
+      "pizzicato strings",
+      "ukulele"
+    ],
+    "bpm_hint": 118,
+    "duration_seconds": 15
+  },
+  {
+    "id": "puzzle_015",
+    "prompt": "whimsical problem-solving theme, fun and light, celesta, glockenspiel, acoustic guitar, whimsical, fun, focused",
+    "category": "puzzle",
+    "category_label": "Puzzle / Thinking",
+    "mood_tags": [
+      "whimsical",
+      "fun",
+      "focused"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "celesta",
+      "glockenspiel",
+      "acoustic guitar"
+    ],
+    "bpm_hint": 120,
+    "duration_seconds": 15
+  },
+  {
+    "id": "title_001",
+    "prompt": "grand title screen theme, epic and memorable, full orchestra, choir, brass, epic, grandiose, memorable, suitable for looping on a title or main menu screen",
+    "category": "title",
+    "category_label": "Title Screen / Menu",
+    "mood_tags": [
+      "epic",
+      "grandiose",
+      "memorable"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "full orchestra",
+      "choir",
+      "brass"
+    ],
+    "bpm_hint": 90,
+    "duration_seconds": 15
+  },
+  {
+    "id": "title_002",
+    "prompt": "calm and inviting main menu music, piano, strings, light orchestral, calm, inviting, anticipatory, suitable for looping on a title or main menu screen",
+    "category": "title",
+    "category_label": "Title Screen / Menu",
+    "mood_tags": [
+      "calm",
+      "inviting",
+      "anticipatory"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "piano",
+      "strings",
+      "light orchestral"
+    ],
+    "bpm_hint": 94,
+    "duration_seconds": 15
+  },
+  {
+    "id": "title_003",
+    "prompt": "grand title screen theme, epic and memorable, full orchestra, choir, brass, epic, grandiose, memorable, suitable for looping on a title or main menu screen",
+    "category": "title",
+    "category_label": "Title Screen / Menu",
+    "mood_tags": [
+      "epic",
+      "grandiose",
+      "memorable"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "full orchestra",
+      "choir",
+      "brass"
+    ],
+    "bpm_hint": 99,
+    "duration_seconds": 15
+  },
+  {
+    "id": "title_004",
+    "prompt": "calm and inviting main menu music, piano, strings, light orchestral, calm, inviting, anticipatory, suitable for looping on a title or main menu screen",
+    "category": "title",
+    "category_label": "Title Screen / Menu",
+    "mood_tags": [
+      "calm",
+      "inviting",
+      "anticipatory"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "piano",
+      "strings",
+      "light orchestral"
+    ],
+    "bpm_hint": 103,
+    "duration_seconds": 15
+  },
+  {
+    "id": "title_005",
+    "prompt": "grand title screen theme, epic and memorable, full orchestra, choir, brass, epic, grandiose, memorable, suitable for looping on a title or main menu screen",
+    "category": "title",
+    "category_label": "Title Screen / Menu",
+    "mood_tags": [
+      "epic",
+      "grandiose",
+      "memorable"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "full orchestra",
+      "choir",
+      "brass"
+    ],
+    "bpm_hint": 108,
+    "duration_seconds": 15
+  },
+  {
+    "id": "title_006",
+    "prompt": "calm and inviting main menu music, piano, strings, light orchestral, calm, inviting, anticipatory, suitable for looping on a title or main menu screen",
+    "category": "title",
+    "category_label": "Title Screen / Menu",
+    "mood_tags": [
+      "calm",
+      "inviting",
+      "anticipatory"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "piano",
+      "strings",
+      "light orchestral"
+    ],
+    "bpm_hint": 112,
+    "duration_seconds": 15
+  },
+  {
+    "id": "title_007",
+    "prompt": "grand title screen theme, epic and memorable, full orchestra, choir, brass, epic, grandiose, memorable, suitable for looping on a title or main menu screen",
+    "category": "title",
+    "category_label": "Title Screen / Menu",
+    "mood_tags": [
+      "epic",
+      "grandiose",
+      "memorable"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "full orchestra",
+      "choir",
+      "brass"
+    ],
+    "bpm_hint": 117,
+    "duration_seconds": 15
+  },
+  {
+    "id": "title_008",
+    "prompt": "calm and inviting main menu music, piano, strings, light orchestral, calm, inviting, anticipatory, suitable for looping on a title or main menu screen",
+    "category": "title",
+    "category_label": "Title Screen / Menu",
+    "mood_tags": [
+      "calm",
+      "inviting",
+      "anticipatory"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "piano",
+      "strings",
+      "light orchestral"
+    ],
+    "bpm_hint": 121,
+    "duration_seconds": 15
+  },
+  {
+    "id": "title_009",
+    "prompt": "grand title screen theme, epic and memorable, full orchestra, choir, brass, epic, grandiose, memorable, suitable for looping on a title or main menu screen",
+    "category": "title",
+    "category_label": "Title Screen / Menu",
+    "mood_tags": [
+      "epic",
+      "grandiose",
+      "memorable"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "full orchestra",
+      "choir",
+      "brass"
+    ],
+    "bpm_hint": 126,
+    "duration_seconds": 15
+  },
+  {
+    "id": "title_010",
+    "prompt": "calm and inviting main menu music, piano, strings, light orchestral, calm, inviting, anticipatory, suitable for looping on a title or main menu screen",
+    "category": "title",
+    "category_label": "Title Screen / Menu",
+    "mood_tags": [
+      "calm",
+      "inviting",
+      "anticipatory"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "piano",
+      "strings",
+      "light orchestral"
+    ],
+    "bpm_hint": 130,
+    "duration_seconds": 15
+  },
+  {
+    "id": "victory_001",
+    "prompt": "short triumphant victory fanfare, brass-led and joyful, brass stabs, snare roll, timpani, triumphant, joyful, celebratory, short punchy fanfare feel, strong upward melodic movement",
+    "category": "victory",
+    "category_label": "Victory / Fanfare",
+    "mood_tags": [
+      "triumphant",
+      "joyful",
+      "celebratory"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "brass stabs",
+      "snare roll",
+      "timpani"
+    ],
+    "bpm_hint": 130,
+    "duration_seconds": 15
+  },
+  {
+    "id": "victory_002",
+    "prompt": "celebratory win jingle, upbeat and energetic, full brass, strings, cymbal crash, uplifting, exciting, heroic, short punchy fanfare feel, strong upward melodic movement",
+    "category": "victory",
+    "category_label": "Victory / Fanfare",
+    "mood_tags": [
+      "uplifting",
+      "exciting",
+      "heroic"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "full brass",
+      "strings",
+      "cymbal crash"
+    ],
+    "bpm_hint": 133,
+    "duration_seconds": 15
+  },
+  {
+    "id": "victory_003",
+    "prompt": "short triumphant victory fanfare, brass-led and joyful, brass stabs, snare roll, timpani, triumphant, joyful, celebratory, short punchy fanfare feel, strong upward melodic movement",
+    "category": "victory",
+    "category_label": "Victory / Fanfare",
+    "mood_tags": [
+      "triumphant",
+      "joyful",
+      "celebratory"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "brass stabs",
+      "snare roll",
+      "timpani"
+    ],
+    "bpm_hint": 137,
+    "duration_seconds": 15
+  },
+  {
+    "id": "victory_004",
+    "prompt": "celebratory win jingle, upbeat and energetic, full brass, strings, cymbal crash, uplifting, exciting, heroic, short punchy fanfare feel, strong upward melodic movement",
+    "category": "victory",
+    "category_label": "Victory / Fanfare",
+    "mood_tags": [
+      "uplifting",
+      "exciting",
+      "heroic"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "full brass",
+      "strings",
+      "cymbal crash"
+    ],
+    "bpm_hint": 140,
+    "duration_seconds": 15
+  },
+  {
+    "id": "victory_005",
+    "prompt": "short triumphant victory fanfare, brass-led and joyful, brass stabs, snare roll, timpani, triumphant, joyful, celebratory, short punchy fanfare feel, strong upward melodic movement",
+    "category": "victory",
+    "category_label": "Victory / Fanfare",
+    "mood_tags": [
+      "triumphant",
+      "joyful",
+      "celebratory"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "brass stabs",
+      "snare roll",
+      "timpani"
+    ],
+    "bpm_hint": 143,
+    "duration_seconds": 15
+  },
+  {
+    "id": "victory_006",
+    "prompt": "celebratory win jingle, upbeat and energetic, full brass, strings, cymbal crash, uplifting, exciting, heroic, short punchy fanfare feel, strong upward melodic movement",
+    "category": "victory",
+    "category_label": "Victory / Fanfare",
+    "mood_tags": [
+      "uplifting",
+      "exciting",
+      "heroic"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "full brass",
+      "strings",
+      "cymbal crash"
+    ],
+    "bpm_hint": 147,
+    "duration_seconds": 15
+  },
+  {
+    "id": "victory_007",
+    "prompt": "short triumphant victory fanfare, brass-led and joyful, brass stabs, snare roll, timpani, triumphant, joyful, celebratory, short punchy fanfare feel, strong upward melodic movement",
+    "category": "victory",
+    "category_label": "Victory / Fanfare",
+    "mood_tags": [
+      "triumphant",
+      "joyful",
+      "celebratory"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "brass stabs",
+      "snare roll",
+      "timpani"
+    ],
+    "bpm_hint": 150,
+    "duration_seconds": 15
+  },
+  {
+    "id": "victory_008",
+    "prompt": "celebratory win jingle, upbeat and energetic, full brass, strings, cymbal crash, uplifting, exciting, heroic, short punchy fanfare feel, strong upward melodic movement",
+    "category": "victory",
+    "category_label": "Victory / Fanfare",
+    "mood_tags": [
+      "uplifting",
+      "exciting",
+      "heroic"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "full brass",
+      "strings",
+      "cymbal crash"
+    ],
+    "bpm_hint": 153,
+    "duration_seconds": 15
+  },
+  {
+    "id": "victory_009",
+    "prompt": "short triumphant victory fanfare, brass-led and joyful, brass stabs, snare roll, timpani, triumphant, joyful, celebratory, short punchy fanfare feel, strong upward melodic movement",
+    "category": "victory",
+    "category_label": "Victory / Fanfare",
+    "mood_tags": [
+      "triumphant",
+      "joyful",
+      "celebratory"
+    ],
+    "energy": "high",
+    "instrumentation": [
+      "brass stabs",
+      "snare roll",
+      "timpani"
+    ],
+    "bpm_hint": 157,
+    "duration_seconds": 15
+  },
+  {
+    "id": "victory_010",
+    "prompt": "celebratory win jingle, upbeat and energetic, full brass, strings, cymbal crash, uplifting, exciting, heroic, short punchy fanfare feel, strong upward melodic movement",
+    "category": "victory",
+    "category_label": "Victory / Fanfare",
+    "mood_tags": [
+      "uplifting",
+      "exciting",
+      "heroic"
+    ],
+    "energy": "very high",
+    "instrumentation": [
+      "full brass",
+      "strings",
+      "cymbal crash"
+    ],
+    "bpm_hint": 160,
+    "duration_seconds": 15
+  },
+  {
+    "id": "sad_001",
+    "prompt": "slow emotional piano theme, melancholic and heartfelt, solo piano, soft strings, melancholic, heartfelt, gentle, slow tempo, minor key, sparse arrangement",
+    "category": "sad",
+    "category_label": "Sad / Emotional",
+    "mood_tags": [
+      "melancholic",
+      "heartfelt",
+      "gentle"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "solo piano",
+      "soft strings"
+    ],
+    "bpm_hint": 50,
+    "duration_seconds": 15
+  },
+  {
+    "id": "sad_002",
+    "prompt": "sad narrative underscore, sparse and moving, piano, cello, ambient pad, sad, moving, quiet, slow tempo, minor key, sparse arrangement",
+    "category": "sad",
+    "category_label": "Sad / Emotional",
+    "mood_tags": [
+      "sad",
+      "moving",
+      "quiet"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "piano",
+      "cello",
+      "ambient pad"
+    ],
+    "bpm_hint": 53,
+    "duration_seconds": 15
+  },
+  {
+    "id": "sad_003",
+    "prompt": "slow emotional piano theme, melancholic and heartfelt, solo piano, soft strings, melancholic, heartfelt, gentle, slow tempo, minor key, sparse arrangement",
+    "category": "sad",
+    "category_label": "Sad / Emotional",
+    "mood_tags": [
+      "melancholic",
+      "heartfelt",
+      "gentle"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "solo piano",
+      "soft strings"
+    ],
+    "bpm_hint": 56,
+    "duration_seconds": 15
+  },
+  {
+    "id": "sad_004",
+    "prompt": "sad narrative underscore, sparse and moving, piano, cello, ambient pad, sad, moving, quiet, slow tempo, minor key, sparse arrangement",
+    "category": "sad",
+    "category_label": "Sad / Emotional",
+    "mood_tags": [
+      "sad",
+      "moving",
+      "quiet"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "piano",
+      "cello",
+      "ambient pad"
+    ],
+    "bpm_hint": 58,
+    "duration_seconds": 15
+  },
+  {
+    "id": "sad_005",
+    "prompt": "slow emotional piano theme, melancholic and heartfelt, solo piano, soft strings, melancholic, heartfelt, gentle, slow tempo, minor key, sparse arrangement",
+    "category": "sad",
+    "category_label": "Sad / Emotional",
+    "mood_tags": [
+      "melancholic",
+      "heartfelt",
+      "gentle"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "solo piano",
+      "soft strings"
+    ],
+    "bpm_hint": 61,
+    "duration_seconds": 15
+  },
+  {
+    "id": "sad_006",
+    "prompt": "sad narrative underscore, sparse and moving, piano, cello, ambient pad, sad, moving, quiet, slow tempo, minor key, sparse arrangement",
+    "category": "sad",
+    "category_label": "Sad / Emotional",
+    "mood_tags": [
+      "sad",
+      "moving",
+      "quiet"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "piano",
+      "cello",
+      "ambient pad"
+    ],
+    "bpm_hint": 64,
+    "duration_seconds": 15
+  },
+  {
+    "id": "sad_007",
+    "prompt": "slow emotional piano theme, melancholic and heartfelt, solo piano, soft strings, melancholic, heartfelt, gentle, slow tempo, minor key, sparse arrangement",
+    "category": "sad",
+    "category_label": "Sad / Emotional",
+    "mood_tags": [
+      "melancholic",
+      "heartfelt",
+      "gentle"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "solo piano",
+      "soft strings"
+    ],
+    "bpm_hint": 67,
+    "duration_seconds": 15
+  },
+  {
+    "id": "sad_008",
+    "prompt": "sad narrative underscore, sparse and moving, piano, cello, ambient pad, sad, moving, quiet, slow tempo, minor key, sparse arrangement",
+    "category": "sad",
+    "category_label": "Sad / Emotional",
+    "mood_tags": [
+      "sad",
+      "moving",
+      "quiet"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "piano",
+      "cello",
+      "ambient pad"
+    ],
+    "bpm_hint": 69,
+    "duration_seconds": 15
+  },
+  {
+    "id": "sad_009",
+    "prompt": "slow emotional piano theme, melancholic and heartfelt, solo piano, soft strings, melancholic, heartfelt, gentle, slow tempo, minor key, sparse arrangement",
+    "category": "sad",
+    "category_label": "Sad / Emotional",
+    "mood_tags": [
+      "melancholic",
+      "heartfelt",
+      "gentle"
+    ],
+    "energy": "very low",
+    "instrumentation": [
+      "solo piano",
+      "soft strings"
+    ],
+    "bpm_hint": 72,
+    "duration_seconds": 15
+  },
+  {
+    "id": "sad_010",
+    "prompt": "sad narrative underscore, sparse and moving, piano, cello, ambient pad, sad, moving, quiet, slow tempo, minor key, sparse arrangement",
+    "category": "sad",
+    "category_label": "Sad / Emotional",
+    "mood_tags": [
+      "sad",
+      "moving",
+      "quiet"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "piano",
+      "cello",
+      "ambient pad"
+    ],
+    "bpm_hint": 75,
     "duration_seconds": 15
   }
 ]
