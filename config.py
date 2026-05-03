@@ -53,6 +53,10 @@ MAX_GENERATION_ATTEMPTS = 3
 # Placeholder until calibration pass; update in eval/thresholds.json per MODEL_TAG
 DEFAULT_SIMILARITY_THRESHOLD = 0.30
 
+# ── Claude API ────────────────────────────────────────────────────────────────
+
+CLAUDE_MODEL = "claude-sonnet-4-6"
+
 # ── Observability ─────────────────────────────────────────────────────────────
 
 OTEL_SERVICE_NAME = "flowing-trails"
