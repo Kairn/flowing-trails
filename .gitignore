@@ -239,5 +239,6 @@ __marimo__/
 
 ### Custom ###
 # Project meta files
+.claude/commands/
 CLAUDE.md
 .project/
