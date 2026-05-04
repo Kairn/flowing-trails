@@ -32,6 +32,8 @@ image = (
     .add_local_python_source("config")
     .add_local_python_source("models")
     .add_local_python_source("otel_utils")
+    .add_local_python_source("prompts")
+    .add_local_python_source("claude_client")
 )
 
 
@@ -99,18 +101,36 @@ def compose(request: ComposeRequest) -> dict:
 
 
 def parse_query(request: ComposeRequest, log) -> MusicSpec:
-    """Parse raw user brief into a MusicSpec via Claude. Stub until M1-T3."""
+    """Parse raw user brief into a MusicSpec via Claude."""
+    from claude_client import call_claude_json
     from models import MusicSpec
+    from prompts import QUERY_PARSER_SYSTEM
 
-    log.info("parse_query_stub", description=request.description[:80])
+    log.info("parse_query", description=request.description[:80])
 
-    return MusicSpec(
-        description=request.description,
-        tempo_bpm=request.tempo_bpm,
-        instruments=request.instruments or [],
-        duration_seconds=request.duration_seconds or 10.0,
-        key=request.key,
+    spec_data, usage = call_claude_json(
+        system=QUERY_PARSER_SYSTEM,
+        user_message=request.description,
+        log=log,
     )
+
+    if request.tempo_bpm is not None:
+        spec_data["tempo_bpm"] = request.tempo_bpm
+    if request.instruments is not None:
+        spec_data["instruments"] = request.instruments
+    if request.duration_seconds is not None:
+        spec_data["duration_seconds"] = request.duration_seconds
+    if request.key is not None:
+        spec_data["key"] = request.key
+
+    spec = MusicSpec(**spec_data)
+    log.info(
+        "parse_query_done",
+        genre=spec.genre,
+        mood_tags=spec.mood_tags,
+        energy=spec.energy,
+    )
+    return spec
 
 
 def generate_music(spec, log) -> bytes | None:
