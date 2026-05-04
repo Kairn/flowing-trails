@@ -16,13 +16,10 @@ Tune the TOP-LEVEL CONFIG section to:
 """
 
 import json
-import math
-import random
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from pathlib import Path
 
 # ──────────────────────────────────────────────────────────────────────────────
 # TOP-LEVEL CONFIG — edit freely

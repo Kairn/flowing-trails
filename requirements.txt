@@ -24,8 +24,6 @@ ftfy==6.3.1
 gitdb==4.0.12
 GitPython==3.1.47
 googleapis-common-protos==1.74.0
-grpcio==1.80.0
-grpclib==0.4.9
 h11==0.16.0
 h2==4.3.0
 h5py==3.16.0
@@ -57,7 +55,6 @@ numba==0.65.1
 numpy==1.26.4
 opentelemetry-api==1.41.1
 opentelemetry-exporter-otlp-proto-common==1.41.1
-opentelemetry-exporter-otlp-proto-grpc==1.41.1
 opentelemetry-exporter-otlp-proto-http==1.41.1
 opentelemetry-proto==1.41.1
 opentelemetry-sdk==1.41.1

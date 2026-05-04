@@ -7,13 +7,10 @@ and a resample helper for MusicGen → CLAP sample-rate conversion.
 import numpy as np
 import torch
 import torchaudio
-from dotenv import load_dotenv
 from laion_clap import CLAP_Module
 from numpy.typing import NDArray
 
 from config import CLAP_SAMPLE_RATE, MUSICGEN_SAMPLE_RATE
-
-load_dotenv()
 
 _model: CLAP_Module | None = None
 
