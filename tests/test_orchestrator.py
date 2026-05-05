@@ -8,6 +8,7 @@ from unittest.mock import MagicMock, patch
 
 _modal_stub = ModuleType("modal")
 _modal_stub.App = MagicMock()
+_modal_stub.Cls = MagicMock()
 _modal_stub.Image = MagicMock()
 _modal_stub.Secret = MagicMock()
 _modal_stub.web_endpoint = lambda **kw: lambda fn: fn
@@ -36,6 +37,15 @@ SAMPLE_SPEC = {
     "energy": "high",
     "duration_seconds": 12.0,
     "style_hint": "Nobuo Uematsu orchestral style, PS1 era",
+}
+
+SAMPLE_GENERATE_RESULT = {
+    "audio_bytes": b"RIFF\x00\x00\x00\x00WAVEfmt ",
+    "sample_rate": 32000,
+    "model": "facebook/musicgen-melody",
+    "decoder": "mbd",
+    "duration_seconds": 10.0,
+    "latency_ms": 4200.0,
 }
 
 
@@ -125,10 +135,46 @@ def test_parse_query_to_prompt_roundtrip(_mock):
     assert "D minor" in prompt
 
 
-# ── generate_music (still a stub) ────────────────────────────────────────────
+# ── generate_music ───────────────────────────────────────────────────────────
 
 
-def test_generate_music_stub_returns_none():
-    spec = MusicSpec(description="test")
+@patch("modal.Cls.lookup")
+def test_generate_music_calls_musicgen_service(mock_lookup):
+    mock_instance = MagicMock()
+    mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
+    mock_lookup.return_value.return_value = mock_instance
+
+    spec = MusicSpec(description="epic battle theme", duration_seconds=10.0)
     result = generate_music(spec, log)
-    assert result is None
+
+    assert result == SAMPLE_GENERATE_RESULT["audio_bytes"]
+    mock_lookup.assert_called_once_with("flowing-trails-musicgen", "MusicGenService")
+    call_kwargs = mock_instance.generate.remote.call_args.kwargs
+    assert "epic battle theme" in call_kwargs["prompt"]
+    assert call_kwargs["duration_seconds"] == 10.0
+
+
+@patch("modal.Cls.lookup")
+def test_generate_music_passes_full_prompt(mock_lookup):
+    mock_instance = MagicMock()
+    mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
+    mock_lookup.return_value.return_value = mock_instance
+
+    spec = MusicSpec(
+        description="dark dungeon theme",
+        genre="ambient exploration",
+        mood_tags=["eerie", "tense"],
+        instruments=["strings", "choir"],
+        tempo_bpm=80,
+        key="C minor",
+        energy="low",
+        style_hint="Koji Kondo style",
+    )
+    result = generate_music(spec, log)
+
+    assert result is not None
+    prompt = mock_instance.generate.remote.call_args.kwargs["prompt"]
+    assert "dark dungeon theme" in prompt
+    assert "ambient exploration" in prompt
+    assert "strings" in prompt
+    assert "80 bpm" in prompt

@@ -11,7 +11,7 @@ from typing import TYPE_CHECKING
 import modal
 from pydantic import BaseModel, Field
 
-from config import APP_NAME, MODAL_SECRET_NAME
+from config import APP_NAME, MODAL_SECRET_NAME, MUSICGEN_APP_NAME
 
 if TYPE_CHECKING:
     from models import MusicSpec
@@ -134,6 +134,20 @@ def parse_query(request: ComposeRequest, log) -> MusicSpec:
 
 
 def generate_music(spec, log) -> bytes | None:
-    """Generate audio from MusicSpec via MusicGen service. Stub until M1-T4."""
-    log.info("generate_music_stub", prompt=spec.to_prompt()[:80])
-    return None
+    """Generate audio from MusicSpec via the deployed MusicGen service."""
+    prompt = spec.to_prompt()
+    log.info("generate_music", prompt=prompt[:80])
+
+    cls = modal.Cls.lookup(MUSICGEN_APP_NAME, "MusicGenService")
+    result = cls().generate.remote(
+        prompt=prompt,
+        duration_seconds=spec.duration_seconds,
+    )
+
+    log.info(
+        "generate_music_done",
+        model=result["model"],
+        decoder=result["decoder"],
+        latency_ms=result["latency_ms"],
+    )
+    return result["audio_bytes"]

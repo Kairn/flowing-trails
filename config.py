@@ -12,6 +12,7 @@ VOLUME_NAME = "flowing-trails-corpus"
 VOLUME_MOUNT_PATH = "/corpus"
 MODAL_SECRET_NAME = "flowing-trails-secrets"
 GPU_CONFIG = "a10g"
+MUSICGEN_APP_NAME = "flowing-trails-musicgen"
 
 # ── Hugging Face ──────────────────────────────────────────────────────────────
 
