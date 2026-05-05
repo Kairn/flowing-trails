@@ -1,4 +1,4 @@
-.PHONY: index deploy deploy-all corpus corpus-prompts eval eval-full samples
+.PHONY: index deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples
 
 index:
 	@echo "Run: modal run retrieval/index_corpus.py"
@@ -15,6 +15,9 @@ corpus-prompts:
 
 corpus: corpus-prompts
 	modal run retrieval/generate_corpus.py
+
+corpus-manifest: corpus-prompts
+	modal run retrieval/update_corpus_manifest.py
 
 eval:
 	@echo "Run: pytest eval/ -m ci -x"
