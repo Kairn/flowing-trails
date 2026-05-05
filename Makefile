@@ -1,10 +1,20 @@
-.PHONY: index deploy eval eval-full samples
+.PHONY: index deploy deploy-all corpus corpus-prompts eval eval-full samples
 
 index:
 	@echo "Run: modal run retrieval/index_corpus.py"
 
 deploy:
 	@echo "Run: modal deploy orchestrator/app.py"
+
+deploy-all:
+	modal deploy musicgen_service/app.py
+	modal deploy orchestrator/app.py
+
+corpus-prompts:
+	python retrieval/generate_corpus_prompts.py
+
+corpus: corpus-prompts
+	modal run retrieval/generate_corpus.py
 
 eval:
 	@echo "Run: pytest eval/ -m ci -x"

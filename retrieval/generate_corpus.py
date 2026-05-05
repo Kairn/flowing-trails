@@ -63,9 +63,16 @@ image = (
     timeout=3600,
 )
 def generate_corpus(prompts: list[dict]) -> dict:
+    import functools
     import logging
 
     import soundfile as sf
+    import torch
+
+    # audiocraft checkpoints use omegaconf globals that torch 2.6+ rejects
+    # under weights_only=True — patch for Meta's own trusted checkpoints.
+    _original_load = torch.load
+    torch.load = functools.partial(_original_load, weights_only=False)
     from audiocraft.models import MusicGen  # type: ignore
 
     # stdlib logging — structlog isn't in the Modal container image
@@ -75,6 +82,7 @@ def generate_corpus(prompts: list[dict]) -> dict:
     log = logging.getLogger("flowing-trails.corpus-gen")
 
     model = MusicGen.get_pretrained(MUSICGEN_BASE_MODEL)
+    torch.load = _original_load
 
     manifest = []
     failed = []

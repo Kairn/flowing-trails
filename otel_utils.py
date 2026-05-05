@@ -24,6 +24,10 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
 from config import OTEL_SERVICE_NAME
 
+load_dotenv()
+
+_tracing_initialized = False
+_logging_initialized = False
 _log_provider: LoggerProvider | None = None
 
 
@@ -42,17 +46,22 @@ def _add_otel_context(logger, method_name, event_dict):
 
 
 def setup_tracing() -> None:
-    """Initialize TracerProvider with OTLP HTTP exporter. Call once at process start."""
-    load_dotenv()
+    """Initialize TracerProvider with OTLP HTTP exporter. Safe to call multiple times."""
+    global _tracing_initialized
+    if _tracing_initialized:
+        return
+    _tracing_initialized = True
     provider = TracerProvider(resource=_make_resource())
     provider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter()))
     trace.set_tracer_provider(provider)
 
 
 def setup_logging(level: int = logging.INFO) -> None:
-    """Configure structlog + stdlib logging with OTel log export and trace correlation."""
-    global _log_provider
-    load_dotenv()
+    """Configure structlog + stdlib logging with OTel log export and trace correlation. Safe to call multiple times."""
+    global _log_provider, _logging_initialized
+    if _logging_initialized:
+        return
+    _logging_initialized = True
 
     # OTel log export — sends to Grafana Cloud Logs via same OTLP endpoint as traces
     _log_provider = LoggerProvider(resource=_make_resource())

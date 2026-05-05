@@ -45,7 +45,12 @@ def call_claude_json(
         messages=[{"role": "user", "content": user_message}],
     )
     raw = response.content[0].text
-    data = json.loads(raw)
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError as e:
+        raise ValueError(
+            f"Claude returned invalid JSON: {e}. Raw response: {raw[:200]}"
+        ) from e
 
     _set_genai_span_attrs(model, response.model, max_tokens, response.usage)
 

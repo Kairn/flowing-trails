@@ -135,6 +135,8 @@ def generate_music(spec, log) -> bytes | None:
     """Generate audio from MusicSpec via the deployed MusicGen service."""
     from opentelemetry import trace
 
+    from otel_utils import inject_context
+
     prompt = spec.to_prompt()
     log.info("generate_music", prompt=prompt[:80])
 
@@ -142,6 +144,7 @@ def generate_music(spec, log) -> bytes | None:
     result = cls().generate.remote(
         prompt=prompt,
         duration_seconds=spec.duration_seconds,
+        trace_context=inject_context(),
     )
 
     span = trace.get_current_span()

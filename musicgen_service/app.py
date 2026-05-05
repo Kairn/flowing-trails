@@ -6,6 +6,8 @@ with Multi-Band Diffusion decoder. Accepts a text prompt and returns WAV bytes.
 
 from __future__ import annotations
 
+from contextlib import contextmanager
+
 import modal
 
 from config import (
@@ -43,6 +45,8 @@ image = (
         "opentelemetry-api",
         "opentelemetry-sdk",
         "opentelemetry-exporter-otlp-proto-http",
+        "python-dotenv",
+        "structlog",
     )
     .add_local_python_source("config")
     .add_local_python_source("otel_utils")
@@ -109,6 +113,7 @@ class MusicGenService:
         melody_wav: bytes | None = None,
         melody_sample_rate: int | None = None,
         seed: int | None = None,
+        trace_context: dict[str, str] | None = None,
     ) -> dict:
         import io
         import time
@@ -116,55 +121,66 @@ class MusicGenService:
         import soundfile as sf
         import torch
 
+        from otel_utils import restored_context, setup_tracing
+
+        setup_tracing()
+        ctx_mgr = restored_context(trace_context) if trace_context else _noop_context()
+
         self.log.info("Generating: %.60s (%.1fs)", prompt, duration_seconds)
         t0 = time.monotonic()
 
-        self.model.set_generation_params(duration=duration_seconds)
+        with ctx_mgr:
+            self.model.set_generation_params(duration=duration_seconds)
 
-        if seed is not None:
-            torch.manual_seed(seed)
+            if seed is not None:
+                torch.manual_seed(seed)
 
-        with torch.no_grad():
-            if melody_wav is not None and melody_sample_rate is not None:
-                melody_tensor, sr = _load_wav_bytes(melody_wav)
-                melody_tensor = melody_tensor.to(self.device)
-                wav = self.model.generate_with_chroma([prompt], melody_tensor, sr)
-            else:
-                wav = self.model.generate([prompt])
+            with torch.no_grad():
+                if melody_wav is not None and melody_sample_rate is not None:
+                    melody_tensor, sr = _load_wav_bytes(melody_wav)
+                    melody_tensor = melody_tensor.to(self.device)
+                    wav = self.model.generate_with_chroma([prompt], melody_tensor, sr)
+                else:
+                    wav = self.model.generate([prompt])
 
-            # Re-encode through compression model to get tokens for MBD
-            encoded = self.model.compression_model.encode(wav)
-            entry = encoded[0]
-            codes = entry[0] if isinstance(entry, (tuple, list)) else entry
-            wav_mbd = self.mbd.tokens_to_wav(codes)
+                # Re-encode through compression model to get tokens for MBD
+                encoded = self.model.compression_model.encode(wav)
+                entry = encoded[0]
+                codes = entry[0] if isinstance(entry, (tuple, list)) else entry
+                wav_mbd = self.mbd.tokens_to_wav(codes)
 
-        # Encode as WAV bytes
-        audio_np = wav_mbd[0].cpu().numpy().T  # [samples, channels]
-        buf = io.BytesIO()
-        sf.write(
-            buf,
-            audio_np,
-            samplerate=MUSICGEN_SAMPLE_RATE,
-            format="WAV",
-            subtype="PCM_16",
-        )
-        audio_bytes = buf.getvalue()
+            # Encode as WAV bytes
+            audio_np = wav_mbd[0].cpu().numpy().T  # [samples, channels]
+            buf = io.BytesIO()
+            sf.write(
+                buf,
+                audio_np,
+                samplerate=MUSICGEN_SAMPLE_RATE,
+                format="WAV",
+                subtype="PCM_16",
+            )
+            audio_bytes = buf.getvalue()
 
-        latency_ms = (time.monotonic() - t0) * 1000
-        self.log.info(
-            "Generated %.1fs audio in %.0fms (MBD decoder)",
-            duration_seconds,
-            latency_ms,
-        )
+            latency_ms = (time.monotonic() - t0) * 1000
+            self.log.info(
+                "Generated %.1fs audio in %.0fms (MBD decoder)",
+                duration_seconds,
+                latency_ms,
+            )
 
-        return {
-            "audio_bytes": audio_bytes,
-            "sample_rate": MUSICGEN_SAMPLE_RATE,
-            "model": self.model_id,
-            "decoder": "mbd",
-            "duration_seconds": duration_seconds,
-            "latency_ms": round(latency_ms, 1),
-        }
+            return {
+                "audio_bytes": audio_bytes,
+                "sample_rate": MUSICGEN_SAMPLE_RATE,
+                "model": self.model_id,
+                "decoder": "mbd",
+                "duration_seconds": duration_seconds,
+                "latency_ms": round(latency_ms, 1),
+            }
+
+
+@contextmanager
+def _noop_context():
+    yield
 
 
 def _load_wav_bytes(wav_bytes: bytes):
