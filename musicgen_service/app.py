@@ -119,15 +119,16 @@ class MusicGenService:
 
         with torch.no_grad():
             if melody_wav is not None and melody_sample_rate is not None:
-                melody_tensor, sr = _load_wav_bytes(melody_wav, melody_sample_rate)
+                melody_tensor, sr = _load_wav_bytes(melody_wav)
                 melody_tensor = melody_tensor.to(self.device)
                 wav = self.model.generate_with_chroma([prompt], melody_tensor, sr)
             else:
                 wav = self.model.generate([prompt])
 
             # Re-encode through compression model to get tokens for MBD
-            tokens, scale = self.model.compression_model.encode(wav)
-            wav_mbd = self.mbd.tokens_to_wav(tokens)
+            encoded = self.model.compression_model.encode(wav)
+            codes, _scale = encoded[0]
+            wav_mbd = self.mbd.tokens_to_wav(codes)
 
         # Encode as WAV bytes
         audio_np = wav_mbd[0].cpu().numpy().T  # [samples, channels]
@@ -158,8 +159,8 @@ class MusicGenService:
         }
 
 
-def _load_wav_bytes(wav_bytes: bytes, target_sr: int):
-    """Decode WAV bytes into a torch tensor [1, channels, samples]."""
+def _load_wav_bytes(wav_bytes: bytes):
+    """Decode WAV bytes into a torch tensor [1, channels, samples] and sample rate."""
     import io
 
     import soundfile as sf
