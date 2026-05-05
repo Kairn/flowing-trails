@@ -54,7 +54,7 @@ image = (
     image=image,
     secrets=[modal.Secret.from_name(MODAL_SECRET_NAME)],
     timeout=300,
-    container_idle_timeout=120,
+    scaledown_window=120,
 )
 class MusicGenService:
     @modal.enter()
@@ -62,7 +62,13 @@ class MusicGenService:
         import os
         import logging
 
+        import functools
         import torch
+
+        # audiocraft checkpoints use omegaconf globals that torch 2.6+ rejects
+        # under weights_only=True — patch for Meta's own trusted checkpoints.
+        _original_load = torch.load
+        torch.load = functools.partial(_original_load, weights_only=False)
         from audiocraft.models import MusicGen, MultiBandDiffusion  # type: ignore
 
         logging.basicConfig(
@@ -90,6 +96,7 @@ class MusicGenService:
         self.log.info("Loading MultiBandDiffusion decoder")
         self.mbd = MultiBandDiffusion.get_mbd_musicgen()
 
+        torch.load = _original_load
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.model_id = model_id
         self.log.info("Models loaded on %s", self.device)
@@ -127,7 +134,8 @@ class MusicGenService:
 
             # Re-encode through compression model to get tokens for MBD
             encoded = self.model.compression_model.encode(wav)
-            codes, _scale = encoded[0]
+            entry = encoded[0]
+            codes = entry[0] if isinstance(entry, (tuple, list)) else entry
             wav_mbd = self.mbd.tokens_to_wav(codes)
 
         # Encode as WAV bytes

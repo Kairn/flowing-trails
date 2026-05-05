@@ -9,7 +9,7 @@ attrs==26.1.0
 audioread==3.1.0
 black==26.3.1
 braceexpand==0.1.7
-cbor2==5.9.0
+cbor2==6.0.1
 certifi==2026.4.22
 cffi==2.0.0
 charset-normalizer==3.4.7
@@ -24,6 +24,7 @@ ftfy==6.3.1
 gitdb==4.0.12
 GitPython==3.1.47
 googleapis-common-protos==1.74.0
+grpclib==0.4.9
 h11==0.16.0
 h2==4.3.0
 h5py==3.16.0
@@ -35,6 +36,7 @@ huggingface_hub==1.12.0
 hyperframe==6.1.0
 idna==3.13
 importlib_metadata==8.7.1
+iniconfig==2.3.0
 Jinja2==3.1.6
 jiter==0.14.0
 joblib==1.5.3
@@ -64,6 +66,7 @@ pandas==3.0.2
 pathspec==1.1.1
 pillow==12.1.1
 platformdirs==4.9.6
+pluggy==1.6.0
 pooch==1.9.0
 portalocker==3.2.0
 progressbar==2.5
@@ -73,6 +76,7 @@ pycparser==3.0
 pydantic==2.13.3
 pydantic_core==2.46.3
 Pygments==2.20.0
+pytest==9.0.3
 python-dateutil==2.9.0.post0
 python-dotenv==1.2.2
 pytokens==0.4.1
@@ -103,7 +107,7 @@ torchlibrosa==0.1.0
 torchvision==0.26.0+cpu
 tqdm==4.67.3
 transformers==5.6.2
-typer==0.25.0
+typer==0.25.1
 types-certifi==2021.10.8.3
 types-toml==0.10.8.20260408
 typing-inspection==0.4.2

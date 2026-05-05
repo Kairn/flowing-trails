@@ -1,0 +1,96 @@
+[
+  {
+    "slug": "calm-exploration",
+    "filename": "calm-exploration.wav",
+    "brief": "A peaceful exploration theme for wandering through an enchanted forest, with gentle melodies and a sense of wonder",
+    "spec": {
+      "description": "A lush, dreamy orchestral piece featuring delicate harp arpeggios and soft woodwind melodies drifting over warm string pads. Gentle bells and flute carry a lilting, wandering tune that evokes dappled sunlight through ancient trees and the quiet magic of an enchanted forest. The texture is airy and unhurried, with a sense of childlike wonder and serene discovery.",
+      "genre": "orchestral fantasy",
+      "mood_tags": [
+        "peaceful",
+        "wonder",
+        "magical",
+        "serene",
+        "whimsical"
+      ],
+      "instruments": [
+        "harp",
+        "flute",
+        "oboe",
+        "strings",
+        "celesta",
+        "soft bells",
+        "clarinet"
+      ],
+      "tempo_bpm": 72,
+      "key": "G major",
+      "energy": "low",
+      "duration_seconds": 10.0,
+      "style_hint": "Koji Kondo forest theme style, Studio Ghibli orchestral warmth"
+    },
+    "trace_id": "953e75aeeb8b22b7f98e2c8c3c76951f",
+    "size_bytes": 640044
+  },
+  {
+    "slug": "boss-battle",
+    "filename": "boss-battle.wav",
+    "brief": "An intense, driving boss battle theme with heavy percussion, dramatic orchestral hits, and an aggressive tempo",
+    "spec": {
+      "description": "A ferocious boss battle theme driven by thunderous taiko drums and explosive orchestral hits, layered with aggressive brass stabs and searing string ostinatos. Dark, relentless percussion pounds beneath sweeping cinematic tension, building to a crushing climax with full orchestral fury and pounding tympani.",
+      "genre": "orchestral action / JRPG boss battle",
+      "mood_tags": [
+        "intense",
+        "dramatic",
+        "aggressive",
+        "relentless",
+        "epic"
+      ],
+      "instruments": [
+        "taiko drums",
+        "orchestra hits",
+        "brass",
+        "strings",
+        "tympani",
+        "low brass",
+        "percussion ensemble"
+      ],
+      "tempo_bpm": 168,
+      "key": "D minor",
+      "energy": "high",
+      "duration_seconds": 10.0,
+      "style_hint": "Yasunori Mitsuda / Hitoshi Sakimoto cinematic JRPG boss battle, Final Fantasy Tactics orchestral style"
+    },
+    "trace_id": "f5492e80527974c9b7fc4c2d5e35d810",
+    "size_bytes": 640044
+  },
+  {
+    "slug": "retro-town",
+    "filename": "retro-town.wav",
+    "brief": "A nostalgic 8-bit chiptune town theme reminiscent of classic JRPG menu music, upbeat and catchy",
+    "spec": {
+      "description": "A bright and catchy 8-bit chiptune town theme with bouncy square wave melodies, playful pulse bass, and crisp NES-style percussion. The music feels warm and inviting with a singalong quality, evoking the charm of a cozy village from a classic 16-bit JRPG. Light triangle wave countermelodies weave beneath the main hook, giving it nostalgic depth and energy.",
+      "genre": "chiptune / JRPG town theme",
+      "mood_tags": [
+        "nostalgic",
+        "upbeat",
+        "cheerful",
+        "cozy",
+        "catchy"
+      ],
+      "instruments": [
+        "square wave lead",
+        "pulse wave bass",
+        "triangle wave bass",
+        "NES noise channel drums",
+        "arpeggio synth"
+      ],
+      "tempo_bpm": 148,
+      "key": "G major",
+      "energy": "medium",
+      "duration_seconds": 10.0,
+      "style_hint": "Koichi Sugiyama / early Dragon Quest NES era, classic Famicom RPG town music"
+    },
+    "trace_id": "42cb43187833596c7bc523280b8ec54c",
+    "size_bytes": 640044
+  }
+]

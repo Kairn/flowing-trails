@@ -6,6 +6,7 @@ Retrieval (M2) and scoring loop (M3) are wired in later milestones.
 
 from __future__ import annotations
 
+import base64
 from typing import TYPE_CHECKING
 
 import modal
@@ -22,6 +23,7 @@ image = (
     modal.Image.debian_slim(python_version="3.11")
     .pip_install(
         "anthropic>=0.40",
+        "fastapi[standard]",
         "pydantic>=2.0",
         "structlog",
         "python-dotenv",
@@ -48,9 +50,9 @@ class ComposeRequest(BaseModel):
 @app.function(
     image=image,
     secrets=[modal.Secret.from_name(MODAL_SECRET_NAME)],
-    timeout=120,
+    timeout=300,
 )
-@modal.web_endpoint(method="POST")
+@modal.fastapi_endpoint(method="POST")
 def compose(request: ComposeRequest) -> dict:
     from otel_utils import (
         flush_telemetry,
@@ -82,9 +84,14 @@ def compose(request: ComposeRequest) -> dict:
 
             log.info("compose_complete", trace_id=trace_id)
 
+            audio_b64 = (
+                base64.b64encode(audio_bytes).decode("ascii") if audio_bytes else None
+            )
+
             return {
                 "spec": spec.model_dump(),
-                "audio_bytes": audio_bytes,
+                "audio_b64": audio_b64,
+                "audio_format": "wav_base64",
                 "trace_id": trace_id,
             }
     finally:
@@ -131,7 +138,7 @@ def generate_music(spec, log) -> bytes | None:
     prompt = spec.to_prompt()
     log.info("generate_music", prompt=prompt[:80])
 
-    cls = modal.Cls.lookup(MUSICGEN_APP_NAME, "MusicGenService")
+    cls = modal.Cls.from_name(MUSICGEN_APP_NAME, "MusicGenService")
     result = cls().generate.remote(
         prompt=prompt,
         duration_seconds=spec.duration_seconds,

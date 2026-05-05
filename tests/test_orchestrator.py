@@ -12,6 +12,7 @@ _modal_stub.Cls = MagicMock()
 _modal_stub.Image = MagicMock()
 _modal_stub.Secret = MagicMock()
 _modal_stub.web_endpoint = lambda **kw: lambda fn: fn
+_modal_stub.fastapi_endpoint = lambda **kw: lambda fn: fn
 sys.modules.setdefault("modal", _modal_stub)
 
 from models import MusicSpec
@@ -138,27 +139,27 @@ def test_parse_query_to_prompt_roundtrip(_mock):
 # ── generate_music ───────────────────────────────────────────────────────────
 
 
-@patch("modal.Cls.lookup")
-def test_generate_music_calls_musicgen_service(mock_lookup):
+@patch("modal.Cls.from_name")
+def test_generate_music_calls_musicgen_service(mock_from_name):
     mock_instance = MagicMock()
     mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
-    mock_lookup.return_value.return_value = mock_instance
+    mock_from_name.return_value.return_value = mock_instance
 
     spec = MusicSpec(description="epic battle theme", duration_seconds=10.0)
     result = generate_music(spec, log)
 
     assert result == SAMPLE_GENERATE_RESULT["audio_bytes"]
-    mock_lookup.assert_called_once_with("flowing-trails-musicgen", "MusicGenService")
+    mock_from_name.assert_called_once_with("flowing-trails-musicgen", "MusicGenService")
     call_kwargs = mock_instance.generate.remote.call_args.kwargs
     assert "epic battle theme" in call_kwargs["prompt"]
     assert call_kwargs["duration_seconds"] == 10.0
 
 
-@patch("modal.Cls.lookup")
-def test_generate_music_passes_full_prompt(mock_lookup):
+@patch("modal.Cls.from_name")
+def test_generate_music_passes_full_prompt(mock_from_name):
     mock_instance = MagicMock()
     mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
-    mock_lookup.return_value.return_value = mock_instance
+    mock_from_name.return_value.return_value = mock_instance
 
     spec = MusicSpec(
         description="dark dungeon theme",
