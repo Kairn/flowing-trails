@@ -52,8 +52,6 @@ class ComposeRequest(BaseModel):
 )
 @modal.web_endpoint(method="POST")
 def compose(request: ComposeRequest) -> dict:
-    from opentelemetry import trace
-
     from otel_utils import (
         flush_telemetry,
         get_logger,
@@ -76,18 +74,11 @@ def compose(request: ComposeRequest) -> dict:
                 description=request.description[:80],
             )
 
-            with tracer.start_as_current_span("query_parse") as parse_span:
+            with tracer.start_as_current_span("query_parse"):
                 spec = parse_query(request, log)
-                parse_span.set_attribute("music_spec.genre", spec.genre or "")
-                parse_span.set_attribute(
-                    "music_spec.duration_seconds", spec.duration_seconds
-                )
 
-            with tracer.start_as_current_span("music_generate") as gen_span:
+            with tracer.start_as_current_span("music_generate"):
                 audio_bytes = generate_music(spec, log)
-                gen_span.set_attribute(
-                    "music_spec.duration_seconds", spec.duration_seconds
-                )
 
             log.info("compose_complete", trace_id=trace_id)
 
@@ -135,6 +126,8 @@ def parse_query(request: ComposeRequest, log) -> MusicSpec:
 
 def generate_music(spec, log) -> bytes | None:
     """Generate audio from MusicSpec via the deployed MusicGen service."""
+    from opentelemetry import trace
+
     prompt = spec.to_prompt()
     log.info("generate_music", prompt=prompt[:80])
 
@@ -143,6 +136,14 @@ def generate_music(spec, log) -> bytes | None:
         prompt=prompt,
         duration_seconds=spec.duration_seconds,
     )
+
+    span = trace.get_current_span()
+    span.set_attribute("gen_ai.system", "audiocraft")
+    span.set_attribute("gen_ai.operation.name", "generate")
+    span.set_attribute("gen_ai.request.model", result["model"])
+    span.set_attribute("gen_ai.request.audio.duration_seconds", spec.duration_seconds)
+    span.set_attribute("gen_ai.response.decoder", result["decoder"])
+    span.set_attribute("gen_ai.response.latency_ms", result["latency_ms"])
 
     log.info(
         "generate_music_done",

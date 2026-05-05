@@ -6,8 +6,26 @@ import json
 from typing import Any
 
 import anthropic
+from opentelemetry import trace
 
 from config import CLAUDE_MODEL
+
+
+def _set_genai_span_attrs(
+    model: str,
+    response_model: str,
+    max_tokens: int,
+    usage: anthropic.types.Usage,
+) -> None:
+    """Set OTel GenAI semantic convention attributes on the active span."""
+    span = trace.get_current_span()
+    span.set_attribute("gen_ai.system", "anthropic")
+    span.set_attribute("gen_ai.operation.name", "chat")
+    span.set_attribute("gen_ai.request.model", model)
+    span.set_attribute("gen_ai.response.model", response_model)
+    span.set_attribute("gen_ai.request.max_tokens", max_tokens)
+    span.set_attribute("gen_ai.usage.input_tokens", usage.input_tokens)
+    span.set_attribute("gen_ai.usage.output_tokens", usage.output_tokens)
 
 
 def call_claude_json(
@@ -28,6 +46,8 @@ def call_claude_json(
     )
     raw = response.content[0].text
     data = json.loads(raw)
+
+    _set_genai_span_attrs(model, response.model, max_tokens, response.usage)
 
     if log:
         log.info(
