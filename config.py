@@ -44,6 +44,7 @@ QDRANT_TOP_K = 3  # retrieval results returned to orchestrator
 # ── Corpus ────────────────────────────────────────────────────────────────────
 
 CORPUS_MANIFEST_PATH = f"{VOLUME_MOUNT_PATH}/corpus_manifest.json"
+CORPUS_EMBEDDINGS_PATH = f"{VOLUME_MOUNT_PATH}/corpus_embeddings.json"
 CORPUS_AUDIO_SAMPLE_RATE = 32000
 
 # ── Orchestrator ──────────────────────────────────────────────────────────────

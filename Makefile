@@ -1,4 +1,7 @@
-.PHONY: index deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples
+.PHONY: index embed deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples
+
+embed:
+	@echo "Run: modal run retrieval/embed_corpus.py"
 
 index:
 	@echo "Run: modal run retrieval/index_corpus.py"
