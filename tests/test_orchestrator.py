@@ -4,23 +4,32 @@ from __future__ import annotations
 
 import sys
 from types import ModuleType
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, mock_open, patch
 
 _modal_stub = ModuleType("modal")
 _modal_stub.App = MagicMock()
 _modal_stub.Cls = MagicMock()
 _modal_stub.Image = MagicMock()
 _modal_stub.Secret = MagicMock()
+_modal_stub.Volume = MagicMock()
 _modal_stub.web_endpoint = lambda **kw: lambda fn: fn
 _modal_stub.fastapi_endpoint = lambda **kw: lambda fn: fn
 sys.modules.setdefault("modal", _modal_stub)
 
 from models import MusicSpec
-from orchestrator.app import ComposeRequest, generate_music, parse_query
+from orchestrator.app import (
+    ComposeRequest,
+    generate_music,
+    parse_query,
+    retrieve_melody,
+)
 
 
 class _StubLog:
     def info(self, *a, **kw):
+        pass
+
+    def warning(self, *a, **kw):
         pass
 
 
@@ -136,23 +145,132 @@ def test_parse_query_to_prompt_roundtrip(_mock):
     assert "D minor" in prompt
 
 
+# ── retrieve_melody ─────────────────────────────────────────────────────────
+
+
+class _StubSpan:
+    def __init__(self):
+        self.attrs = {}
+
+    def set_attribute(self, key, value):
+        self.attrs[key] = value
+
+
+@patch("retrieval.search.search")
+def test_retrieve_melody_loads_top1_audio(mock_search):
+    from retrieval.search import RetrievalResult
+
+    mock_search.return_value = [
+        RetrievalResult(
+            rank=1,
+            score=0.85,
+            category="boss_battle",
+            corpus_file_path="/corpus/boss_001.wav",
+        ),
+        RetrievalResult(rank=2, score=0.72, category="exploration"),
+    ]
+
+    spec = MusicSpec(description="epic battle theme", mood_tags=["intense"])
+    span = _StubSpan()
+
+    with patch("builtins.open", mock_open(read_data=b"RIFF_WAV_DATA")):
+        melody_bytes, sr = retrieve_melody(spec, span, log)
+
+    assert melody_bytes == b"RIFF_WAV_DATA"
+    assert sr == 32000
+    assert span.attrs["retrieval.result_count"] == 2
+    assert span.attrs["retrieval.top_score"] == 0.85
+    assert span.attrs["retrieval.melody_loaded"] is True
+    mock_search.assert_called_once_with(spec.clap_text())
+
+
+@patch("retrieval.search.search")
+def test_retrieve_melody_no_results(mock_search):
+    mock_search.return_value = []
+
+    spec = MusicSpec(description="something unique")
+    span = _StubSpan()
+
+    melody_bytes, sr = retrieve_melody(spec, span, log)
+
+    assert melody_bytes is None
+    assert sr is None
+    assert span.attrs["retrieval.result_count"] == 0
+
+
+@patch("retrieval.search.search")
+def test_retrieve_melody_file_missing(mock_search):
+    from retrieval.search import RetrievalResult
+
+    mock_search.return_value = [
+        RetrievalResult(
+            rank=1, score=0.6, category="town", corpus_file_path="/corpus/missing.wav"
+        ),
+    ]
+
+    spec = MusicSpec(description="town theme")
+    span = _StubSpan()
+
+    with patch("builtins.open", side_effect=FileNotFoundError):
+        melody_bytes, sr = retrieve_melody(spec, span, log)
+
+    assert melody_bytes is None
+    assert sr is None
+    assert span.attrs["retrieval.melody_loaded"] is False
+
+
+@patch("retrieval.search.search")
+def test_retrieve_melody_no_corpus_path(mock_search):
+    from retrieval.search import RetrievalResult
+
+    mock_search.return_value = [
+        RetrievalResult(rank=1, score=0.4, category="ambient", corpus_file_path=None),
+    ]
+
+    spec = MusicSpec(description="ambient pad")
+    span = _StubSpan()
+
+    melody_bytes, sr = retrieve_melody(spec, span, log)
+
+    assert melody_bytes is None
+    assert sr is None
+
+
 # ── generate_music ───────────────────────────────────────────────────────────
 
 
 @patch("modal.Cls.from_name")
-def test_generate_music_calls_musicgen_service(mock_from_name):
+def test_generate_music_without_melody(mock_from_name):
     mock_instance = MagicMock()
     mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
     mock_from_name.return_value.return_value = mock_instance
 
     spec = MusicSpec(description="epic battle theme", duration_seconds=10.0)
-    result = generate_music(spec, log)
+    result = generate_music(spec, None, None, log)
 
     assert result == SAMPLE_GENERATE_RESULT["audio_bytes"]
     mock_from_name.assert_called_once_with("flowing-trails-musicgen", "MusicGenService")
     call_kwargs = mock_instance.generate.remote.call_args.kwargs
     assert "epic battle theme" in call_kwargs["prompt"]
     assert call_kwargs["duration_seconds"] == 10.0
+    assert call_kwargs["melody_wav"] is None
+    assert call_kwargs["melody_sample_rate"] is None
+
+
+@patch("modal.Cls.from_name")
+def test_generate_music_with_melody(mock_from_name):
+    mock_instance = MagicMock()
+    mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
+    mock_from_name.return_value.return_value = mock_instance
+
+    spec = MusicSpec(description="calm exploration", duration_seconds=10.0)
+    melody_data = b"RIFF_MELODY_WAV"
+    result = generate_music(spec, melody_data, 32000, log)
+
+    assert result == SAMPLE_GENERATE_RESULT["audio_bytes"]
+    call_kwargs = mock_instance.generate.remote.call_args.kwargs
+    assert call_kwargs["melody_wav"] == melody_data
+    assert call_kwargs["melody_sample_rate"] == 32000
 
 
 @patch("modal.Cls.from_name")
@@ -171,7 +289,7 @@ def test_generate_music_passes_full_prompt(mock_from_name):
         energy="low",
         style_hint="Koji Kondo style",
     )
-    result = generate_music(spec, log)
+    result = generate_music(spec, None, None, log)
 
     assert result is not None
     prompt = mock_instance.generate.remote.call_args.kwargs["prompt"]
