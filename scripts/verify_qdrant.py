@@ -5,7 +5,6 @@ collection if it doesn't exist (512-dim cosine), and wraps the call
 in an OTel span so it appears in Grafana Tempo.
 """
 
-import os
 import sys
 import time
 from pathlib import Path
@@ -13,10 +12,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from opentelemetry.trace import StatusCode
-from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, VectorParams
 
 from config import QDRANT_COLLECTION_NAME, QDRANT_VECTOR_SIZE
+from qdrant_utils import make_qdrant_client
 from otel_utils import (
     flush_telemetry,
     get_logger,
@@ -32,13 +31,7 @@ tracer = get_tracer("verify-qdrant")
 
 
 def main() -> None:
-    qdrant_url = os.environ.get("QDRANT_URL")
-    qdrant_api_key = os.environ.get("QDRANT_API_KEY")
-    if not qdrant_url or not qdrant_api_key:
-        log.error("QDRANT_URL and QDRANT_API_KEY must be set")
-        sys.exit(1)
-
-    client = QdrantClient(url=qdrant_url, api_key=qdrant_api_key)
+    client = make_qdrant_client()
 
     with tracer.start_as_current_span("verify-qdrant-cloud") as span:
         span.set_attribute("test.purpose", "m0-t9-qdrant-verify")
@@ -46,7 +39,7 @@ def main() -> None:
         span.set_attribute("db.collection.name", QDRANT_COLLECTION_NAME)
 
         # Check connectivity
-        log.info("Connecting to Qdrant Cloud", url=qdrant_url)
+        log.info("Connecting to Qdrant Cloud")
         t0 = time.monotonic()
         collections = [c.name for c in client.get_collections().collections]
         connect_ms = (time.monotonic() - t0) * 1000

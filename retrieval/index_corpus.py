@@ -10,7 +10,6 @@ Usage:
 """
 
 import json
-import os
 import sys
 from pathlib import Path
 
@@ -32,6 +31,7 @@ image = (
     modal.Image.debian_slim(python_version="3.11")
     .pip_install("qdrant-client>=1.17.0")
     .add_local_python_source("config")
+    .add_local_python_source("qdrant_utils")
 )
 
 UPSERT_BATCH_SIZE = 50
@@ -46,24 +46,20 @@ UPSERT_BATCH_SIZE = 50
 def index_corpus() -> dict:
     import logging
 
-    from qdrant_client import QdrantClient
     from qdrant_client.models import PointStruct
+
+    from qdrant_utils import make_qdrant_client
 
     logging.basicConfig(
         level=logging.INFO, format="%(levelname)s | %(name)s | %(message)s"
     )
     log = logging.getLogger("flowing-trails.index-corpus")
 
-    qdrant_url = os.environ.get("QDRANT_URL")
-    qdrant_api_key = os.environ.get("QDRANT_API_KEY")
-    if not qdrant_url or not qdrant_api_key:
-        raise RuntimeError("QDRANT_URL and QDRANT_API_KEY must be set")
-
     with open(CORPUS_EMBEDDINGS_PATH) as f:
         entries = json.load(f)
     log.info("Loaded %d embeddings from volume", len(entries))
 
-    client = QdrantClient(url=qdrant_url, api_key=qdrant_api_key)
+    client = make_qdrant_client()
 
     points = []
     for entry in entries:
