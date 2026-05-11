@@ -19,13 +19,11 @@ MUSICGEN_APP_NAME = "flowing-trails-musicgen"
 HF_MUSICGEN_REPO = "flowing-trails-musicgen"
 
 # Base model references — used by inference service before fine-tuned model exists
-MUSICGEN_BASE_MODEL = "facebook/musicgen-melody"
-MUSICGEN_BASE_MODEL_LARGE = "facebook/musicgen-melody-large"
+MUSICGEN_BASE_MODEL = "facebook/musicgen-melody-large"
 
 # Tag convention: fine-tuned checkpoints use "musicgen-vgm-v{N}"
 # Inference service pulls by MODEL_TAG env var — swap model = redeploy only
-MUSICGEN_BASE_TAG = "base-melody"
-MUSICGEN_BASE_LARGE_TAG = "base-melody-large"
+MUSICGEN_BASE_TAG = "base-melody-large"
 
 # ── CLAP ──────────────────────────────────────────────────────────────────────
 

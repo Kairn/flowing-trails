@@ -57,7 +57,7 @@ SAMPLE_SPEC = {
 SAMPLE_GENERATE_RESULT = {
     "audio_bytes": b"RIFF\x00\x00\x00\x00WAVEfmt ",
     "sample_rate": 32000,
-    "model": "facebook/musicgen-melody",
+    "model": "facebook/musicgen-melody-large",
     "decoder": "mbd",
     "duration_seconds": 10.0,
     "latency_ms": 4200.0,

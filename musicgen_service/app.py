@@ -1,6 +1,6 @@
 """MusicGen inference service — Modal GPU endpoint.
 
-Loads facebook/musicgen-melody (or fine-tuned variant via MODEL_TAG env var)
+Loads facebook/musicgen-melody-large (or fine-tuned variant via MODEL_TAG env var)
 with Multi-Band Diffusion decoder. Accepts a text prompt and returns WAV bytes.
 """
 

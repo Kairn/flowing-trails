@@ -25,7 +25,7 @@ evolve but the component contracts and platform choices are fixed.
 
 ### Model Registry
 HF Hub private repo `flowing-trails-musicgen`. Tags: `musicgen-vgm-v{N}` for fine-tuned,
-`base-melody` and `base-melody-large` for base model references. Inference pulls by tag via
+`base-melody-large` for the base model reference. Inference pulls by tag via
 `MODEL_TAG` env var at startup — swapping model versions is a redeploy with no code change.
 Registry is the only handoff point between training and serving.
 
@@ -33,8 +33,8 @@ Registry is the only handoff point between training and serving.
 Modal endpoint, `POST /generate`. Accepts: prompt string, duration_seconds, optional melody_audio
 bytes, optional seed. Returns: audio bytes + metadata (model version, decoder, latency).
 
-Model: `facebook/musicgen-melody` (1.5B). Decoder: Multi-Band Diffusion (MBD) by default,
-configurable flag for A/B benchmarking. VRAM: ~9GB total — fits on A10G (24GB) with headroom.
+Model: `facebook/musicgen-melody-large` (3.3B). Decoder: Multi-Band Diffusion (MBD) by default,
+configurable flag for A/B benchmarking. VRAM: ~14GB total — fits on A10G (24GB) with headroom.
 
 Also exposed as an MCP tool for external use (separate wrapper, not used internally).
 

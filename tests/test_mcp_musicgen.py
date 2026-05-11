@@ -11,7 +11,7 @@ FAKE_AUDIO = b"\x00\x01\x02\x03" * 100
 FAKE_RESULT = {
     "audio_bytes": FAKE_AUDIO,
     "sample_rate": 32000,
-    "model": "facebook/musicgen-melody",
+    "model": "facebook/musicgen-melody-large",
     "decoder": "mbd",
     "duration_seconds": 10.0,
     "latency_ms": 4200.5,
@@ -50,7 +50,7 @@ class TestGenerateMusicTool:
 
         result = generate_music("boss battle theme")
         assert result["sample_rate"] == 32000
-        assert result["model"] == "facebook/musicgen-melody"
+        assert result["model"] == "facebook/musicgen-melody-large"
         assert result["decoder"] == "mbd"
         assert result["duration_seconds"] == 10.0
         assert result["latency_ms"] == 4200.5

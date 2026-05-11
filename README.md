@@ -9,7 +9,7 @@ You describe what you want — *"intense boss fight theme, dark and orchestral, 
 1. **Claude** parses and refines your brief into a structured music spec
 2. **CLAP retrieval** searches a reference corpus for stylistically similar tracks (via Qdrant)
 3. **MusicGen** generates audio conditioned on both the text spec and the retrieved audio clip as a melody reference
-4. A **scoring loop** measures CLAP similarity between output and intent, and asks Claude to refine the spec if the score misses the threshold — up to 3 attempts
+4. A **scoring loop** measures CLAP similarity between output and intent, and asks Claude to refine the spec if the score misses the threshold — up to 2 attempts
 
 ## Stack
 
@@ -17,7 +17,7 @@ You describe what you want — *"intense boss fight theme, dark and orchestral, 
 | --------------------- | ----------------------------------------- |
 | GPU inference         | Modal (A10G)                              |
 | Text LLM              | Anthropic Claude API                      |
-| Audio generation      | `facebook/musicgen-melody` (1.5B)         |
+| Audio generation      | `facebook/musicgen-melody-large` (3.3B)   |
 | Audio/text embeddings | `laion/clap-htsat-unfused`                |
 | Vector database       | Qdrant Cloud                              |
 | Model registry        | Hugging Face Hub                          |
