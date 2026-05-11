@@ -52,6 +52,7 @@ image = (
     .add_local_python_source("clap_utils")
     .add_local_python_source("qdrant_utils")
     .add_local_python_source("retrieval")
+    .add_local_python_source("scoring")
 )
 
 corpus_volume = modal.Volume.from_name(VOLUME_NAME)
