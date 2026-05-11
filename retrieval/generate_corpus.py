@@ -11,7 +11,7 @@ Usage:
     modal run retrieval/generate_corpus.py
 
 The manifest written to the Volume (corpus_manifest.json) is the input
-for the CLAP indexing job (retrieval/index.py) in M2.
+for the CLAP indexing job (retrieval/embed_corpus.py + retrieval/index_corpus.py).
 """
 
 import json

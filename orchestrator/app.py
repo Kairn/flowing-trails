@@ -13,11 +13,11 @@ from pydantic import BaseModel, Field
 
 from config import (
     APP_NAME,
+    CORPUS_AUDIO_SAMPLE_RATE,
     MODAL_SECRET_NAME,
     MUSICGEN_APP_NAME,
-    VOLUME_NAME,
     VOLUME_MOUNT_PATH,
-    CORPUS_AUDIO_SAMPLE_RATE,
+    VOLUME_NAME,
 )
 
 if TYPE_CHECKING:
@@ -182,15 +182,16 @@ def retrieve_melody(spec, span, log) -> tuple[bytes | None, int | None]:
     if not top.corpus_file_path:
         return None, None
 
+    melody_path = f"{VOLUME_MOUNT_PATH}/{top.corpus_file_path}"
     try:
-        with open(top.corpus_file_path, "rb") as f:
+        with open(melody_path, "rb") as f:
             melody_bytes = f.read()
         span.set_attribute("retrieval.melody_loaded", True)
-        log.info("retrieve_melody_loaded", path=top.corpus_file_path)
+        log.info("retrieve_melody_loaded", path=melody_path)
         return melody_bytes, CORPUS_AUDIO_SAMPLE_RATE
     except FileNotFoundError:
         span.set_attribute("retrieval.melody_loaded", False)
-        log.warning("retrieve_melody_file_missing", path=top.corpus_file_path)
+        log.warning("retrieve_melody_file_missing", path=melody_path)
         return None, None
 
 

@@ -48,7 +48,7 @@ any CLAP audio embedding call.
 
 ### Retrieval Service
 Qdrant Cloud-backed. Offline indexing job runs CLAP audio embeddings over the corpus and upserts
-with metadata (title, source, composer, bpm, mood tags, `corpus_file_path`). Content-hash-based
+with metadata (category, mood tags, energy, instrumentation, bpm hint, prompt, `corpus_file_path`). Content-hash-based
 point IDs ensure idempotent re-indexing.
 
 At query time: text query → CLAP embed → Qdrant top-N search → reference tracks. Top-1 result

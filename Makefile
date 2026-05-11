@@ -13,8 +13,7 @@ deploy:
 	@echo "Run: modal deploy orchestrator/app.py"
 
 deploy-all:
-	modal deploy musicgen_service/app.py
-	modal deploy orchestrator/app.py
+	@echo "Run: modal deploy musicgen_service/app.py && modal deploy orchestrator/app.py"
 
 corpus-prompts:
 	python retrieval/generate_corpus_prompts.py

@@ -51,8 +51,8 @@ CORPUS_AUDIO_SAMPLE_RATE = 32000
 
 MAX_GENERATION_ATTEMPTS = 3
 
-# Empirically calibrated at M3 — target range per CLAP cross-modal literature
-# Placeholder until calibration pass; update in eval/thresholds.json per MODEL_TAG
+# Placeholder — calibrate empirically at M3 against 20+ prompts
+# Target range per CLAP cross-modal literature; update in eval/thresholds.json per MODEL_TAG
 DEFAULT_SIMILARITY_THRESHOLD = 0.30
 
 # ── Claude API ────────────────────────────────────────────────────────────────

@@ -165,7 +165,7 @@ def test_retrieve_melody_loads_top1_audio(mock_search):
             rank=1,
             score=0.85,
             category="boss_battle",
-            corpus_file_path="/corpus/boss_001.wav",
+            corpus_file_path="boss_001.wav",
         ),
         RetrievalResult(rank=2, score=0.72, category="exploration"),
     ]
@@ -204,7 +204,7 @@ def test_retrieve_melody_file_missing(mock_search):
 
     mock_search.return_value = [
         RetrievalResult(
-            rank=1, score=0.6, category="town", corpus_file_path="/corpus/missing.wav"
+            rank=1, score=0.6, category="town", corpus_file_path="missing.wav"
         ),
     ]
 
