@@ -1,6 +1,6 @@
 """Orchestrator — POST /compose endpoint.
 
-Single-pass pipeline: parse user brief → retrieve melody reference → generate audio → return.
+Pipeline: parse user brief → retrieve melody → generate audio → score → retry if below threshold.
 """
 
 from __future__ import annotations
@@ -14,6 +14,8 @@ from pydantic import BaseModel, Field
 from config import (
     APP_NAME,
     CORPUS_AUDIO_SAMPLE_RATE,
+    DEFAULT_SIMILARITY_THRESHOLD,
+    MAX_GENERATION_ATTEMPTS,
     MODAL_SECRET_NAME,
     MUSICGEN_APP_NAME,
     VOLUME_MOUNT_PATH,
@@ -102,10 +104,20 @@ def compose(request: ComposeRequest) -> dict:
             with tracer.start_as_current_span("retrieval") as retrieval_span:
                 melody_wav, melody_sr = retrieve_melody(spec, retrieval_span, log)
 
-            with tracer.start_as_current_span("music_generate"):
-                audio_bytes = generate_music(spec, melody_wav, melody_sr, log)
+            query_vector = _embed_query(spec, log)
 
-            log.info("compose_complete", trace_id=trace_id)
+            audio_bytes, score, attempts = _generate_with_scoring(
+                spec, melody_wav, melody_sr, query_vector, tracer, log
+            )
+
+            root_span.set_attribute("compose.attempts", attempts)
+            root_span.set_attribute("compose.final_score", score)
+            log.info(
+                "compose_complete",
+                trace_id=trace_id,
+                attempts=attempts,
+                final_score=round(score, 4),
+            )
 
             audio_b64 = (
                 base64.b64encode(audio_bytes).decode("ascii") if audio_bytes else None
@@ -116,9 +128,70 @@ def compose(request: ComposeRequest) -> dict:
                 "audio_b64": audio_b64,
                 "audio_format": "wav_base64",
                 "trace_id": trace_id,
+                "score": round(score, 4),
+                "attempts": attempts,
             }
     finally:
         flush_telemetry()
+
+
+def _embed_query(spec: MusicSpec, log):
+    """Compute CLAP text embedding of the spec for scoring."""
+    from clap_utils import embed_text
+
+    query_text = spec.clap_text()
+    log.info("embed_query", query_text=query_text[:80])
+    return embed_text(query_text)
+
+
+def _generate_with_scoring(
+    spec: MusicSpec,
+    melody_wav: bytes | None,
+    melody_sr: int | None,
+    query_vector,
+    tracer,
+    log,
+) -> tuple[bytes | None, float, int]:
+    """Generate audio in a retry loop, scoring each attempt against the query.
+
+    Returns (best_audio_bytes, best_score, total_attempts).
+    """
+    from scoring import score_generation
+
+    best_audio: bytes | None = None
+    best_score = -1.0
+
+    for attempt in range(1, MAX_GENERATION_ATTEMPTS + 1):
+        with tracer.start_as_current_span("music_generate") as gen_span:
+            gen_span.set_attribute("generate.attempt", attempt)
+            audio_bytes = generate_music(spec, melody_wav, melody_sr, log)
+
+        if audio_bytes is None:
+            log.warning("generate_returned_none", attempt=attempt)
+            return best_audio, best_score, attempt
+
+        sim = score_generation(audio_bytes, query_vector)
+        log.info(
+            "score_attempt",
+            attempt=attempt,
+            score=round(sim, 4),
+            threshold=DEFAULT_SIMILARITY_THRESHOLD,
+        )
+
+        if sim > best_score:
+            best_score = sim
+            best_audio = audio_bytes
+
+        if sim >= DEFAULT_SIMILARITY_THRESHOLD:
+            log.info("score_accepted", attempt=attempt, score=round(sim, 4))
+            return best_audio, best_score, attempt
+
+    log.info(
+        "score_exhausted",
+        attempts=MAX_GENERATION_ATTEMPTS,
+        best_score=round(best_score, 4),
+    )
+    return best_audio, best_score, MAX_GENERATION_ATTEMPTS
 
 
 def parse_query(request: ComposeRequest, log) -> MusicSpec:

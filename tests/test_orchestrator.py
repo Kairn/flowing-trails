@@ -19,6 +19,8 @@ sys.modules.setdefault("modal", _modal_stub)
 from models import MusicSpec
 from orchestrator.app import (
     ComposeRequest,
+    _embed_query,
+    _generate_with_scoring,
     generate_music,
     parse_query,
     retrieve_melody,
@@ -297,3 +299,143 @@ def test_generate_music_passes_full_prompt(mock_from_name):
     assert "ambient exploration" in prompt
     assert "strings" in prompt
     assert "80 bpm" in prompt
+
+
+# ── _generate_with_scoring ──────────────────────────────────────────────────
+
+
+class _StubTracer:
+    """Minimal tracer that yields _StubSpan contexts."""
+
+    def start_as_current_span(self, name):
+        return _StubSpanContext()
+
+
+class _StubSpanContext(_StubSpan):
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        pass
+
+
+_QUERY_VEC = None  # set per test via fixture
+
+
+@patch("modal.Cls.from_name")
+@patch("scoring.score_generation")
+def test_scoring_loop_accepts_on_first_try(mock_score, mock_from_name):
+    mock_instance = MagicMock()
+    mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
+    mock_from_name.return_value.return_value = mock_instance
+
+    mock_score.return_value = 0.45
+
+    import numpy as np
+
+    query_vec = np.zeros(512, dtype=np.float32)
+    spec = MusicSpec(description="epic battle theme", duration_seconds=10.0)
+
+    audio, score, attempts = _generate_with_scoring(
+        spec, None, None, query_vec, _StubTracer(), log
+    )
+
+    assert attempts == 1
+    assert score == 0.45
+    assert audio == SAMPLE_GENERATE_RESULT["audio_bytes"]
+    assert mock_instance.generate.remote.call_count == 1
+
+
+@patch("modal.Cls.from_name")
+@patch("scoring.score_generation")
+def test_scoring_loop_retries_then_accepts(mock_score, mock_from_name):
+    mock_instance = MagicMock()
+    mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
+    mock_from_name.return_value.return_value = mock_instance
+
+    mock_score.side_effect = [0.15, 0.40]
+
+    import numpy as np
+
+    query_vec = np.zeros(512, dtype=np.float32)
+    spec = MusicSpec(description="calm exploration", duration_seconds=10.0)
+
+    audio, score, attempts = _generate_with_scoring(
+        spec, None, None, query_vec, _StubTracer(), log
+    )
+
+    assert attempts == 2
+    assert score == 0.40
+    assert mock_instance.generate.remote.call_count == 2
+
+
+@patch("modal.Cls.from_name")
+@patch("scoring.score_generation")
+def test_scoring_loop_exhausts_returns_best(mock_score, mock_from_name):
+    mock_instance = MagicMock()
+    mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
+    mock_from_name.return_value.return_value = mock_instance
+
+    mock_score.side_effect = [0.10, 0.20]
+
+    import numpy as np
+
+    query_vec = np.zeros(512, dtype=np.float32)
+    spec = MusicSpec(description="retro town", duration_seconds=10.0)
+
+    audio, score, attempts = _generate_with_scoring(
+        spec, None, None, query_vec, _StubTracer(), log
+    )
+
+    assert attempts == 2
+    assert score == 0.20
+    assert audio is not None
+
+
+@patch("modal.Cls.from_name")
+@patch("scoring.score_generation")
+def test_scoring_loop_keeps_best_across_attempts(mock_score, mock_from_name):
+    """Second attempt scores lower — should still return the first (better) audio."""
+    result_a = {**SAMPLE_GENERATE_RESULT, "audio_bytes": b"AUDIO_A"}
+    result_b = {**SAMPLE_GENERATE_RESULT, "audio_bytes": b"AUDIO_B"}
+    mock_instance = MagicMock()
+    mock_instance.generate.remote.side_effect = [result_a, result_b]
+    mock_from_name.return_value.return_value = mock_instance
+
+    mock_score.side_effect = [0.25, 0.10]
+
+    import numpy as np
+
+    query_vec = np.zeros(512, dtype=np.float32)
+    spec = MusicSpec(description="dungeon ambience", duration_seconds=10.0)
+
+    audio, score, attempts = _generate_with_scoring(
+        spec, None, None, query_vec, _StubTracer(), log
+    )
+
+    assert attempts == 2
+    assert score == 0.25
+    assert audio == b"AUDIO_A"
+
+
+@patch("modal.Cls.from_name")
+def test_scoring_loop_generate_returns_none(mock_from_name):
+    mock_instance = MagicMock()
+    mock_instance.generate.remote.return_value = {
+        **SAMPLE_GENERATE_RESULT,
+        "audio_bytes": None,
+    }
+    mock_from_name.return_value.return_value = mock_instance
+
+    import numpy as np
+
+    query_vec = np.zeros(512, dtype=np.float32)
+    spec = MusicSpec(description="silence", duration_seconds=10.0)
+
+    audio, score, attempts = _generate_with_scoring(
+        spec, None, None, query_vec, _StubTracer(), log
+    )
+
+    assert attempts == 1
+    assert audio is None
+    assert score == -1.0

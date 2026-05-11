@@ -49,7 +49,7 @@ CORPUS_AUDIO_SAMPLE_RATE = 32000
 
 # ── Orchestrator ──────────────────────────────────────────────────────────────
 
-MAX_GENERATION_ATTEMPTS = 3
+MAX_GENERATION_ATTEMPTS = 2
 
 # Placeholder — calibrate empirically at M3 against 20+ prompts
 # Target range per CLAP cross-modal literature; update in eval/thresholds.json per MODEL_TAG

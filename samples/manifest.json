@@ -4,31 +4,31 @@
     "filename": "calm-exploration.wav",
     "brief": "A peaceful exploration theme for wandering through an enchanted forest, with gentle melodies and a sense of wonder",
     "spec": {
-      "description": "A gentle, flowing orchestral piece with soft woodwind melodies drifting over lush string pads and delicate harp arpeggios. Shimmering bells and light chimes add a magical, ethereal quality, evoking dappled sunlight through ancient trees and the quiet wonder of discovering an enchanted forest.",
+      "description": "A gentle, flowing orchestral piece with soft woodwind melodies drifting over lush string pads and delicate harp arpeggios, evoking the feeling of sunlight filtering through ancient enchanted trees. Subtle shimmering bell tones and light pizzicato strings add a sense of magic and childlike wonder, while a warm, unhurried rhythm invites exploration and curiosity.",
       "genre": "orchestral fantasy",
       "mood_tags": [
         "peaceful",
-        "enchanting",
         "wonder",
-        "serene exploration",
-        "magical nature"
+        "magical",
+        "serene",
+        "whimsical"
       ],
       "instruments": [
         "flute",
         "oboe",
         "harp",
         "strings",
-        "celesta",
-        "soft bells",
-        "light percussion"
+        "glockenspiel",
+        "pizzicato strings",
+        "soft French horn"
       ],
       "tempo_bpm": 72,
-      "key": "D major",
+      "key": "G major",
       "energy": "low",
       "duration_seconds": 10.0,
-      "style_hint": "Koji Kondo overworld theme style, Nintendo 3DS era JRPG ambient exploration"
+      "style_hint": "Koji Kondo overworld style, Legend of Zelda enchanted forest feel, SNES-era JRPG orchestral warmth"
     },
-    "trace_id": "cd5e7138c0aca8d76e0628555d571637",
+    "trace_id": "3811e310a2ec3ca695d5eb8b625ae195",
     "size_bytes": 640044
   },
   {
@@ -36,32 +36,32 @@
     "filename": "boss-battle.wav",
     "brief": "An intense, driving boss battle theme with heavy percussion, dramatic orchestral hits, and an aggressive tempo",
     "spec": {
-      "description": "An intense boss battle theme driven by thunderous taiko drums and heavy orchestral percussion, punctuated by dramatic brass and string hits that surge with ferocious energy. Aggressive low brass stabs and rapid string ostinatos build relentless tension, while a menacing chromatic melody cuts through the chaos. The full orchestral ensemble crashes and surges with dark, unstoppable force.",
-      "genre": "orchestral video game battle music",
+      "description": "An intense, driving boss battle theme featuring thunderous taiko drums and heavy orchestral percussion, punctuated by dramatic brass stabs and powerful string ostinatos. Aggressive low brass and menacing choir swells build relentless tension, with fast-paced rhythmic hits creating an overwhelming sense of danger and high-stakes combat.",
+      "genre": "orchestral action",
       "mood_tags": [
         "intense",
         "menacing",
         "dramatic",
-        "aggressive",
-        "powerful"
+        "adrenaline-fueled",
+        "relentless"
       ],
       "instruments": [
         "taiko drums",
         "orchestral brass",
         "strings",
-        "tympani",
-        "bass drums",
+        "choir",
+        "timpani",
         "french horns",
-        "low brass",
-        "percussion ensemble"
+        "bass drums",
+        "snare drums"
       ],
-      "tempo_bpm": 178,
+      "tempo_bpm": 180,
       "key": "D minor",
       "energy": "high",
       "duration_seconds": 10.0,
-      "style_hint": "Yoko Shimomura dramatic boss battle style, reminiscent of Kingdom Hearts or Final Fantasy XVI orchestral combat themes"
+      "style_hint": "Yoko Shimomura or Hitoshi Sakimoto epic JRPG boss battle style, reminiscent of Final Fantasy or Kingdom Hearts climactic encounters"
     },
-    "trace_id": "5f28e21ad8672805f4d09e1015136229",
+    "trace_id": "b4ca0366af2f48fc0d842641c76382e8",
     "size_bytes": 640044
   },
   {
@@ -69,29 +69,30 @@
     "filename": "retro-town.wav",
     "brief": "A nostalgic 8-bit chiptune town theme reminiscent of classic JRPG menu music, upbeat and catchy",
     "spec": {
-      "description": "A bright, catchy 8-bit chiptune town theme featuring punchy square wave leads, bouncy triangle bass, and rapid pulse-wave arpeggios. The melody is cheerful and memorable with a warm nostalgic feel, layered over a simple kick-and-snare drum pattern typical of classic JRPG overworld and town screens. Light duty-cycle chiptune harmonies give it an inviting, safe-haven atmosphere.",
-      "genre": "chiptune / JRPG town theme",
+      "description": "A bright and catchy 8-bit chiptune town theme featuring bouncy square wave melodies layered over a cheerful arpeggio bassline, with punchy pulse wave harmonies and a crisp retro drum machine rhythm. The overall feel is warm, nostalgic, and inviting, evoking a peaceful village square in a classic JRPG world.",
+      "genre": "chiptune / JRPG",
       "mood_tags": [
         "nostalgic",
-        "upbeat",
         "cheerful",
-        "whimsical",
-        "cozy"
+        "upbeat",
+        "warm",
+        "catchy"
       ],
       "instruments": [
         "square wave lead",
+        "pulse wave harmony",
         "triangle wave bass",
-        "pulse wave arpeggio",
-        "chiptune drums",
+        "chiptune arpeggios",
+        "retro drum machine",
         "noise channel percussion"
       ],
       "tempo_bpm": 148,
       "key": "G major",
       "energy": "medium",
       "duration_seconds": 10.0,
-      "style_hint": "NES-era JRPG style, early Dragon Quest and Final Fantasy town music, Koichi Sugiyama 8-bit aesthetic"
+      "style_hint": "Koichi Sugiyama / early Dragon Quest NES era, 8-bit SNES chiptune JRPG town music"
     },
-    "trace_id": "20b1d54ff8f4ad0dc9520618f17f3d01",
+    "trace_id": "6c84c1b55ddedce198242e72c120354f",
     "size_bytes": 640044
   }
 ]
