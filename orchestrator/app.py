@@ -6,6 +6,7 @@ Pipeline: parse user brief → retrieve melody → generate audio → score → 
 from __future__ import annotations
 
 import base64
+import json
 from typing import TYPE_CHECKING
 
 import modal
@@ -154,17 +155,20 @@ def _generate_with_scoring(
 ) -> tuple[bytes | None, float, int]:
     """Generate audio in a retry loop, scoring each attempt against the query.
 
+    On below-threshold scores, refines the spec via Claude before retrying.
     Returns (best_audio_bytes, best_score, total_attempts).
     """
     from scoring import score_generation
 
     best_audio: bytes | None = None
     best_score = -1.0
+    history: list[dict] = []
+    current_spec = spec
 
     for attempt in range(1, MAX_GENERATION_ATTEMPTS + 1):
         with tracer.start_as_current_span("music_generate") as gen_span:
             gen_span.set_attribute("generate.attempt", attempt)
-            audio_bytes = generate_music(spec, melody_wav, melody_sr, log)
+            audio_bytes = generate_music(current_spec, melody_wav, melody_sr, log)
 
         if audio_bytes is None:
             log.warning("generate_returned_none", attempt=attempt)
@@ -178,6 +182,8 @@ def _generate_with_scoring(
             threshold=DEFAULT_SIMILARITY_THRESHOLD,
         )
 
+        history.append({"spec": current_spec.model_dump(), "score": round(sim, 4)})
+
         if sim > best_score:
             best_score = sim
             best_audio = audio_bytes
@@ -186,12 +192,52 @@ def _generate_with_scoring(
             log.info("score_accepted", attempt=attempt, score=round(sim, 4))
             return best_audio, best_score, attempt
 
+        if attempt < MAX_GENERATION_ATTEMPTS:
+            current_spec = refine_spec(current_spec, sim, history, tracer, log)
+            query_vector = _embed_query(current_spec, log)
+
     log.info(
         "score_exhausted",
         attempts=MAX_GENERATION_ATTEMPTS,
         best_score=round(best_score, 4),
     )
     return best_audio, best_score, MAX_GENERATION_ATTEMPTS
+
+
+def refine_spec(
+    spec: MusicSpec,
+    score: float,
+    history: list[dict],
+    tracer,
+    log,
+) -> MusicSpec:
+    """Refine a MusicSpec via Claude based on CLAP score feedback."""
+    from claude_client import call_claude_json
+    from models import MusicSpec as MusicSpecCls
+    from prompts import SPEC_REFINER_SYSTEM
+
+    with tracer.start_as_current_span("spec_refine") as span:
+        span.set_attribute("refine.prior_score", round(score, 4))
+        span.set_attribute("refine.attempt", len(history))
+
+        user_message = json.dumps({"history": history})
+
+        refined_data, usage = call_claude_json(
+            system=SPEC_REFINER_SYSTEM,
+            user_message=user_message,
+            log=log,
+        )
+
+        refined_data["style_hint"] = spec.style_hint
+        refined_data["duration_seconds"] = spec.duration_seconds
+
+        refined_spec = MusicSpecCls(**refined_data)
+        log.info(
+            "spec_refined",
+            prior_score=round(score, 4),
+            new_description=refined_spec.description[:80],
+        )
+        return refined_spec
 
 
 def parse_query(request: ComposeRequest, log) -> MusicSpec:

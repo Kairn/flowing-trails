@@ -6,6 +6,8 @@ import sys
 from types import ModuleType
 from unittest.mock import MagicMock, mock_open, patch
 
+import numpy as np
+
 _modal_stub = ModuleType("modal")
 _modal_stub.App = MagicMock()
 _modal_stub.Cls = MagicMock()
@@ -23,6 +25,7 @@ from orchestrator.app import (
     _generate_with_scoring,
     generate_music,
     parse_query,
+    refine_spec,
     retrieve_melody,
 )
 
@@ -331,8 +334,6 @@ def test_scoring_loop_accepts_on_first_try(mock_score, mock_from_name):
 
     mock_score.return_value = 0.45
 
-    import numpy as np
-
     query_vec = np.zeros(512, dtype=np.float32)
     spec = MusicSpec(description="epic battle theme", duration_seconds=10.0)
 
@@ -346,16 +347,33 @@ def test_scoring_loop_accepts_on_first_try(mock_score, mock_from_name):
     assert mock_instance.generate.remote.call_count == 1
 
 
+REFINED_SPEC = {
+    "description": "Warm ambient pads with gentle reverb and soft bell tones",
+    "genre": "ambient exploration",
+    "mood_tags": ["calm", "warm", "peaceful"],
+    "instruments": ["synth pads", "bells"],
+    "tempo_bpm": 85,
+    "key": "C major",
+    "energy": "low",
+    "duration_seconds": 10.0,
+    "style_hint": None,
+}
+
+
+@patch("clap_utils.embed_text")
+@patch("claude_client.call_claude_json")
 @patch("modal.Cls.from_name")
 @patch("scoring.score_generation")
-def test_scoring_loop_retries_then_accepts(mock_score, mock_from_name):
+def test_scoring_loop_retries_then_accepts(
+    mock_score, mock_from_name, mock_claude, mock_embed
+):
     mock_instance = MagicMock()
     mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
     mock_from_name.return_value.return_value = mock_instance
 
     mock_score.side_effect = [0.15, 0.40]
-
-    import numpy as np
+    mock_claude.return_value = (REFINED_SPEC.copy(), _STUB_USAGE)
+    mock_embed.return_value = np.zeros(512, dtype=np.float32)
 
     query_vec = np.zeros(512, dtype=np.float32)
     spec = MusicSpec(description="calm exploration", duration_seconds=10.0)
@@ -367,18 +385,24 @@ def test_scoring_loop_retries_then_accepts(mock_score, mock_from_name):
     assert attempts == 2
     assert score == 0.40
     assert mock_instance.generate.remote.call_count == 2
+    mock_claude.assert_called_once()
+    mock_embed.assert_called_once()
 
 
+@patch("clap_utils.embed_text")
+@patch("claude_client.call_claude_json")
 @patch("modal.Cls.from_name")
 @patch("scoring.score_generation")
-def test_scoring_loop_exhausts_returns_best(mock_score, mock_from_name):
+def test_scoring_loop_exhausts_returns_best(
+    mock_score, mock_from_name, mock_claude, mock_embed
+):
     mock_instance = MagicMock()
     mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
     mock_from_name.return_value.return_value = mock_instance
 
     mock_score.side_effect = [0.10, 0.20]
-
-    import numpy as np
+    mock_claude.return_value = (REFINED_SPEC.copy(), _STUB_USAGE)
+    mock_embed.return_value = np.zeros(512, dtype=np.float32)
 
     query_vec = np.zeros(512, dtype=np.float32)
     spec = MusicSpec(description="retro town", duration_seconds=10.0)
@@ -392,9 +416,13 @@ def test_scoring_loop_exhausts_returns_best(mock_score, mock_from_name):
     assert audio is not None
 
 
+@patch("clap_utils.embed_text")
+@patch("claude_client.call_claude_json")
 @patch("modal.Cls.from_name")
 @patch("scoring.score_generation")
-def test_scoring_loop_keeps_best_across_attempts(mock_score, mock_from_name):
+def test_scoring_loop_keeps_best_across_attempts(
+    mock_score, mock_from_name, mock_claude, mock_embed
+):
     """Second attempt scores lower — should still return the first (better) audio."""
     result_a = {**SAMPLE_GENERATE_RESULT, "audio_bytes": b"AUDIO_A"}
     result_b = {**SAMPLE_GENERATE_RESULT, "audio_bytes": b"AUDIO_B"}
@@ -403,8 +431,8 @@ def test_scoring_loop_keeps_best_across_attempts(mock_score, mock_from_name):
     mock_from_name.return_value.return_value = mock_instance
 
     mock_score.side_effect = [0.25, 0.10]
-
-    import numpy as np
+    mock_claude.return_value = (REFINED_SPEC.copy(), _STUB_USAGE)
+    mock_embed.return_value = np.zeros(512, dtype=np.float32)
 
     query_vec = np.zeros(512, dtype=np.float32)
     spec = MusicSpec(description="dungeon ambience", duration_seconds=10.0)
@@ -427,8 +455,6 @@ def test_scoring_loop_generate_returns_none(mock_from_name):
     }
     mock_from_name.return_value.return_value = mock_instance
 
-    import numpy as np
-
     query_vec = np.zeros(512, dtype=np.float32)
     spec = MusicSpec(description="silence", duration_seconds=10.0)
 
@@ -439,3 +465,114 @@ def test_scoring_loop_generate_returns_none(mock_from_name):
     assert attempts == 1
     assert audio is None
     assert score == -1.0
+
+
+# ── refine_spec ─────────────────────────────────────────────────────────────
+
+
+@patch("claude_client.call_claude_json")
+def test_refine_spec_returns_revised_spec(mock_claude):
+    mock_claude.return_value = (REFINED_SPEC.copy(), _STUB_USAGE)
+
+    spec = MusicSpec(description="calm exploration", duration_seconds=10.0)
+    history = [{"spec": spec.model_dump(), "score": 0.15}]
+
+    result = refine_spec(spec, 0.15, history, _StubTracer(), log)
+
+    assert isinstance(result, MusicSpec)
+    assert result.description == REFINED_SPEC["description"]
+    assert result.mood_tags == ["calm", "warm", "peaceful"]
+    mock_claude.assert_called_once()
+
+
+@patch("claude_client.call_claude_json")
+def test_refine_spec_enforces_readonly_fields(mock_claude):
+    """Even if Claude changes style_hint or duration, they get overwritten."""
+    tampered = {
+        **REFINED_SPEC,
+        "style_hint": "tampered hint",
+        "duration_seconds": 30.0,
+    }
+    mock_claude.return_value = (tampered, _STUB_USAGE)
+
+    spec = MusicSpec(
+        description="epic battle",
+        duration_seconds=12.0,
+        style_hint="Nobuo Uematsu orchestral style",
+    )
+    history = [{"spec": spec.model_dump(), "score": 0.18}]
+
+    result = refine_spec(spec, 0.18, history, _StubTracer(), log)
+
+    assert result.style_hint == "Nobuo Uematsu orchestral style"
+    assert result.duration_seconds == 12.0
+
+
+@patch("claude_client.call_claude_json")
+def test_refine_spec_passes_history_as_json(mock_claude):
+    mock_claude.return_value = (REFINED_SPEC.copy(), _STUB_USAGE)
+
+    spec = MusicSpec(description="town theme", duration_seconds=10.0)
+    history = [
+        {"spec": {"description": "town theme"}, "score": 0.12},
+    ]
+
+    refine_spec(spec, 0.12, history, _StubTracer(), log)
+
+    call_args = mock_claude.call_args
+    import json
+
+    user_msg = json.loads(call_args.kwargs["user_message"])
+    assert "history" in user_msg
+    assert len(user_msg["history"]) == 1
+    assert user_msg["history"][0]["score"] == 0.12
+
+
+@patch("clap_utils.embed_text")
+@patch("claude_client.call_claude_json")
+@patch("modal.Cls.from_name")
+@patch("scoring.score_generation")
+def test_scoring_loop_uses_refined_spec_for_generation(
+    mock_score, mock_from_name, mock_claude, mock_embed
+):
+    """After refinement, the next generate call uses the refined spec."""
+    mock_instance = MagicMock()
+    mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
+    mock_from_name.return_value.return_value = mock_instance
+
+    mock_score.side_effect = [0.15, 0.40]
+    mock_claude.return_value = (REFINED_SPEC.copy(), _STUB_USAGE)
+    mock_embed.return_value = np.zeros(512, dtype=np.float32)
+
+    query_vec = np.zeros(512, dtype=np.float32)
+    spec = MusicSpec(description="calm exploration", duration_seconds=10.0)
+
+    _generate_with_scoring(spec, None, None, query_vec, _StubTracer(), log)
+
+    second_call_prompt = mock_instance.generate.remote.call_args_list[1].kwargs[
+        "prompt"
+    ]
+    assert "Warm ambient pads" in second_call_prompt
+
+
+@patch("clap_utils.embed_text")
+@patch("claude_client.call_claude_json")
+@patch("modal.Cls.from_name")
+@patch("scoring.score_generation")
+def test_scoring_loop_no_refine_on_accept(
+    mock_score, mock_from_name, mock_claude, mock_embed
+):
+    """When first attempt passes threshold, refiner is never called."""
+    mock_instance = MagicMock()
+    mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
+    mock_from_name.return_value.return_value = mock_instance
+
+    mock_score.return_value = 0.45
+
+    query_vec = np.zeros(512, dtype=np.float32)
+    spec = MusicSpec(description="epic battle", duration_seconds=10.0)
+
+    _generate_with_scoring(spec, None, None, query_vec, _StubTracer(), log)
+
+    mock_claude.assert_not_called()
+    mock_embed.assert_not_called()
