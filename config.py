@@ -23,7 +23,6 @@ MUSICGEN_BASE_MODEL = "facebook/musicgen-melody-large"
 
 # Tag convention: fine-tuned checkpoints use "musicgen-vgm-v{N}"
 # Inference service pulls by MODEL_TAG env var — swap model = redeploy only
-MUSICGEN_BASE_TAG = "base-melody-large"
 
 # ── CLAP ──────────────────────────────────────────────────────────────────────
 
@@ -43,14 +42,14 @@ QDRANT_TOP_K = 3  # retrieval results returned to orchestrator
 
 CORPUS_MANIFEST_PATH = f"{VOLUME_MOUNT_PATH}/corpus_manifest.json"
 CORPUS_EMBEDDINGS_PATH = f"{VOLUME_MOUNT_PATH}/corpus_embeddings.json"
-CORPUS_AUDIO_SAMPLE_RATE = 32000
+CORPUS_AUDIO_SAMPLE_RATE = MUSICGEN_SAMPLE_RATE
 
 # ── Orchestrator ──────────────────────────────────────────────────────────────
 
 MAX_GENERATION_ATTEMPTS = 2
 
-# Placeholder — calibrate empirically at M3 against 20+ prompts
-# Target range per CLAP cross-modal literature; update in eval/thresholds.json per MODEL_TAG
+# Calibrated at M3: p25 across 24 prompts (mean 0.45, range 0.37–0.58)
+# Recalibrate per MODEL_TAG — see eval/thresholds.json
 DEFAULT_SIMILARITY_THRESHOLD = 0.40
 
 # ── Claude API ────────────────────────────────────────────────────────────────

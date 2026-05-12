@@ -8,7 +8,7 @@ here captures the known constraints and intentions so the design session has a s
 ---
 
 ## Vision
-Fine-tune `facebook/musicgen-melody` on a personal VGM collection (~800–1000 tracks) to produce
+Fine-tune `facebook/musicgen-melody-large` on a personal VGM collection (~800–1000 tracks) to produce
 a model with stronger stylistic affinity for classic game music. Pair this with a custom Qdrant
 index built from the same collection, replacing the bootstrap corpus.
 

@@ -55,6 +55,10 @@ At query time: text query → CLAP embed → Qdrant top-N search → reference t
 includes `corpus_file_path` for melody conditioning; others return metadata only. Qdrant stores
 vectors and metadata — no audio bytes.
 
+Melody conditioning is disabled by default (`use_melody_conditioning=false`). The synthetic
+corpus degrades quality when used as conditioning input — retrieval infra is retained for
+future use with real reference tracks.
+
 Also exposed as an MCP tool for external use.
 
 ### Claude API Client
@@ -84,33 +88,30 @@ exporter config.
 ## Agent Loop
 
 ```
-POST /compose  {description, tempo_bpm?, instruments?, duration_seconds?, key?}
+POST /compose  {description, tempo_bpm?, instruments?, duration_seconds?, key?,
+                use_melody_conditioning?, cfg_coeff?, top_k?, temperature?}
   │
   ├─ [span: query_parse]
   │    Claude API → MusicSpec JSON
   │
-  ├─ [span: embed_query]
-  │    CLAP.embed_text(spec.description + mood_tags) → query_vector
-  │
-  ├─ [span: retrieval]
-  │    Qdrant search(query_vector, top_k=3) → reference_tracks[]
+  ├─ (if use_melody_conditioning) [span: retrieval]
+  │    CLAP.embed_text(spec.clap_text()) → Qdrant top-N → reference_tracks[]
   │    top-1: load audio bytes from Modal Volume via corpus_file_path
   │
-  ├─ loop (max 3 attempts):
+  ├─ CLAP.embed_text(spec.clap_text()) → query_vector
+  │
+  ├─ loop (max 2 attempts):
   │    │
   │    ├─ [span: music_generate, attempt=N]
-  │    │    Build text prompt from MusicSpec + reference metadata
-  │    │    Pass top-1 audio as melody conditioning
+  │    │    Build text prompt from MusicSpec
+  │    │    If melody conditioning: pass top-1 audio to generate_with_chroma
   │    │    MusicGen (MBD decoder) → audio_bytes
-  │    │
-  │    ├─ [span: score]
-  │    │    resample audio_bytes 32kHz → 48kHz
-  │    │    CLAP.embed_audio(audio_bytes) → audio_vector
-  │    │    score = cosine_similarity(audio_vector, query_vector)
-  │    │    if score ≥ threshold OR attempt == 3: break
+  │    │    Score: resample 32kHz→48kHz, CLAP audio embed, cosine_similarity
+  │    │    if score ≥ threshold OR attempt == max: break
   │    │
   │    └─ [span: spec_refine, attempt=N]
   │         Claude API(MusicSpec, score, attempt_history) → revised MusicSpec
+  │         Re-embed revised spec as new query_vector
   │
   └─ Response: {audio_bytes, final_spec, similarity_score, attempts, trace_id}
 ```
@@ -127,13 +128,15 @@ EnCodec is the comparison baseline in the benchmark table.
 avoids a network hop on every scoring call in the retry loop. Worth revisiting only if the
 orchestrator becomes multi-process.
 
-**Hard retry cap at 3.** MusicGen's text conditioning has inherent limits — parameter revision
-beyond 3 attempts yields diminishing returns. The retry loop demonstrates the agentic pattern;
+**Hard retry cap at 2.** MusicGen's text conditioning has inherent limits — parameter revision
+beyond 2 attempts yields diminishing returns. The retry loop demonstrates the agentic pattern;
 it is not a guarantee of improvement.
 
-**Similarity threshold empirically calibrated.** CLAP cross-modal similarity in the 0.25–0.35
-range is the practical operating window. Threshold is set per model tag in
-`/eval/thresholds.json` — base model and fine-tuned models need separate calibration.
+**Similarity threshold empirically calibrated.** CLAP cross-modal similarity for melody-large
+(text-only) centers around 0.45 (mean across 24 calibration prompts, range 0.37–0.58).
+Accept threshold set to p25 (0.40) — triggers retries on the weakest ~25% of generations.
+Threshold is set per model tag in `/eval/thresholds.json` — fine-tuned models need separate
+calibration.
 
 **MCP is external-facing only.** The orchestrator calls services directly via Python/HTTP.
 MCP wrappers are standalone layers around the same deployed endpoints, demonstrable independently

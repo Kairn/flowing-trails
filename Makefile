@@ -1,19 +1,19 @@
 .PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze
 
 embed:
-	@echo "Run: modal run retrieval/embed_corpus.py"
+	modal run retrieval/embed_corpus.py
 
 upsert:
-	@echo "Run: modal run retrieval/index_corpus.py"
+	modal run retrieval/index_corpus.py
 
 index:
-	@echo "Run: modal run retrieval/embed_corpus.py && modal run retrieval/index_corpus.py"
+	modal run retrieval/embed_corpus.py && modal run retrieval/index_corpus.py
 
 deploy:
-	@echo "Run: modal deploy orchestrator/app.py"
+	modal deploy orchestrator/app.py
 
 deploy-all:
-	@echo "Run: modal deploy musicgen_service/app.py && modal deploy orchestrator/app.py"
+	modal deploy musicgen_service/app.py && modal deploy orchestrator/app.py
 
 corpus-prompts:
 	python retrieval/generate_corpus_prompts.py
@@ -24,11 +24,12 @@ corpus: corpus-prompts
 corpus-manifest: corpus-prompts
 	modal run retrieval/update_corpus_manifest.py
 
+# Not yet implemented (M4)
 eval:
-	@echo "Run: pytest eval/ -m ci -x"
+	@echo "TODO: pytest eval/ -m ci -x"
 
 eval-full:
-	@echo "Run: pytest eval/ --model haiku"
+	@echo "TODO: pytest eval/ --model haiku"
 
 samples:
 ifndef COMPOSE_URL
