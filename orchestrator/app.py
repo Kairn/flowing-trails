@@ -187,11 +187,12 @@ def _generate_with_scoring(
                 current_spec, melody_wav, melody_sr, gen_params, log
             )
 
-        if audio_bytes is None:
-            log.warning("generate_returned_none", attempt=attempt)
-            return best_audio, best_score, attempt
+            if audio_bytes is None:
+                log.warning("generate_returned_none", attempt=attempt)
+                return best_audio, best_score, attempt
 
-        sim = score_generation(audio_bytes, query_vector)
+            sim = score_generation(audio_bytes, query_vector)
+            gen_span.set_attribute("generate.score", round(sim, 4))
         log.info(
             "score_attempt",
             attempt=attempt,
@@ -236,6 +237,10 @@ def refine_spec(
     with tracer.start_as_current_span("spec_refine") as span:
         span.set_attribute("refine.prior_score", round(score, 4))
         span.set_attribute("refine.attempt", len(history))
+
+        if len(history) >= 2:
+            prev_score = history[-2]["score"]
+            span.set_attribute("refine.score_delta", round(score - prev_score, 4))
 
         user_message = json.dumps({"history": history})
 

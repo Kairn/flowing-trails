@@ -343,19 +343,24 @@ def test_generate_music_omits_none_gen_params(mock_from_name):
 # ── _generate_with_scoring ──────────────────────────────────────────────────
 
 
-class _StubTracer:
-    """Minimal tracer that yields _StubSpan contexts."""
-
-    def start_as_current_span(self, name):
-        return _StubSpanContext()
-
-
 class _StubSpanContext(_StubSpan):
     def __enter__(self):
         return self
 
     def __exit__(self, *args):
         pass
+
+
+class _StubTracer:
+    """Minimal tracer that yields _StubSpan contexts and records them by name."""
+
+    def __init__(self):
+        self.spans: dict[str, list[_StubSpanContext]] = {}
+
+    def start_as_current_span(self, name):
+        span = _StubSpanContext()
+        self.spans.setdefault(name, []).append(span)
+        return span
 
 
 _QUERY_VEC = None  # set per test via fixture
@@ -612,3 +617,87 @@ def test_scoring_loop_no_refine_on_accept(
 
     mock_claude.assert_not_called()
     mock_embed.assert_not_called()
+
+
+# ── OTel span attributes ──────────────────────────────────────────────────
+
+
+@patch("modal.Cls.from_name")
+@patch("scoring.score_generation")
+def test_gen_span_has_score_attribute(mock_score, mock_from_name):
+    mock_instance = MagicMock()
+    mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
+    mock_from_name.return_value.return_value = mock_instance
+
+    mock_score.return_value = 0.42
+
+    query_vec = np.zeros(512, dtype=np.float32)
+    spec = MusicSpec(description="battle theme", duration_seconds=10.0)
+    tracer = _StubTracer()
+
+    _generate_with_scoring(spec, None, None, query_vec, {}, tracer, log)
+
+    gen_spans = tracer.spans["music_generate"]
+    assert len(gen_spans) == 1
+    assert gen_spans[0].attrs["generate.score"] == 0.42
+    assert gen_spans[0].attrs["generate.attempt"] == 1
+
+
+@patch("clap_utils.embed_text")
+@patch("claude_client.call_claude_json")
+@patch("modal.Cls.from_name")
+@patch("scoring.score_generation")
+def test_gen_span_score_on_each_attempt(
+    mock_score, mock_from_name, mock_claude, mock_embed
+):
+    mock_instance = MagicMock()
+    mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
+    mock_from_name.return_value.return_value = mock_instance
+
+    mock_score.side_effect = [0.15, 0.41]
+    mock_claude.return_value = (REFINED_SPEC.copy(), _STUB_USAGE)
+    mock_embed.return_value = np.zeros(512, dtype=np.float32)
+
+    query_vec = np.zeros(512, dtype=np.float32)
+    spec = MusicSpec(description="town theme", duration_seconds=10.0)
+    tracer = _StubTracer()
+
+    _generate_with_scoring(spec, None, None, query_vec, {}, tracer, log)
+
+    gen_spans = tracer.spans["music_generate"]
+    assert len(gen_spans) == 2
+    assert gen_spans[0].attrs["generate.score"] == 0.15
+    assert gen_spans[1].attrs["generate.score"] == 0.41
+
+
+@patch("claude_client.call_claude_json")
+def test_refine_span_has_score_delta(mock_claude):
+    mock_claude.return_value = (REFINED_SPEC.copy(), _STUB_USAGE)
+
+    spec = MusicSpec(description="calm exploration", duration_seconds=10.0)
+    history = [
+        {"spec": spec.model_dump(), "score": 0.10},
+        {"spec": spec.model_dump(), "score": 0.18},
+    ]
+    tracer = _StubTracer()
+
+    refine_spec(spec, 0.18, history, tracer, log)
+
+    refine_spans = tracer.spans["spec_refine"]
+    assert len(refine_spans) == 1
+    assert refine_spans[0].attrs["refine.prior_score"] == 0.18
+    assert refine_spans[0].attrs["refine.score_delta"] == 0.08
+
+
+@patch("claude_client.call_claude_json")
+def test_refine_span_no_delta_on_first_attempt(mock_claude):
+    mock_claude.return_value = (REFINED_SPEC.copy(), _STUB_USAGE)
+
+    spec = MusicSpec(description="dungeon theme", duration_seconds=10.0)
+    history = [{"spec": spec.model_dump(), "score": 0.12}]
+    tracer = _StubTracer()
+
+    refine_spec(spec, 0.12, history, tracer, log)
+
+    refine_spans = tracer.spans["spec_refine"]
+    assert "refine.score_delta" not in refine_spans[0].attrs
