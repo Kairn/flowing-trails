@@ -3,33 +3,33 @@
     "id": "battle-01",
     "category": "battle",
     "description": "Fast-paced battle theme with driving drums and brass fanfares, high intensity combat music",
-    "score": 0.2725,
-    "attempts": 2,
-    "latency_s": 61.15,
+    "score": 0.489,
+    "attempts": 1,
+    "latency_s": 231.94,
     "has_audio": true,
-    "trace_id": "8b29c0672d8aad94ae48faa5120a59bf",
+    "trace_id": "bc88a6335c54d12b76c291414f939d69",
     "spec": {
-      "description": "A high-octane battle theme driven by thunderous orchestral percussion and bold brass fanfares, with relentless snare rolls and powerful timpani hits underpinning heroic horn stabs. Full orchestral forces surge with urgency and aggression, conveying the chaos and intensity of epic combat.",
-      "genre": "orchestral battle music",
+      "description": "A high-intensity battle theme driven by thunderous orchestral drums and blazing brass fanfares, with relentless momentum and heroic urgency. Punchy timpani hits and aggressive horn stabs surge forward over a bed of driving percussion, evoking epic combat and adrenaline-fueled confrontation.",
+      "genre": "orchestral action",
       "mood_tags": [
         "intense",
         "heroic",
+        "adrenaline-fueled",
         "aggressive",
-        "triumphant",
-        "adrenaline-fueled"
+        "triumphant"
       ],
       "instruments": [
-        "brass section",
-        "French horns",
+        "brass ensemble",
+        "french horns",
         "trumpets",
         "trombones",
         "timpani",
+        "orchestral drums",
         "snare drum",
-        "orchestral percussion",
         "strings",
         "cymbals"
       ],
-      "tempo_bpm": 180,
+      "tempo_bpm": 178,
       "key": "D minor",
       "energy": "high",
       "duration_seconds": 10.0,
@@ -42,35 +42,35 @@
     "id": "battle-02",
     "category": "battle",
     "description": "Frantic string-driven fight music with rapid tempo changes and staccato hits",
-    "score": 0.3531,
+    "score": 0.4531,
     "attempts": 1,
-    "latency_s": 31.82,
+    "latency_s": 28.82,
     "has_audio": true,
-    "trace_id": "4187f29c11cd00aec5926e37cafd0bce",
+    "trace_id": "dc503434c132462ea2272393ad5bf602",
     "spec": {
-      "description": "Frantic, high-intensity battle music driven by rapid staccato string hits and aggressive bowing, with sudden tempo lurches and abrupt rhythmic accents that keep the listener off-balance. Fierce violins and cellos trade jagged phrases over pounding orchestral percussion, creating a chaotic yet purposeful sense of desperate combat. Brass stabs punctuate the relentless string frenzy, surging with adrenaline and tension.",
-      "genre": "orchestral action",
+      "description": "Frantic orchestral battle music driven by aggressive staccato string hits and rapid swells, with lurching tempo shifts that keep the listener off-balance. Tight pizzicato accents punctuate driving violins and cellos, layered with sharp brass stabs and thunderous percussion to create a chaotic, pulse-pounding fight atmosphere.",
+      "genre": "orchestral battle theme",
       "mood_tags": [
         "frantic",
         "intense",
-        "desperate combat",
-        "chaotic tension",
-        "adrenaline-fueled"
+        "chaotic",
+        "aggressive",
+        "pulse-pounding"
       ],
       "instruments": [
         "strings",
         "violins",
         "cellos",
-        "orchestral percussion",
         "brass",
         "timpani",
-        "snare drum"
+        "orchestral percussion",
+        "pizzicato bass"
       ],
-      "tempo_bpm": 180,
+      "tempo_bpm": 178,
       "key": "D minor",
       "energy": "high",
       "duration_seconds": 10.0,
-      "style_hint": "Yoko Shimomura action battle style, reminiscent of Kingdom Hearts or Final Fantasy XV battle themes"
+      "style_hint": "Yoko Shimomura action-orchestral style, Kingdom Hearts boss battle energy"
     },
     "wav_file": "calibration_battle-02.wav",
     "audio_size_bytes": 640044
@@ -79,36 +79,37 @@
     "id": "boss-01",
     "category": "boss",
     "description": "Epic orchestral boss battle theme with heavy percussion, choir, and dark dramatic tension",
-    "score": 0.3636,
-    "attempts": 2,
-    "latency_s": 66.28,
+    "score": 0.5259,
+    "attempts": 1,
+    "latency_s": 28.74,
     "has_audio": true,
-    "trace_id": "0bb1a2e91ce63eac3f68767eea242ca0",
+    "trace_id": "274d784a645f1073f8bd2a468a13863c",
     "spec": {
-      "description": "A thunderous orchestral boss battle theme driven by massive taiko drums and pounding timpani, with a dark menacing brass section blasting powerful staccato hits. A full choir chants ominous Latin-style syllables beneath sweeping string ostinatos, building relentless dramatic tension and a sense of overwhelming, ancient evil.",
-      "genre": "orchestral battle theme",
+      "description": "A thunderous orchestral boss battle theme driven by massive taiko drums and pounding timpani, layered with a dark choral ensemble chanting ominous Latin-style phrases. Sweeping brass stabs and razor-sharp string ostinatos build relentless dramatic tension, evoking a climactic confrontation with an overwhelming evil force.",
+      "genre": "orchestral game soundtrack",
       "mood_tags": [
-        "epic",
         "dark and menacing",
+        "epic confrontation",
         "dramatic tension",
-        "overwhelming power",
-        "ominous"
+        "triumphant struggle",
+        "ominous power"
       ],
       "instruments": [
+        "full orchestra",
+        "choir",
+        "brass section",
         "taiko drums",
         "timpani",
-        "brass section",
+        "string ostinatos",
         "French horns",
-        "full choir",
-        "strings",
-        "orchestral percussion",
-        "pipe organ"
+        "trombone",
+        "bass drums"
       ],
       "tempo_bpm": 148,
       "key": "D minor",
       "energy": "high",
       "duration_seconds": 10.0,
-      "style_hint": "Nobuo Uematsu One-Winged Angel style, Final Fantasy boss battle, modern JRPG orchestral"
+      "style_hint": "Nobuo Uematsu One-Winged Angel style, modern JRPG epic boss theme circa 2010s-2020s"
     },
     "wav_file": "calibration_boss-01.wav",
     "audio_size_bytes": 640044
@@ -117,34 +118,35 @@
     "id": "boss-02",
     "category": "boss",
     "description": "Menacing synth-heavy boss encounter music with distorted bass and relentless drive",
-    "score": 0.3088,
-    "attempts": 2,
-    "latency_s": 60.69,
+    "score": 0.3862,
+    "attempts": 1,
+    "latency_s": 29.29,
     "has_audio": true,
-    "trace_id": "953a41925a4affa972d1859cf1e80b6a",
+    "trace_id": "dbca3e3d55c573a97d04dfb59f8f1e0c",
     "spec": {
-      "description": "A menacing, synth-heavy boss battle theme driven by a relentless, pounding rhythm and thick distorted bass. Aggressive sawtooth synth leads cut through layers of dark, industrial pads while punchy percussion hammers forward with unstoppable momentum. The atmosphere is tense and threatening, evoking a powerful, overwhelming enemy encounter.",
-      "genre": "electronic industrial boss theme",
+      "description": "Menacing, synth-heavy boss battle music driven by distorted bass synths and relentless pounding drums. Dark, aggressive layers of industrial synthesizers and grinding low-end textures create an overwhelming sense of dread and urgency. Relentless rhythmic momentum with jagged synth stabs and ominous lead lines pushing forward without letting up.",
+      "genre": "industrial electronic / synthwave boss theme",
       "mood_tags": [
         "menacing",
         "relentless",
-        "dark and threatening",
-        "intense",
-        "powerful"
+        "dark and aggressive",
+        "high-tension",
+        "ominous dread"
       ],
       "instruments": [
         "distorted bass synth",
-        "sawtooth lead synth",
-        "industrial pads",
-        "electronic drums",
-        "sub-bass",
-        "aggressive percussion"
+        "industrial drums",
+        "lead synthesizer",
+        "synth stabs",
+        "sub bass",
+        "percussive noise hits",
+        "dark pad"
       ],
       "tempo_bpm": 155,
       "key": "D minor",
       "energy": "high",
       "duration_seconds": 10.0,
-      "style_hint": "industrial electronic VGM boss theme, Mick Gordon DOOM style, modern action game"
+      "style_hint": "industrial synth boss theme, Mick Gordon DOOM-era style, dark electronic VGM"
     },
     "wav_file": "calibration_boss-02.wav",
     "audio_size_bytes": 640044
@@ -153,35 +155,65 @@
     "id": "boss-03",
     "category": "boss",
     "description": "Multi-phase boss theme that builds from ominous low strings to full orchestral assault",
-    "score": null,
-    "attempts": null,
-    "latency_s": 7.14,
-    "has_audio": false,
-    "error": "500 Server Error: Internal Server Error for url: https://kairn--flowing-trails-compose.modal.run/"
+    "score": 0.4093,
+    "attempts": 1,
+    "latency_s": 34.68,
+    "has_audio": true,
+    "trace_id": "345309803e1273bb4b3af86530d289b9",
+    "spec": {
+      "description": "A multi-phase boss theme beginning with ominous, brooding low strings and contrabass rumbles that slowly gather tension, then erupting into a full orchestral assault of brass fanfares, driving percussion, and aggressive violins. Thunderous timpani and war drums pound beneath soaring french horns and shrieking string ostinatos, conveying an overwhelming sense of dread and epic confrontation.",
+      "genre": "cinematic orchestral",
+      "mood_tags": [
+        "ominous",
+        "epic confrontation",
+        "building dread",
+        "triumphant aggression",
+        "overwhelming power"
+      ],
+      "instruments": [
+        "contrabass",
+        "cello section",
+        "french horns",
+        "brass ensemble",
+        "timpani",
+        "war drums",
+        "violin section",
+        "viola",
+        "orchestral percussion",
+        "low woodwinds"
+      ],
+      "tempo_bpm": 148,
+      "key": "D minor",
+      "energy": "high",
+      "duration_seconds": 10.0,
+      "style_hint": "Yasunori Mitsuda meets Hans Zimmer, dark JRPG final boss orchestral style, reminiscent of late-era PlayStation 2 JRPG boss themes"
+    },
+    "wav_file": "calibration_boss-03.wav",
+    "audio_size_bytes": 640044
   },
   {
     "id": "exploration-01",
     "category": "exploration",
     "description": "Gentle exploration theme with acoustic guitar and flute, evoking a sunlit meadow",
-    "score": 0.3564,
+    "score": 0.5082,
     "attempts": 1,
-    "latency_s": 32.15,
+    "latency_s": 28.8,
     "has_audio": true,
-    "trace_id": "0518be1bf17ff820daf8986d2bf9cdfe",
+    "trace_id": "6ea78c43ca8bf40551f182b4ace54540",
     "spec": {
-      "description": "A gentle, sun-drenched exploration theme featuring fingerpicked acoustic guitar and breathy wooden flute melodies dancing over soft ambient pads. The texture is warm and open, evoking a peaceful sunlit meadow with light breezes and birdsong in the distance. Delicate and unhurried, with a folk-inspired lilt that invites wandering and discovery.",
-      "genre": "acoustic folk ambient",
+      "description": "A gentle, airy exploration theme featuring fingerpicked acoustic guitar and soft breathy flute melodies weaving together over warm ambient pads. Sunlit and serene, evoking wandering through an open meadow on a calm morning, with a light pastoral feel and natural, organic textures.",
+      "genre": "RPG exploration / pastoral ambient",
       "mood_tags": [
         "serene",
-        "whimsical",
-        "pastoral",
-        "warm",
-        "hopeful"
+        "sunlit",
+        "peaceful wandering",
+        "nature-inspired",
+        "whimsical"
       ],
       "instruments": [
         "acoustic guitar",
-        "wooden flute",
-        "ambient pad",
+        "flute",
+        "ambient pads",
         "light percussion",
         "strings"
       ],
@@ -189,7 +221,7 @@
       "key": "G major",
       "energy": "low",
       "duration_seconds": 10.0,
-      "style_hint": "Zelda: Breath of the Wild overworld ambient style, Nintendo pastoral exploration"
+      "style_hint": "Hayao Miyazaki / Studio Ghibli game soundtrack feel, Joe Hisaishi pastoral style"
     },
     "wav_file": "calibration_exploration-01.wav",
     "audio_size_bytes": 640044
@@ -198,33 +230,34 @@
     "id": "exploration-02",
     "category": "exploration",
     "description": "Curious wandering music with plucked strings and light woodwinds, sense of discovery",
-    "score": 0.3129,
-    "attempts": 2,
-    "latency_s": 58.58,
+    "score": 0.483,
+    "attempts": 1,
+    "latency_s": 28.67,
     "has_audio": true,
-    "trace_id": "9dd93208ea68c8209fdfcf1a0a06162b",
+    "trace_id": "9cbba63f44381838eebe997c6af5cb87",
     "spec": {
-      "description": "A gentle, meandering melody carried by plucked lute and pizzicato strings, accompanied by airy flute and soft oboe phrases. The music drifts with a light, inquisitive quality, evoking open fields and hidden paths waiting to be explored. Occasional harp flourishes and delicate woodwind trills add a sense of wonder and childlike discovery.",
-      "genre": "orchestral adventure",
+      "description": "A gentle, curious melody carried by plucked lute and pizzicato strings, weaving through airy flute and oboe phrases that float like sunlight through leaves. The music has a wandering, exploratory quality with soft rhythmic plucks driving a light, bouncy forward motion, evoking the feeling of stepping into an unknown world full of wonder and possibility.",
+      "genre": "JRPG exploration / adventure",
       "mood_tags": [
         "curious",
         "whimsical",
         "sense of discovery",
-        "lighthearted wandering",
-        "serene exploration"
+        "lighthearted wonder",
+        "gentle adventure"
       ],
       "instruments": [
         "plucked lute",
         "pizzicato strings",
         "flute",
         "oboe",
-        "harp"
+        "light harp",
+        "soft percussion"
       ],
-      "tempo_bpm": 88,
+      "tempo_bpm": 96,
       "key": "G major",
       "energy": "low",
       "duration_seconds": 10.0,
-      "style_hint": "Studio Ghibli inspired field exploration theme, warm acoustic orchestral style"
+      "style_hint": "Yasunori Mitsuda pastoral style, early JRPG overworld exploration, Chrono Trigger world map feel"
     },
     "wav_file": "calibration_exploration-02.wav",
     "audio_size_bytes": 640044
@@ -233,34 +266,30 @@
     "id": "exploration-03",
     "category": "exploration",
     "description": "Open-world overworld theme with sweeping strings and a heroic French horn melody",
-    "score": 0.3615,
+    "score": 0.4755,
     "attempts": 1,
-    "latency_s": 32.15,
+    "latency_s": 27.65,
     "has_audio": true,
-    "trace_id": "5956d82030d524e4ec420f382752b5e0",
+    "trace_id": "9e1893991c3317db9d59999b7110c1ff",
     "spec": {
-      "description": "A sweeping, heroic orchestral overworld theme featuring soaring French horn melody lines over lush string sections, evoking vast open landscapes and the thrill of exploration. Rich brass harmonies swell beneath cascading violins and violas, with light woodwind accents adding warmth and wonder to the adventurous soundscape.",
-      "genre": "orchestral video game music",
+      "description": "Sweeping orchestral strings surge beneath a soaring French horn melody, evoking vast open landscapes and the thrill of exploration. Warm woodwind countermelodies weave through lush harmonic pads while a steady orchestral percussion pulse drives the sense of forward momentum and adventure.",
+      "genre": "orchestral adventure",
       "mood_tags": [
         "heroic",
-        "adventurous",
-        "sweeping",
+        "expansive",
         "uplifting",
-        "wonder-filled"
+        "epic",
+        "adventurous"
       ],
       "instruments": [
         "French horn",
         "strings",
-        "violins",
-        "violas",
-        "cellos",
         "woodwinds",
-        "oboe",
-        "flute",
-        "brass section",
-        "timpani"
+        "orchestral percussion",
+        "timpani",
+        "harp"
       ],
-      "tempo_bpm": 88,
+      "tempo_bpm": 108,
       "key": "D major",
       "energy": "medium",
       "duration_seconds": 10.0,
@@ -273,33 +302,32 @@
     "id": "ambient-01",
     "category": "ambient",
     "description": "Ethereal ambient soundscape with slow reverbed pads and distant chimes, peaceful and still",
-    "score": 0.1318,
-    "attempts": 2,
-    "latency_s": 59.41,
+    "score": 0.384,
+    "attempts": 1,
+    "latency_s": 27.85,
     "has_audio": true,
-    "trace_id": "10992a7a80ab69c82d1275bdaef230c3",
+    "trace_id": "00d8ac952a3b0483b6cf858e23da7240",
     "spec": {
-      "description": "Ethereal ambient soundscape featuring slow, heavily reverbed synthesizer pads that drift and swell like mist, with distant crystalline chimes sparkling softly in the background. The texture is vast and still, evoking a sense of peaceful solitude and timeless calm, with long sustained tones that breathe gently and fade into silence.",
+      "description": "Ethereal ambient soundscape built from slow, heavily reverbed synthesizer pads that bloom and fade like mist, layered with distant crystalline chimes drifting in and out of the stereo field. The atmosphere is vast, still, and weightless, evoking an empty sacred space or a tranquil moment between worlds.",
       "genre": "ambient",
       "mood_tags": [
         "ethereal",
         "peaceful",
         "serene",
-        "meditative",
-        "otherworldly"
+        "otherworldly",
+        "meditative"
       ],
       "instruments": [
         "synthesizer pads",
         "chimes",
-        "reverb textures",
-        "ambient drone",
-        "bell tones"
+        "reverb-drenched strings",
+        "soft bell tones"
       ],
       "tempo_bpm": 55,
       "key": "D major",
       "energy": "low",
       "duration_seconds": 10.0,
-      "style_hint": "ambient game menu or title screen, Hiroshi Yoshimura atmospheric style"
+      "style_hint": "Brian Eno ambient style, healing shrine music in the vein of Zelda or Final Fantasy calm areas"
     },
     "wav_file": "calibration_ambient-01.wav",
     "audio_size_bytes": 640044
@@ -308,34 +336,33 @@
     "id": "ambient-02",
     "category": "ambient",
     "description": "Deep space ambient music with low drones, shimmer textures, and subtle evolving tones",
-    "score": 0.1113,
-    "attempts": 2,
-    "latency_s": 71.5,
+    "score": 0.4273,
+    "attempts": 1,
+    "latency_s": 34.2,
     "has_audio": true,
-    "trace_id": "69d28daf017efbb9ea5f8213e66021c7",
+    "trace_id": "e6389efb30b59443aa2dcbf65c0363ab",
     "spec": {
-      "description": "Vast deep space ambient soundscape featuring low rumbling drones that slowly pulse beneath shimmering ethereal pads, with subtle evolving tones that drift and morph like cosmic nebulae. Soft synthetic textures layer over resonant sub-bass frequencies, evoking the cold, infinite silence of outer space. Delicate metallic overtones and spectral washes emerge and dissolve in slow, hypnotic waves.",
+      "description": "Vast, immersive deep space ambient soundscape featuring slow low-frequency drones that rumble beneath shimmering metallic pad textures. Subtle evolving tones drift and morph like cosmic nebulae, creating a sense of infinite silence and weightless exploration. Cold, ethereal synthesizer layers breathe slowly with gentle reverb tails fading into darkness.",
       "genre": "ambient space music",
       "mood_tags": [
-        "cosmic",
-        "vast",
-        "mysterious",
         "ethereal",
+        "vast and cosmic",
+        "mysterious",
+        "weightless",
         "meditative"
       ],
       "instruments": [
-        "synthesizer pads",
-        "sub-bass drone",
-        "ambient textures",
-        "metallic tones",
-        "spectral washes",
-        "theremin-like tones"
+        "synthesizer drones",
+        "pad synthesizer",
+        "sub bass drone",
+        "ethereal synth textures",
+        "reverb-drenched tonal swells"
       ],
       "tempo_bpm": null,
       "key": "C minor",
       "energy": "low",
       "duration_seconds": 10.0,
-      "style_hint": "Brian Eno ambient style, Mass Effect ambient soundtrack feel"
+      "style_hint": "Brian Eno ambient style meets sci-fi video game soundtrack, Mass Effect deep space exploration atmosphere"
     },
     "wav_file": "calibration_ambient-02.wav",
     "audio_size_bytes": 640044
@@ -344,34 +371,34 @@
     "id": "ambient-03",
     "category": "ambient",
     "description": "Underwater ambient theme with muffled bubbling textures and slow melodic fragments",
-    "score": 0.3036,
+    "score": 0.4046,
     "attempts": 1,
-    "latency_s": 32.08,
+    "latency_s": 27.64,
     "has_audio": true,
-    "trace_id": "d8c7c6846ae93733e5b93489cc2a8b41",
+    "trace_id": "fada8f9f90a576c36511b678ec0b2e5e",
     "spec": {
-      "description": "A serene underwater ambient theme featuring slow, drifting melodic fragments on soft flute and gentle marimba, layered beneath muffled bubbling water textures and deep oceanic pads. The atmosphere is dreamlike and weightless, with wide reverb and subtle shimmering synth waves evoking the quiet depth of an unexplored sea.",
-      "genre": "ambient",
+      "description": "A dreamy underwater ambient soundscape with muffled, gurgling bubble textures drifting beneath slow, gentle melodic fragments played on soft synth pads and bell-like tones. The atmosphere is serene and mysterious, evoking the quiet depth of an ocean floor with subtle watery reverb washing over every sound.",
+      "genre": "ambient / underwater",
       "mood_tags": [
         "serene",
         "mysterious",
-        "dreamlike",
-        "weightless",
-        "ethereal"
+        "dreamy",
+        "ethereal",
+        "submerged"
       ],
       "instruments": [
-        "flute",
+        "synth pads",
+        "bells",
         "marimba",
-        "synthesizer pads",
-        "ambient water textures",
-        "soft bass synth",
-        "vibraphone"
+        "underwater sound effects",
+        "filtered bass",
+        "soft strings"
       ],
-      "tempo_bpm": 60,
+      "tempo_bpm": 55,
       "key": "D minor",
       "energy": "low",
       "duration_seconds": 10.0,
-      "style_hint": "aquatic JRPG zone music, Koji Kondo underwater level style, early 2000s ambient game soundtrack"
+      "style_hint": "aquatic JRPG stage music, Koji Kondo water world aesthetic, early 2000s ambient game soundtrack"
     },
     "wav_file": "calibration_ambient-03.wav",
     "audio_size_bytes": 640044
@@ -380,34 +407,34 @@
     "id": "town-01",
     "category": "town",
     "description": "Warm and inviting village theme with accordion and light percussion, European folk feel",
-    "score": 0.3592,
+    "score": 0.4264,
     "attempts": 2,
-    "latency_s": 63.73,
+    "latency_s": 54.89,
     "has_audio": true,
-    "trace_id": "cd3c47185609f26a06311dc302e696ce",
+    "trace_id": "36cbb4a13c3a183878cbc67e0baa639d",
     "spec": {
-      "description": "A warm and inviting village theme featuring a cheerful accordion melody dancing over light hand percussion and gentle acoustic strumming. The music evokes cobblestone streets and friendly townsfolk, with a lively European folk character that feels cozy and welcoming. Subtle woodwind accents and a bouncy rhythm give the piece a charming, handcrafted quality.",
-      "genre": "European folk / village RPG",
+      "description": "A warm, inviting village theme featuring a bright accordion melody carried over gentle acoustic guitar strumming and light hand percussion. The atmosphere is cheerful and rustic, evoking a bustling European countryside village on a sunny afternoon. Lively folk rhythms and woodwind accents give the piece an organic, communal feeling.",
+      "genre": "European folk / JRPG town theme",
       "mood_tags": [
         "warm",
         "cheerful",
-        "cozy",
+        "rustic",
         "inviting",
-        "rustic"
+        "whimsical"
       ],
       "instruments": [
         "accordion",
         "acoustic guitar",
+        "hand percussion",
         "tambourine",
-        "light hand percussion",
         "flute",
-        "upright bass"
+        "light bass"
       ],
-      "tempo_bpm": 104,
+      "tempo_bpm": 112,
       "key": "G major",
       "energy": "medium",
       "duration_seconds": 10.0,
-      "style_hint": "JRPG town theme with Central European folk influence, reminiscent of early Dragon Quest or Stardew Valley village music"
+      "style_hint": "French/Eastern European folk influenced JRPG village music, Yoko Shimomura warm town theme style"
     },
     "wav_file": "calibration_town-01.wav",
     "audio_size_bytes": 640044
@@ -416,35 +443,36 @@
     "id": "town-02",
     "category": "town",
     "description": "Bustling market town music with upbeat tempo, hand claps, and cheerful woodwinds",
-    "score": 0.3022,
+    "score": 0.3846,
     "attempts": 1,
-    "latency_s": 31.21,
+    "latency_s": 28.66,
     "has_audio": true,
-    "trace_id": "69c4a476bfd26f51b898189fc3d78def",
+    "trace_id": "b7a77d9caa65426c98611542834848db",
     "spec": {
-      "description": "A lively, upbeat market town theme featuring cheerful woodwind melodies\u2014flutes and clarinets weaving bright, playful lines\u2014over a bouncy rhythm driven by hand claps and light percussion. The atmosphere is warm and bustling, evoking cobblestone streets filled with vendors and townsfolk going about their day.",
-      "genre": "JRPG town theme",
+      "description": "A lively, upbeat market town theme featuring cheerful woodwind melodies dancing over a bouncy rhythmic bed with hand claps and light percussion. Flutes and clarinets trade playful phrases while an accordion and acoustic guitar strum along, evoking the warm bustle of a sun-drenched village square full of merchants and townsfolk.",
+      "genre": "folk-inspired video game town music",
       "mood_tags": [
         "cheerful",
         "bustling",
-        "lively",
-        "warm",
-        "playful"
+        "warm and lively",
+        "playful",
+        "carefree"
       ],
       "instruments": [
         "flute",
         "clarinet",
-        "oboe",
-        "hand claps",
+        "accordion",
         "acoustic guitar",
+        "hand claps",
+        "tambourine",
         "light percussion",
-        "glockenspiel"
+        "double bass"
       ],
-      "tempo_bpm": 148,
+      "tempo_bpm": 138,
       "key": "G major",
       "energy": "medium",
       "duration_seconds": 10.0,
-      "style_hint": "classic JRPG town music, Nobuo Uematsu or Yasunori Mitsuda style, 16-bit to early orchestral era"
+      "style_hint": "JRPG town theme in the style of classic Dragon Quest or Stardew Valley, bright and welcoming"
     },
     "wav_file": "calibration_town-02.wav",
     "audio_size_bytes": 640044
@@ -453,35 +481,35 @@
     "id": "dungeon-01",
     "category": "dungeon",
     "description": "Dark and tense dungeon crawl music with low strings, sparse percussion, and eerie echoes",
-    "score": 0.2303,
-    "attempts": 2,
-    "latency_s": 66.53,
+    "score": 0.5347,
+    "attempts": 1,
+    "latency_s": 28.69,
     "has_audio": true,
-    "trace_id": "7a1cfb5e8b02ce2830e7e6bd9df349a3",
+    "trace_id": "19104afc14778e6196ffe1738492f649",
     "spec": {
-      "description": "A tense, atmospheric dungeon crawl cue built on slow, brooding low strings that drone and swell ominously beneath sparse, distant percussion hits. Eerie echoing tones and subtle dissonant textures create a sense of lurking danger and creeping dread, as if something unseen watches from the shadows.",
-      "genre": "dark ambient fantasy",
+      "description": "A brooding, atmospheric dungeon crawl cue built on low tremolo strings and sparse, hollow percussion hits that echo into darkness. Eerie sustained tones drift beneath occasional dissonant stabs, creating a sense of lurking danger and deep underground dread. The texture is sparse yet oppressive, with reverb-drenched sound design evoking cold stone corridors and unseen threats.",
+      "genre": "dark ambient RPG",
       "mood_tags": [
         "tense",
         "ominous",
         "eerie",
-        "brooding",
-        "suspenseful"
+        "foreboding",
+        "atmospheric"
       ],
       "instruments": [
         "low strings",
-        "cello",
-        "contrabass",
+        "tremolo strings",
         "taiko drums",
+        "bass drum",
         "orchestral percussion",
-        "reverb pads",
-        "ambient echoes"
+        "ambient pads",
+        "contrabass"
       ],
       "tempo_bpm": 58,
       "key": "D minor",
       "energy": "low",
       "duration_seconds": 10.0,
-      "style_hint": "classic JRPG dungeon ambient, Yasunori Mitsuda dark orchestral style"
+      "style_hint": "FromSoftware dungeon atmosphere, Yasunori Mitsuda dark ambient style, classic JRPG underground cavern music"
     },
     "wav_file": "calibration_dungeon-01.wav",
     "audio_size_bytes": 640044
@@ -490,33 +518,35 @@
     "id": "dungeon-02",
     "category": "dungeon",
     "description": "Claustrophobic cave theme with dripping water sounds, dissonant chords, and creeping tension",
-    "score": 0.2193,
-    "attempts": 2,
-    "latency_s": 64.36,
+    "score": 0.4477,
+    "attempts": 1,
+    "latency_s": 34.81,
     "has_audio": true,
-    "trace_id": "7a789c321b912e5f6e69e0b18526c183",
+    "trace_id": "770fd6558487122c08726d2d9eb4185f",
     "spec": {
-      "description": "A suffocating underground cave atmosphere built on dissonant string clusters and low droning synth pads, punctuated by the irregular drip and echo of water in a vast stone chamber. Creeping tension rises through slow, unsettling harmonic shifts and sparse muted piano notes that emerge like ghostly footsteps in the dark.",
-      "genre": "ambient horror",
+      "description": "A dark, claustrophobic cave ambient piece featuring slow dissonant string clusters and deep resonant bass drones that pulse with creeping dread. Eerie muted piano accents echo in hollow reverb alongside the rhythmic drip of water, creating a suffocating underground atmosphere. Low synthesizer tones swell unpredictably, underscoring a constant sense of lurking danger and unease.",
+      "genre": "dark ambient dungeon",
       "mood_tags": [
         "claustrophobic",
-        "tense",
-        "eerie",
-        "foreboding",
-        "dissonant"
+        "tense and creeping",
+        "ominous dread",
+        "eerie dissonance",
+        "foreboding"
       ],
       "instruments": [
         "strings",
-        "synth pads",
-        "muted piano",
         "bass drone",
-        "percussion"
+        "muted piano",
+        "low synthesizer pads",
+        "ambient water drips",
+        "cello",
+        "contrabass"
       ],
-      "tempo_bpm": 55,
+      "tempo_bpm": 48,
       "key": "D minor",
       "energy": "low",
       "duration_seconds": 10.0,
-      "style_hint": "dark ambient dungeon crawl, Metroid Prime atmospheric style"
+      "style_hint": "dark JRPG dungeon ambience, reminiscent of Castlevania or Demon's Souls underground areas"
     },
     "wav_file": "calibration_dungeon-02.wav",
     "audio_size_bytes": 640044
@@ -525,34 +555,34 @@
     "id": "dungeon-03",
     "category": "dungeon",
     "description": "Ancient ruins exploration with mysterious harp arpeggios and deep reverberant percussion",
-    "score": 0.3805,
-    "attempts": 2,
-    "latency_s": 69.74,
+    "score": 0.4128,
+    "attempts": 1,
+    "latency_s": 28.24,
     "has_audio": true,
-    "trace_id": "f0028012049d69d7c3e93b0bcb285dd0",
+    "trace_id": "83fbe78e5e6832c4c2c7a685cc77c99d",
     "spec": {
-      "description": "Mysterious harp arpeggios drift through cavernous reverb, evoking crumbling stone corridors and forgotten civilizations. Deep ceremonial percussion rumbles beneath like distant thunder trapped in ancient walls, while sparse ethereal tones shimmer in the decay. The atmosphere is hushed and reverent, full of wonder and hidden danger.",
+      "description": "Ethereal harp arpeggios echo through vast stone chambers, weaving a sense of ancient mystery and wonder. Deep, reverberant percussion strikes resonate like distant ritual drums, decaying slowly into cavernous silence. Atmospheric ambient textures and subtle wind-like pads evoke crumbling temples and forgotten civilizations.",
       "genre": "ambient exploration",
       "mood_tags": [
         "mysterious",
         "ancient",
-        "atmospheric wonder",
-        "eerie reverence",
-        "haunting"
+        "ethereal",
+        "contemplative",
+        "foreboding"
       ],
       "instruments": [
         "harp",
         "taiko drums",
-        "ambient pads",
-        "low strings",
-        "metallic percussion",
-        "resonant bells"
+        "orchestral pads",
+        "ambient wind textures",
+        "low brass drones",
+        "celesta"
       ],
       "tempo_bpm": 58,
       "key": "D minor",
       "energy": "low",
       "duration_seconds": 10.0,
-      "style_hint": "Yasunori Mitsuda ancient world ambience, Tomb Raider or Zelda dungeon exploration style"
+      "style_hint": "Yasunori Mitsuda ambient dungeon exploration, ancient world JRPG atmosphere"
     },
     "wav_file": "calibration_dungeon-03.wav",
     "audio_size_bytes": 640044
@@ -561,14 +591,14 @@
     "id": "puzzle-01",
     "category": "puzzle",
     "description": "Playful puzzle room music with marimba, pizzicato strings, and a quirky repeating motif",
-    "score": 0.2857,
-    "attempts": 2,
-    "latency_s": 58.75,
+    "score": 0.3712,
+    "attempts": 1,
+    "latency_s": 35.43,
     "has_audio": true,
-    "trace_id": "e956c541265febb96114bfe237d78dc5",
+    "trace_id": "4a32d7e9c8141ac6b5b673b125ca6d12",
     "spec": {
-      "description": "A lighthearted and whimsical puzzle room theme built around a quirky, repeating melodic motif played on bright marimba with bouncy pizzicato strings weaving underneath. The texture is airy and playful, with a gentle rhythmic bounce that keeps the mind engaged without feeling rushed, evoking the cheerful curiosity of exploring a clever little mystery.",
-      "genre": "puzzle game / casual game OST",
+      "description": "A lighthearted and whimsical puzzle room theme driven by bouncy marimba melodies and plucked pizzicato strings, with a quirky, ear-wormy repeating motif that feels both playful and slightly mysterious. Bright, clean textures keep the mood curious and inviting, like a colorful toy box coming to life.",
+      "genre": "puzzle game BGM",
       "mood_tags": [
         "playful",
         "whimsical",
@@ -580,14 +610,14 @@
         "marimba",
         "pizzicato strings",
         "glockenspiel",
-        "light percussion",
-        "acoustic bass"
+        "light woodwinds",
+        "subtle hand percussion"
       ],
-      "tempo_bpm": 112,
+      "tempo_bpm": 118,
       "key": "G major",
-      "energy": "low",
+      "energy": "medium",
       "duration_seconds": 10.0,
-      "style_hint": "Nintendo puzzle game style, reminiscent of Professor Layton or Yoshi's Island OST era"
+      "style_hint": "Nintendo puzzle game style, reminiscent of Yoshi's Island or Professor Layton soundtrack"
     },
     "wav_file": "calibration_puzzle-01.wav",
     "audio_size_bytes": 640044
@@ -596,32 +626,32 @@
     "id": "puzzle-02",
     "category": "puzzle",
     "description": "Minimalist thinking music with piano and soft electronic pulses, calm but focused",
-    "score": 0.1942,
-    "attempts": 2,
-    "latency_s": 56.15,
+    "score": 0.3906,
+    "attempts": 1,
+    "latency_s": 32.78,
     "has_audio": true,
-    "trace_id": "91ca0894e83fd0be8c3858c58c6f6e16",
+    "trace_id": "10100fab8b767895e9cf9842ef3821fd",
     "spec": {
-      "description": "A sparse, contemplative piano melody floats over soft electronic pulses and gentle sub-bass hums, creating a calm yet mentally alert atmosphere. The notes breathe with space between them, evoking quiet concentration and measured thought.",
+      "description": "A minimalist piano melody weaves gently over soft electronic pulses and subtle ambient pads, creating a calm yet mentally focused atmosphere. Sparse, deliberate notes ring out with clean reverb while quiet synth textures breathe underneath, evoking quiet concentration and thoughtful problem-solving.",
       "genre": "ambient electronic",
       "mood_tags": [
-        "contemplative",
         "focused",
         "calm",
-        "introspective",
-        "minimalist"
+        "contemplative",
+        "minimalist",
+        "introspective"
       ],
       "instruments": [
         "piano",
-        "electronic pulses",
-        "soft synthesizer pads",
-        "sub-bass"
+        "soft synth pads",
+        "electronic pulse",
+        "light ambient texture"
       ],
       "tempo_bpm": 72,
       "key": "D minor",
       "energy": "low",
       "duration_seconds": 10.0,
-      "style_hint": "Brian Eno ambient minimalism meets puzzle game soundtrack, akin to The Witness or Portal 2 thinking music"
+      "style_hint": "puzzle game thinking music, Austin Wintory ambient style"
     },
     "wav_file": "calibration_puzzle-02.wav",
     "audio_size_bytes": 640044
@@ -630,30 +660,29 @@
     "id": "sad-01",
     "category": "sad",
     "description": "Melancholy piano piece with slow tempo, minor key, and a feeling of loss and longing",
-    "score": 0.5096,
-    "attempts": 2,
-    "latency_s": 56.59,
+    "score": 0.5644,
+    "attempts": 1,
+    "latency_s": 27.64,
     "has_audio": true,
-    "trace_id": "0b724159af63c433460cee834c70400e",
+    "trace_id": "60da1467bb0fed9efd75f1c02205eb4a",
     "spec": {
-      "description": "A solitary piano melody drifts through silence, delicate and unhurried, each note resonating with quiet sorrow. Sparse chords and gentle sustain pedal blur the tones into a haze of longing, evoking an empty world left behind. The piece breathes slowly, carrying the weight of something irretrievably lost.",
-      "genre": "ambient cinematic",
+      "description": "A tender, melancholic solo piano piece drifting through sparse, resonant notes with long sustain and gentle dynamics. The melody carries a deep sense of loss and yearning, with quiet pauses that echo emptiness and unresolved longing. Soft pedal reverb blurs the edges of each phrase, evoking bittersweet memory and quiet grief.",
+      "genre": "cinematic ambient",
       "mood_tags": [
         "melancholic",
-        "longing",
         "sorrowful",
-        "introspective",
-        "bittersweet"
+        "longing",
+        "bittersweet",
+        "introspective"
       ],
       "instruments": [
-        "solo piano",
-        "soft sustain pedal resonance"
+        "solo piano"
       ],
       "tempo_bpm": 52,
       "key": "D minor",
       "energy": "low",
       "duration_seconds": 10.0,
-      "style_hint": "Nobuo Uematsu melancholic piano style, reminiscent of Final Fantasy memorial themes"
+      "style_hint": "Nobuo Uematsu emotional piano style, reminiscent of JRPG farewell themes"
     },
     "wav_file": "calibration_sad-01.wav",
     "audio_size_bytes": 640044
@@ -662,20 +691,20 @@
     "id": "sad-02",
     "category": "sad",
     "description": "Sorrowful string quartet with gentle vibrato, conveying grief after a fallen companion",
-    "score": 0.1238,
-    "attempts": 2,
-    "latency_s": 60.23,
+    "score": 0.5823,
+    "attempts": 1,
+    "latency_s": 28.68,
     "has_audio": true,
-    "trace_id": "c0eec77a4c4e5fbd0d72e7b3c18a810c",
+    "trace_id": "90ffaf61cd5dbec1442e777c68fa45d5",
     "spec": {
-      "description": "A mournful string quartet moves slowly through aching melodic lines, each phrase weighted with grief and quiet devastation. Warm cello leads the lament as violins and viola respond with gentle vibrato, weaving a delicate tapestry of sorrow and remembrance. The texture is intimate and sparse, leaving space for silence to deepen the emotional toll.",
-      "genre": "neoclassical chamber music",
+      "description": "A mournful string quartet moves through aching melodic phrases with gentle vibrato, each note heavy with grief and loss. Sustained cello lines anchor a somber foundation while violins and viola weave fragile, sorrowful countermelodies that swell and fade like quiet tears. The atmosphere is intimate and raw, evoking the stillness after battle when a companion has fallen.",
+      "genre": "orchestral chamber",
       "mood_tags": [
         "sorrowful",
-        "mournful lament",
         "grief-stricken",
         "intimate loss",
-        "melancholic"
+        "melancholic",
+        "elegiac"
       ],
       "instruments": [
         "violin",
@@ -683,11 +712,11 @@
         "cello",
         "string quartet"
       ],
-      "tempo_bpm": 46,
+      "tempo_bpm": 52,
       "key": "D minor",
       "energy": "low",
       "duration_seconds": 10.0,
-      "style_hint": "Yasunori Mitsuda chamber style, reminiscent of emotional JRPG memorial scenes"
+      "style_hint": "Yasunori Mitsuda emotional chamber style, reminiscent of Chrono Cross or Xenogears somber character themes"
     },
     "wav_file": "calibration_sad-02.wav",
     "audio_size_bytes": 640044
@@ -698,7 +727,7 @@
     "description": "Grand title screen fanfare with full orchestra, building from quiet to a triumphant brass climax",
     "score": null,
     "attempts": null,
-    "latency_s": 7.65,
+    "latency_s": 7.07,
     "has_audio": false,
     "error": "500 Server Error: Internal Server Error for url: https://kairn--flowing-trails-compose.modal.run/"
   },
@@ -706,34 +735,33 @@
     "id": "title-02",
     "category": "title",
     "description": "Nostalgic 16-bit era title theme with chiptune arpeggios layered over modern synth pads",
-    "score": 0.258,
-    "attempts": 2,
-    "latency_s": 58.89,
+    "score": 0.4078,
+    "attempts": 1,
+    "latency_s": 31.0,
     "has_audio": true,
-    "trace_id": "712ebdc61d0c6c4c3e7cea3561e1fb5f",
+    "trace_id": "4347e4b5a1ed1e8522a811a1d79b7ef1",
     "spec": {
-      "description": "A warm, nostalgic title screen theme blending classic 16-bit chiptune arpeggios with lush modern synthesizer pads. Bright square-wave and pulse-wave melodic runs evoke the golden SNES era, while shimmering ambient synth layers add contemporary depth and emotional richness. The result feels both retro and cinematic, like revisiting a beloved childhood adventure with fresh ears.",
-      "genre": "chiptune fusion",
+      "description": "A warm, nostalgic title screen theme blending classic 16-bit chiptune arpeggios with lush modern synthesizer pads. Bright square-wave and triangle-wave melodies dance over soft ambient synth layers, evoking the feel of a beloved SNES-era RPG opening while carrying a contemporary emotional depth.",
+      "genre": "hybrid chiptune / synthwave",
       "mood_tags": [
         "nostalgic",
         "warm and inviting",
-        "retro-cinematic",
         "hopeful",
-        "dreamy"
+        "dreamy retro"
       ],
       "instruments": [
-        "chiptune square wave lead",
-        "pulse wave arpeggio",
-        "triangle bass",
-        "modern synth pads",
-        "ambient synth strings",
-        "light electronic drums"
+        "chiptune square wave",
+        "triangle wave bass",
+        "8-bit arpeggio",
+        "analog synth pads",
+        "soft electronic drums",
+        "retro noise snare"
       ],
       "tempo_bpm": 108,
       "key": "G major",
       "energy": "medium",
       "duration_seconds": 10.0,
-      "style_hint": "SNES-era 16-bit title screen, Yasunori Mitsuda meets modern synthwave production"
+      "style_hint": "SNES 16-bit era title screen, Yasunori Mitsuda / early Square RPG aesthetic with modern lo-fi synth layering"
     },
     "wav_file": "calibration_title-02.wav",
     "audio_size_bytes": 640044
@@ -742,13 +770,13 @@
     "id": "victory-01",
     "category": "victory",
     "description": "Short triumphant victory jingle with bright brass, rising scales, and celebratory energy",
-    "score": 0.317,
+    "score": 0.4701,
     "attempts": 1,
-    "latency_s": 31.23,
+    "latency_s": 27.84,
     "has_audio": true,
-    "trace_id": "ce844421f1a8ad9b6196e449dffbdad7",
+    "trace_id": "ccc8290057a9ec110a8fac17bf420ac3",
     "spec": {
-      "description": "A short, punchy victory fanfare bursting with bright brass stabs and a soaring rising scale that crescendos into a triumphant flourish. Celebratory orchestral energy with crisp trumpet leads, warm french horn harmonies, and a snappy snare drum roll punctuating the finale. Uplifting and instantly rewarding, like clearing a boss stage.",
+      "description": "A short triumphant victory jingle bursting with bright brass fanfare and rapidly rising scales, conveying jubilant celebration. Punchy trumpets and French horns swell upward in a crescendo of victory, supported by crisp snare drum rolls and shimmering cymbals. The tone is bold, radiant, and instantly rewarding.",
       "genre": "orchestral fanfare",
       "mood_tags": [
         "triumphant",
@@ -759,18 +787,18 @@
       ],
       "instruments": [
         "trumpet",
-        "french horn",
+        "French horn",
         "trombone",
         "snare drum",
+        "crash cymbal",
         "timpani",
-        "orchestral bells",
-        "cymbal crash"
+        "glockenspiel"
       ],
       "tempo_bpm": 140,
       "key": "C major",
       "energy": "high",
       "duration_seconds": 10.0,
-      "style_hint": "classic JRPG victory fanfare, Final Fantasy orchestral style"
+      "style_hint": "classic JRPG victory fanfare, Nobuo Uematsu Final Fantasy style"
     },
     "wav_file": "calibration_victory-01.wav",
     "audio_size_bytes": 640044
@@ -779,34 +807,34 @@
     "id": "victory-02",
     "category": "victory",
     "description": "Level complete fanfare with sparkling synths, quick tempo, and a satisfying resolution",
-    "score": 0.3573,
-    "attempts": 1,
-    "latency_s": 32.38,
+    "score": 0.464,
+    "attempts": 2,
+    "latency_s": 59.87,
     "has_audio": true,
-    "trace_id": "9fbc3d73d339196e43e4404b9bd3e77c",
+    "trace_id": "0da52621bd60418bbfb73d64fe28b845",
     "spec": {
-      "description": "A bright, jubilant level-complete fanfare bursting with sparkling synth arpeggios and shimmering bell tones, driving forward at a quick tempo before landing on a big, satisfying melodic resolution. Punchy brass stabs and glittering chime hits reinforce the triumphant sense of achievement, wrapping up with a warm, conclusive chord swell.",
+      "description": "A bright, punchy level-complete fanfare bursting with sparkling synth arpeggios and shimmering bell tones. Fast-moving melodic flourishes build quickly to a satisfying triumphant resolution, with a crisp percussive hit accenting the final chord. Uplifting and celebratory, with a polished, modern video-game sound design feel.",
       "genre": "video game fanfare",
       "mood_tags": [
         "triumphant",
         "celebratory",
-        "sparkling",
         "satisfying",
-        "uplifting"
+        "uplifting",
+        "sparkling"
       ],
       "instruments": [
+        "synth lead",
+        "synth bells",
         "synth arpeggios",
-        "chime bells",
-        "brass synth stabs",
-        "glockenspiel",
-        "synth pad",
-        "snare drum"
+        "orchestral stabs",
+        "snare drum",
+        "cymbal crash"
       ],
-      "tempo_bpm": 148,
+      "tempo_bpm": 160,
       "key": "C major",
       "energy": "high",
       "duration_seconds": 10.0,
-      "style_hint": "classic SNES/PS1 era JRPG victory fanfare, Nobuo Uematsu triumphant short cue style"
+      "style_hint": "modern platformer jingle, Nintendo-style victory fanfare"
     },
     "wav_file": "calibration_victory-02.wav",
     "audio_size_bytes": 640044
@@ -815,32 +843,33 @@
     "id": "vague-01",
     "category": "vague",
     "description": "Something that sounds like a video game",
-    "score": 0.197,
-    "attempts": 2,
-    "latency_s": 57.18,
+    "score": 0.4625,
+    "attempts": 1,
+    "latency_s": 33.31,
     "has_audio": true,
-    "trace_id": "1fbcaac61f3c1a502ff17386ae05a88f",
+    "trace_id": "32b4249d3b5a750c91be68505096dda7",
     "spec": {
-      "description": "Upbeat chiptune melody with punchy 8-bit arpeggios and a driving square-wave bassline, evoking the feel of a classic platformer level. Bright synth leads dance over snappy retro percussion with a playful, adventurous energy.",
-      "genre": "chiptune / video game",
+      "description": "Upbeat chiptune melody with punchy 8-bit arpeggios and bouncy square-wave leads over a driving percussion beat, evoking the feel of a classic platformer adventure. Bright synth bass pulses underneath while sparkling digital sound effects weave through the energetic, playful texture.",
+      "genre": "chiptune",
       "mood_tags": [
         "playful",
         "adventurous",
-        "retro",
+        "energetic",
+        "nostalgic",
         "upbeat"
       ],
       "instruments": [
         "square wave synth",
         "8-bit bass",
         "chiptune drums",
-        "arpeggio lead",
-        "triangle wave"
+        "arpeggio synth",
+        "triangle wave melody"
       ],
       "tempo_bpm": 148,
       "key": "C major",
       "energy": "high",
       "duration_seconds": 10.0,
-      "style_hint": "NES/SNES era platformer, early Nintendo style"
+      "style_hint": "classic NES/SNES era platformer, early Nintendo style"
     },
     "wav_file": "calibration_vague-01.wav",
     "audio_size_bytes": 640044

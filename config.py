@@ -51,7 +51,7 @@ MAX_GENERATION_ATTEMPTS = 2
 
 # Placeholder — calibrate empirically at M3 against 20+ prompts
 # Target range per CLAP cross-modal literature; update in eval/thresholds.json per MODEL_TAG
-DEFAULT_SIMILARITY_THRESHOLD = 0.30
+DEFAULT_SIMILARITY_THRESHOLD = 0.40
 
 # ── Claude API ────────────────────────────────────────────────────────────────
 

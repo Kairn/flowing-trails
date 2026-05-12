@@ -74,7 +74,7 @@ def test_compose_request_minimal():
     assert req.instruments is None
     assert req.duration_seconds is None
     assert req.key is None
-    assert req.use_melody_conditioning is True
+    assert req.use_melody_conditioning is False
     assert req.cfg_coeff is None
     assert req.top_k is None
     assert req.temperature is None

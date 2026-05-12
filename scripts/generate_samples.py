@@ -60,7 +60,7 @@ def main() -> None:
                 "trace_id": data.get("trace_id"),
                 "size_bytes": len(audio_data),
                 "use_melody_conditioning": request_body.get(
-                    "use_melody_conditioning", True
+                    "use_melody_conditioning", False
                 ),
             }
         )

@@ -67,7 +67,7 @@ class ComposeRequest(BaseModel):
     instruments: list[str] | None = None
     duration_seconds: float | None = Field(default=None, ge=5.0, le=30.0)
     key: str | None = None
-    use_melody_conditioning: bool = True
+    use_melody_conditioning: bool = False
     cfg_coeff: float | None = Field(default=None, ge=0.0, le=20.0)
     top_k: int | None = Field(default=None, ge=0, le=1000)
     temperature: float | None = Field(default=None, gt=0.0, le=5.0)
