@@ -113,6 +113,9 @@ class MusicGenService:
         melody_wav: bytes | None = None,
         melody_sample_rate: int | None = None,
         seed: int | None = None,
+        cfg_coeff: float | None = None,
+        top_k: int | None = None,
+        temperature: float | None = None,
         trace_context: dict[str, str] | None = None,
     ) -> dict:
         import io
@@ -130,7 +133,14 @@ class MusicGenService:
         t0 = time.monotonic()
 
         with ctx_mgr:
-            self.model.set_generation_params(duration=duration_seconds)
+            gen_params = {"duration": duration_seconds}
+            if cfg_coeff is not None:
+                gen_params["cfg_coeff"] = cfg_coeff
+            if top_k is not None:
+                gen_params["top_k"] = top_k
+            if temperature is not None:
+                gen_params["temperature"] = temperature
+            self.model.set_generation_params(**gen_params)
 
             if seed is not None:
                 torch.manual_seed(seed)

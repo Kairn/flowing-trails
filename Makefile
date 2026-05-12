@@ -1,4 +1,4 @@
-.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples
+.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze
 
 embed:
 	@echo "Run: modal run retrieval/embed_corpus.py"
@@ -35,3 +35,12 @@ ifndef COMPOSE_URL
 	$(error COMPOSE_URL is required. Run: COMPOSE_URL=https://... make samples)
 endif
 	python scripts/generate_samples.py $(COMPOSE_URL)
+
+calibrate:
+ifndef COMPOSE_URL
+	$(error COMPOSE_URL is required. Run: COMPOSE_URL=https://... make calibrate)
+endif
+	python scripts/run_calibration.py $(COMPOSE_URL)
+
+calibrate-analyze:
+	python scripts/analyze_thresholds.py

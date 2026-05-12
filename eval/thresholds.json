@@ -1,0 +1,95 @@
+{
+  "model": "facebook/musicgen-melody-large",
+  "calibration_samples": 23,
+  "accept_threshold": 0.2248,
+  "distribution": {
+    "min": 0.1113,
+    "p10": 0.1443,
+    "p25": 0.2248,
+    "p50_median": 0.3036,
+    "p75": 0.3569,
+    "p90": 0.3632,
+    "max": 0.5096,
+    "mean": 0.2874,
+    "stdev": 0.095
+  },
+  "by_category": {
+    "ambient": {
+      "count": 3,
+      "min": 0.1113,
+      "max": 0.3036,
+      "mean": 0.1822,
+      "median": 0.1318
+    },
+    "battle": {
+      "count": 2,
+      "min": 0.2725,
+      "max": 0.3531,
+      "mean": 0.3128,
+      "median": 0.3128
+    },
+    "boss": {
+      "count": 2,
+      "min": 0.3088,
+      "max": 0.3636,
+      "mean": 0.3362,
+      "median": 0.3362
+    },
+    "dungeon": {
+      "count": 3,
+      "min": 0.2193,
+      "max": 0.3805,
+      "mean": 0.2767,
+      "median": 0.2303
+    },
+    "exploration": {
+      "count": 3,
+      "min": 0.3129,
+      "max": 0.3615,
+      "mean": 0.3436,
+      "median": 0.3564
+    },
+    "puzzle": {
+      "count": 2,
+      "min": 0.1942,
+      "max": 0.2857,
+      "mean": 0.2399,
+      "median": 0.2399
+    },
+    "sad": {
+      "count": 2,
+      "min": 0.1238,
+      "max": 0.5096,
+      "mean": 0.3167,
+      "median": 0.3167
+    },
+    "title": {
+      "count": 1,
+      "min": 0.258,
+      "max": 0.258,
+      "mean": 0.258,
+      "median": 0.258
+    },
+    "town": {
+      "count": 2,
+      "min": 0.3022,
+      "max": 0.3592,
+      "mean": 0.3307,
+      "median": 0.3307
+    },
+    "vague": {
+      "count": 1,
+      "min": 0.197,
+      "max": 0.197,
+      "mean": 0.197,
+      "median": 0.197
+    },
+    "victory": {
+      "count": 2,
+      "min": 0.317,
+      "max": 0.3573,
+      "mean": 0.3372,
+      "median": 0.3372
+    }
+  }
+}

@@ -1,0 +1,202 @@
+[
+  {
+    "id": "battle-01",
+    "category": "battle",
+    "request": {
+      "description": "Fast-paced battle theme with driving drums and brass fanfares, high intensity combat music",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "battle-02",
+    "category": "battle",
+    "request": {
+      "description": "Frantic string-driven fight music with rapid tempo changes and staccato hits",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "boss-01",
+    "category": "boss",
+    "request": {
+      "description": "Epic orchestral boss battle theme with heavy percussion, choir, and dark dramatic tension",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "boss-02",
+    "category": "boss",
+    "request": {
+      "description": "Menacing synth-heavy boss encounter music with distorted bass and relentless drive",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "boss-03",
+    "category": "boss",
+    "request": {
+      "description": "Multi-phase boss theme that builds from ominous low strings to full orchestral assault",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "exploration-01",
+    "category": "exploration",
+    "request": {
+      "description": "Gentle exploration theme with acoustic guitar and flute, evoking a sunlit meadow",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "exploration-02",
+    "category": "exploration",
+    "request": {
+      "description": "Curious wandering music with plucked strings and light woodwinds, sense of discovery",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "exploration-03",
+    "category": "exploration",
+    "request": {
+      "description": "Open-world overworld theme with sweeping strings and a heroic French horn melody",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "ambient-01",
+    "category": "ambient",
+    "request": {
+      "description": "Ethereal ambient soundscape with slow reverbed pads and distant chimes, peaceful and still",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "ambient-02",
+    "category": "ambient",
+    "request": {
+      "description": "Deep space ambient music with low drones, shimmer textures, and subtle evolving tones",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "ambient-03",
+    "category": "ambient",
+    "request": {
+      "description": "Underwater ambient theme with muffled bubbling textures and slow melodic fragments",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "town-01",
+    "category": "town",
+    "request": {
+      "description": "Warm and inviting village theme with accordion and light percussion, European folk feel",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "town-02",
+    "category": "town",
+    "request": {
+      "description": "Bustling market town music with upbeat tempo, hand claps, and cheerful woodwinds",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "dungeon-01",
+    "category": "dungeon",
+    "request": {
+      "description": "Dark and tense dungeon crawl music with low strings, sparse percussion, and eerie echoes",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "dungeon-02",
+    "category": "dungeon",
+    "request": {
+      "description": "Claustrophobic cave theme with dripping water sounds, dissonant chords, and creeping tension",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "dungeon-03",
+    "category": "dungeon",
+    "request": {
+      "description": "Ancient ruins exploration with mysterious harp arpeggios and deep reverberant percussion",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "puzzle-01",
+    "category": "puzzle",
+    "request": {
+      "description": "Playful puzzle room music with marimba, pizzicato strings, and a quirky repeating motif",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "puzzle-02",
+    "category": "puzzle",
+    "request": {
+      "description": "Minimalist thinking music with piano and soft electronic pulses, calm but focused",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "sad-01",
+    "category": "sad",
+    "request": {
+      "description": "Melancholy piano piece with slow tempo, minor key, and a feeling of loss and longing",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "sad-02",
+    "category": "sad",
+    "request": {
+      "description": "Sorrowful string quartet with gentle vibrato, conveying grief after a fallen companion",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "title-01",
+    "category": "title",
+    "request": {
+      "description": "Grand title screen fanfare with full orchestra, building from quiet to a triumphant brass climax",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "title-02",
+    "category": "title",
+    "request": {
+      "description": "Nostalgic 16-bit era title theme with chiptune arpeggios layered over modern synth pads",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "victory-01",
+    "category": "victory",
+    "request": {
+      "description": "Short triumphant victory jingle with bright brass, rising scales, and celebratory energy",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "victory-02",
+    "category": "victory",
+    "request": {
+      "description": "Level complete fanfare with sparkling synths, quick tempo, and a satisfying resolution",
+      "duration_seconds": 10.0
+    }
+  },
+  {
+    "id": "vague-01",
+    "category": "vague",
+    "request": {
+      "description": "Something that sounds like a video game",
+      "duration_seconds": 10.0
+    }
+  }
+]

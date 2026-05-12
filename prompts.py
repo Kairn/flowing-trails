@@ -86,6 +86,10 @@ mood_tags are usually enough.
 - Each refinement should be a meaningful change, not just rewording.
 - Don't make the description generic — keep it specific to the original intent but \
 express it in language that maps better to audio features.
+- IMPORTANT: `description` must be at most 500 characters. Keep it concise — 2-3 \
+punchy sentences beat a long paragraph. Exceeding 500 chars will cause a validation error.
+- `instruments` and `mood_tags` must each have at most 10 items. Pick the most \
+impactful ones rather than listing everything.
 
 Return ONLY valid JSON matching the MusicSpec schema. No markdown fences, no commentary.
 

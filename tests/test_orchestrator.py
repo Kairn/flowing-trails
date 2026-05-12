@@ -74,6 +74,10 @@ def test_compose_request_minimal():
     assert req.instruments is None
     assert req.duration_seconds is None
     assert req.key is None
+    assert req.use_melody_conditioning is True
+    assert req.cfg_coeff is None
+    assert req.top_k is None
+    assert req.temperature is None
 
 
 def test_compose_request_full():
@@ -251,7 +255,7 @@ def test_generate_music_without_melody(mock_from_name):
     mock_from_name.return_value.return_value = mock_instance
 
     spec = MusicSpec(description="epic battle theme", duration_seconds=10.0)
-    result = generate_music(spec, None, None, log)
+    result = generate_music(spec, None, None, {}, log)
 
     assert result == SAMPLE_GENERATE_RESULT["audio_bytes"]
     mock_from_name.assert_called_once_with("flowing-trails-musicgen", "MusicGenService")
@@ -270,7 +274,7 @@ def test_generate_music_with_melody(mock_from_name):
 
     spec = MusicSpec(description="calm exploration", duration_seconds=10.0)
     melody_data = b"RIFF_MELODY_WAV"
-    result = generate_music(spec, melody_data, 32000, log)
+    result = generate_music(spec, melody_data, 32000, {}, log)
 
     assert result == SAMPLE_GENERATE_RESULT["audio_bytes"]
     call_kwargs = mock_instance.generate.remote.call_args.kwargs
@@ -294,7 +298,7 @@ def test_generate_music_passes_full_prompt(mock_from_name):
         energy="low",
         style_hint="Koji Kondo style",
     )
-    result = generate_music(spec, None, None, log)
+    result = generate_music(spec, None, None, {}, log)
 
     assert result is not None
     prompt = mock_instance.generate.remote.call_args.kwargs["prompt"]
@@ -302,6 +306,38 @@ def test_generate_music_passes_full_prompt(mock_from_name):
     assert "ambient exploration" in prompt
     assert "strings" in prompt
     assert "80 bpm" in prompt
+
+
+@patch("modal.Cls.from_name")
+def test_generate_music_forwards_gen_params(mock_from_name):
+    mock_instance = MagicMock()
+    mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
+    mock_from_name.return_value.return_value = mock_instance
+
+    spec = MusicSpec(description="battle theme", duration_seconds=10.0)
+    gen_params = {"cfg_coeff": 5.0, "top_k": 128, "temperature": 0.8}
+    generate_music(spec, None, None, gen_params, log)
+
+    call_kwargs = mock_instance.generate.remote.call_args.kwargs
+    assert call_kwargs["cfg_coeff"] == 5.0
+    assert call_kwargs["top_k"] == 128
+    assert call_kwargs["temperature"] == 0.8
+
+
+@patch("modal.Cls.from_name")
+def test_generate_music_omits_none_gen_params(mock_from_name):
+    mock_instance = MagicMock()
+    mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
+    mock_from_name.return_value.return_value = mock_instance
+
+    spec = MusicSpec(description="town theme", duration_seconds=10.0)
+    gen_params = {"cfg_coeff": None, "top_k": 200, "temperature": None}
+    generate_music(spec, None, None, gen_params, log)
+
+    call_kwargs = mock_instance.generate.remote.call_args.kwargs
+    assert "cfg_coeff" not in call_kwargs
+    assert call_kwargs["top_k"] == 200
+    assert "temperature" not in call_kwargs
 
 
 # ── _generate_with_scoring ──────────────────────────────────────────────────
@@ -338,7 +374,7 @@ def test_scoring_loop_accepts_on_first_try(mock_score, mock_from_name):
     spec = MusicSpec(description="epic battle theme", duration_seconds=10.0)
 
     audio, score, attempts = _generate_with_scoring(
-        spec, None, None, query_vec, _StubTracer(), log
+        spec, None, None, query_vec, {}, _StubTracer(), log
     )
 
     assert attempts == 1
@@ -379,7 +415,7 @@ def test_scoring_loop_retries_then_accepts(
     spec = MusicSpec(description="calm exploration", duration_seconds=10.0)
 
     audio, score, attempts = _generate_with_scoring(
-        spec, None, None, query_vec, _StubTracer(), log
+        spec, None, None, query_vec, {}, _StubTracer(), log
     )
 
     assert attempts == 2
@@ -408,7 +444,7 @@ def test_scoring_loop_exhausts_returns_best(
     spec = MusicSpec(description="retro town", duration_seconds=10.0)
 
     audio, score, attempts = _generate_with_scoring(
-        spec, None, None, query_vec, _StubTracer(), log
+        spec, None, None, query_vec, {}, _StubTracer(), log
     )
 
     assert attempts == 2
@@ -438,7 +474,7 @@ def test_scoring_loop_keeps_best_across_attempts(
     spec = MusicSpec(description="dungeon ambience", duration_seconds=10.0)
 
     audio, score, attempts = _generate_with_scoring(
-        spec, None, None, query_vec, _StubTracer(), log
+        spec, None, None, query_vec, {}, _StubTracer(), log
     )
 
     assert attempts == 2
@@ -459,7 +495,7 @@ def test_scoring_loop_generate_returns_none(mock_from_name):
     spec = MusicSpec(description="silence", duration_seconds=10.0)
 
     audio, score, attempts = _generate_with_scoring(
-        spec, None, None, query_vec, _StubTracer(), log
+        spec, None, None, query_vec, {}, _StubTracer(), log
     )
 
     assert attempts == 1
@@ -547,7 +583,7 @@ def test_scoring_loop_uses_refined_spec_for_generation(
     query_vec = np.zeros(512, dtype=np.float32)
     spec = MusicSpec(description="calm exploration", duration_seconds=10.0)
 
-    _generate_with_scoring(spec, None, None, query_vec, _StubTracer(), log)
+    _generate_with_scoring(spec, None, None, query_vec, {}, _StubTracer(), log)
 
     second_call_prompt = mock_instance.generate.remote.call_args_list[1].kwargs[
         "prompt"
@@ -572,7 +608,7 @@ def test_scoring_loop_no_refine_on_accept(
     query_vec = np.zeros(512, dtype=np.float32)
     spec = MusicSpec(description="epic battle", duration_seconds=10.0)
 
-    _generate_with_scoring(spec, None, None, query_vec, _StubTracer(), log)
+    _generate_with_scoring(spec, None, None, query_vec, {}, _StubTracer(), log)
 
     mock_claude.assert_not_called()
     mock_embed.assert_not_called()

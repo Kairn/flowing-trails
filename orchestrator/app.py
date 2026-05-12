@@ -67,6 +67,10 @@ class ComposeRequest(BaseModel):
     instruments: list[str] | None = None
     duration_seconds: float | None = Field(default=None, ge=5.0, le=30.0)
     key: str | None = None
+    use_melody_conditioning: bool = True
+    cfg_coeff: float | None = Field(default=None, ge=0.0, le=20.0)
+    top_k: int | None = Field(default=None, ge=0, le=1000)
+    temperature: float | None = Field(default=None, gt=0.0, le=5.0)
 
 
 @app.function(
@@ -102,13 +106,23 @@ def compose(request: ComposeRequest) -> dict:
             with tracer.start_as_current_span("query_parse"):
                 spec = parse_query(request, log)
 
-            with tracer.start_as_current_span("retrieval") as retrieval_span:
-                melody_wav, melody_sr = retrieve_melody(spec, retrieval_span, log)
+            if request.use_melody_conditioning:
+                with tracer.start_as_current_span("retrieval") as retrieval_span:
+                    melody_wav, melody_sr = retrieve_melody(spec, retrieval_span, log)
+            else:
+                melody_wav, melody_sr = None, None
+                log.info("melody_conditioning_disabled")
 
             query_vector = _embed_query(spec, log)
 
+            gen_params = {
+                "cfg_coeff": request.cfg_coeff,
+                "top_k": request.top_k,
+                "temperature": request.temperature,
+            }
+
             audio_bytes, score, attempts = _generate_with_scoring(
-                spec, melody_wav, melody_sr, query_vector, tracer, log
+                spec, melody_wav, melody_sr, query_vector, gen_params, tracer, log
             )
 
             root_span.set_attribute("compose.attempts", attempts)
@@ -150,6 +164,7 @@ def _generate_with_scoring(
     melody_wav: bytes | None,
     melody_sr: int | None,
     query_vector,
+    gen_params: dict,
     tracer,
     log,
 ) -> tuple[bytes | None, float, int]:
@@ -168,7 +183,9 @@ def _generate_with_scoring(
     for attempt in range(1, MAX_GENERATION_ATTEMPTS + 1):
         with tracer.start_as_current_span("music_generate") as gen_span:
             gen_span.set_attribute("generate.attempt", attempt)
-            audio_bytes = generate_music(current_spec, melody_wav, melody_sr, log)
+            audio_bytes = generate_music(
+                current_spec, melody_wav, melody_sr, gen_params, log
+            )
 
         if audio_bytes is None:
             log.warning("generate_returned_none", attempt=attempt)
@@ -230,6 +247,13 @@ def refine_spec(
 
         refined_data["style_hint"] = spec.style_hint
         refined_data["duration_seconds"] = spec.duration_seconds
+
+        if len(refined_data.get("description", "")) > 500:
+            refined_data["description"] = refined_data["description"][:497] + "..."
+
+        for list_field in ("instruments", "mood_tags"):
+            if len(refined_data.get(list_field, [])) > 10:
+                refined_data[list_field] = refined_data[list_field][:10]
 
         refined_spec = MusicSpecCls(**refined_data)
         log.info(
@@ -316,7 +340,7 @@ def retrieve_melody(spec, span, log) -> tuple[bytes | None, int | None]:
 
 
 def generate_music(
-    spec, melody_wav: bytes | None, melody_sr: int | None, log
+    spec, melody_wav: bytes | None, melody_sr: int | None, gen_params: dict, log
 ) -> bytes | None:
     """Generate audio from MusicSpec via the deployed MusicGen service."""
     from opentelemetry import trace
@@ -328,6 +352,8 @@ def generate_music(
         "generate_music", prompt=prompt[:80], melody_conditioned=melody_wav is not None
     )
 
+    active_params = {k: v for k, v in gen_params.items() if v is not None}
+
     cls = modal.Cls.from_name(MUSICGEN_APP_NAME, "MusicGenService")
     result = cls().generate.remote(
         prompt=prompt,
@@ -335,6 +361,7 @@ def generate_music(
         melody_wav=melody_wav,
         melody_sample_rate=melody_sr,
         trace_context=inject_context(),
+        **active_params,
     )
 
     span = trace.get_current_span()

@@ -55,8 +55,13 @@ def main() -> None:
                 "filename": filename,
                 "brief": request_body["description"],
                 "spec": data.get("spec"),
+                "score": data.get("score"),
+                "attempts": data.get("attempts"),
                 "trace_id": data.get("trace_id"),
                 "size_bytes": len(audio_data),
+                "use_melody_conditioning": request_body.get(
+                    "use_melody_conditioning", True
+                ),
             }
         )
 

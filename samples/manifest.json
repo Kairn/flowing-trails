@@ -4,12 +4,12 @@
     "filename": "calm-exploration.wav",
     "brief": "A peaceful exploration theme for wandering through an enchanted forest, with gentle melodies and a sense of wonder",
     "spec": {
-      "description": "A gentle, flowing orchestral piece with soft woodwind melodies drifting over lush string pads and delicate harp arpeggios, evoking the feeling of sunlight filtering through ancient enchanted trees. Subtle shimmering bell tones and light pizzicato strings add a sense of magic and childlike wonder, while a warm, unhurried rhythm invites exploration and curiosity.",
+      "description": "A gentle, flowing orchestral piece with soft woodwind melodies drifting over lush string pads and delicate harp arpeggios, evoking the feeling of wandering through a sunlit enchanted forest. Shimmering bells and light pizzicato accents add a sense of magic and wonder, while the unhurried tempo breathes life into every step of exploration.",
       "genre": "orchestral fantasy",
       "mood_tags": [
         "peaceful",
         "wonder",
-        "magical",
+        "enchanting",
         "serene",
         "whimsical"
       ],
@@ -18,81 +18,89 @@
         "oboe",
         "harp",
         "strings",
-        "glockenspiel",
-        "pizzicato strings",
-        "soft French horn"
+        "celesta",
+        "pizzicato violin",
+        "soft timpani"
       ],
       "tempo_bpm": 72,
       "key": "G major",
       "energy": "low",
       "duration_seconds": 10.0,
-      "style_hint": "Koji Kondo overworld style, Legend of Zelda enchanted forest feel, SNES-era JRPG orchestral warmth"
+      "style_hint": "Koji Kondo ambient exploration style, The Legend of Zelda overworld feel, Studio Ghibli orchestral warmth"
     },
-    "trace_id": "3811e310a2ec3ca695d5eb8b625ae195",
-    "size_bytes": 640044
+    "score": 0.493,
+    "attempts": 1,
+    "trace_id": "117bbe1a94a45a0004b4d2bc3a8ca303",
+    "size_bytes": 640044,
+    "use_melody_conditioning": false
   },
   {
     "slug": "boss-battle",
     "filename": "boss-battle.wav",
     "brief": "An intense, driving boss battle theme with heavy percussion, dramatic orchestral hits, and an aggressive tempo",
     "spec": {
-      "description": "An intense, driving boss battle theme featuring thunderous taiko drums and heavy orchestral percussion, punctuated by dramatic brass stabs and powerful string ostinatos. Aggressive low brass and menacing choir swells build relentless tension, with fast-paced rhythmic hits creating an overwhelming sense of danger and high-stakes combat.",
+      "description": "A ferocious boss battle theme driven by thunderous taiko drums and aggressive orchestral hits, with surging brass stabs and relentless low-end percussion creating an overwhelming sense of danger. Razor-sharp string ostinatos and war-drum rhythms push the intensity to a breaking point, evoking a climactic showdown against a towering enemy.",
       "genre": "orchestral action",
       "mood_tags": [
         "intense",
-        "menacing",
         "dramatic",
-        "adrenaline-fueled",
-        "relentless"
+        "aggressive",
+        "menacing",
+        "epic"
       ],
       "instruments": [
         "taiko drums",
-        "orchestral brass",
+        "brass",
         "strings",
-        "choir",
+        "orchestral percussion",
+        "bass drums",
         "timpani",
         "french horns",
-        "bass drums",
-        "snare drums"
+        "trombones"
       ],
-      "tempo_bpm": 180,
+      "tempo_bpm": 178,
       "key": "D minor",
       "energy": "high",
       "duration_seconds": 10.0,
-      "style_hint": "Yoko Shimomura or Hitoshi Sakimoto epic JRPG boss battle style, reminiscent of Final Fantasy or Kingdom Hearts climactic encounters"
+      "style_hint": "Yoko Shimomura / Masashi Hamauzu dramatic JRPG boss battle orchestral style"
     },
-    "trace_id": "b4ca0366af2f48fc0d842641c76382e8",
-    "size_bytes": 640044
+    "score": 0.544,
+    "attempts": 1,
+    "trace_id": "de2e27be667de0646df9ebff43ee8e24",
+    "size_bytes": 640044,
+    "use_melody_conditioning": false
   },
   {
     "slug": "retro-town",
     "filename": "retro-town.wav",
     "brief": "A nostalgic 8-bit chiptune town theme reminiscent of classic JRPG menu music, upbeat and catchy",
     "spec": {
-      "description": "A bright and catchy 8-bit chiptune town theme featuring bouncy square wave melodies layered over a cheerful arpeggio bassline, with punchy pulse wave harmonies and a crisp retro drum machine rhythm. The overall feel is warm, nostalgic, and inviting, evoking a peaceful village square in a classic JRPG world.",
-      "genre": "chiptune / JRPG",
+      "description": "Bright and catchy 8-bit chiptune melody with bouncy square wave leads and pulse bass, evoking the warmth of a peaceful JRPG town at dusk. Cheerful arpeggiated accompaniment and a simple triangle wave rhythm section drive an upbeat, loopable groove full of nostalgic charm. Light noise percussion and lively melodic hooks give it an instantly memorable, classic RPG feel.",
+      "genre": "chiptune / JRPG town theme",
       "mood_tags": [
         "nostalgic",
-        "cheerful",
         "upbeat",
-        "warm",
+        "cheerful",
+        "warm and inviting",
         "catchy"
       ],
       "instruments": [
         "square wave lead",
-        "pulse wave harmony",
-        "triangle wave bass",
-        "chiptune arpeggios",
-        "retro drum machine",
+        "pulse wave bass",
+        "triangle wave melody",
+        "chiptune arpeggio",
         "noise channel percussion"
       ],
-      "tempo_bpm": 148,
+      "tempo_bpm": 132,
       "key": "G major",
       "energy": "medium",
       "duration_seconds": 10.0,
-      "style_hint": "Koichi Sugiyama / early Dragon Quest NES era, 8-bit SNES chiptune JRPG town music"
+      "style_hint": "classic NES/SNES era JRPG, Koichi Sugiyama / early Dragon Quest town music style"
     },
-    "trace_id": "6c84c1b55ddedce198242e72c120354f",
-    "size_bytes": 640044
+    "score": 0.3804,
+    "attempts": 1,
+    "trace_id": "188366f84ff66774855601fe625bcd9e",
+    "size_bytes": 640044,
+    "use_melody_conditioning": false
   }
 ]
