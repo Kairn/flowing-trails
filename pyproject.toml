@@ -1,0 +1,8 @@
+[tool.pytest.ini_options]
+pythonpath = ["."]
+markers = [
+    "ci: lightweight CLAP-only eval (no external calls)",
+]
+filterwarnings = [
+    "ignore::UserWarning:torch.functional",
+]

@@ -24,9 +24,8 @@ corpus: corpus-prompts
 corpus-manifest: corpus-prompts
 	modal run retrieval/update_corpus_manifest.py
 
-# Not yet implemented (M4)
 eval:
-	@echo "TODO: pytest eval/ -m ci -x"
+	.venv/bin/pytest eval/golden/test_ci_eval.py -v -x -m ci
 
 eval-full:
 	@echo "TODO: pytest eval/ --model haiku"
