@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import base64
 import json
+import time
 from typing import TYPE_CHECKING
 
 import modal
@@ -96,6 +97,7 @@ def compose(request: ComposeRequest) -> dict:
 
     try:
         with tracer.start_as_current_span("compose") as root_span:
+            t0 = time.monotonic()
             trace_id = format(root_span.get_span_context().trace_id, "032x")
             log.info(
                 "compose_start",
@@ -127,11 +129,13 @@ def compose(request: ComposeRequest) -> dict:
 
             root_span.set_attribute("compose.attempts", attempts)
             root_span.set_attribute("compose.final_score", score)
+            duration_ms = round((time.monotonic() - t0) * 1000, 1)
             log.info(
                 "compose_complete",
                 trace_id=trace_id,
                 attempts=attempts,
                 final_score=round(score, 4),
+                duration_ms=duration_ms,
             )
 
             audio_b64 = (

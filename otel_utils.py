@@ -90,7 +90,14 @@ def setup_logging(level: int = logging.INFO) -> None:
     root = logging.getLogger()
     root.handlers.clear()
     root.addHandler(console)
-    root.addHandler(LoggingHandler(level=level, logger_provider=_log_provider))
+    otel_handler = LoggingHandler(level=level, logger_provider=_log_provider)
+    otel_handler.setFormatter(
+        structlog.stdlib.ProcessorFormatter(
+            processor=structlog.processors.JSONRenderer(),
+            foreign_pre_chain=shared_processors,
+        )
+    )
+    root.addHandler(otel_handler)
     root.setLevel(level)
 
     for name in ("urllib3", "httpx", "httpcore", "opentelemetry"):
