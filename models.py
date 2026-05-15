@@ -1,10 +1,37 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, Field
+from typing import Any
+
+from pydantic import BaseModel, Field, model_validator
 
 
 class MusicSpec(BaseModel):
     """Shared contract: query parser output → MusicGen prompt builder / spec refiner input."""
+
+    @model_validator(mode="before")
+    @classmethod
+    def truncate_to_limits(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+        for name, field_info in cls.model_fields.items():
+            value = data.get(name)
+            if value is None:
+                continue
+            max_len = field_info.metadata and next(
+                (
+                    getattr(c, "max_length", None)
+                    for c in field_info.metadata
+                    if getattr(c, "max_length", None) is not None
+                ),
+                None,
+            )
+            if max_len is None:
+                continue
+            if isinstance(value, str) and len(value) > max_len:
+                data[name] = value[: max_len - 3] + "..."
+            elif isinstance(value, list) and len(value) > max_len:
+                data[name] = value[:max_len]
+        return data
 
     description: str = Field(
         ...,

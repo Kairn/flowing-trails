@@ -28,7 +28,10 @@ eval:
 	.venv/bin/pytest eval/golden/test_ci_eval.py -v -x -m ci
 
 eval-full:
-	@echo "TODO: pytest eval/ --model haiku"
+ifndef COMPOSE_URL
+	$(error COMPOSE_URL is required. Run: COMPOSE_URL=https://... make eval-full)
+endif
+	python scripts/run_full_eval.py $(COMPOSE_URL)
 
 samples:
 ifndef COMPOSE_URL

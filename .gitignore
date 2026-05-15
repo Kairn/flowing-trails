@@ -243,8 +243,8 @@ __marimo__/
 CLAUDE.md
 .project/
 
-# Calibration generated audio (not checked in)
-eval/calibration_*.wav
-
-# Golden eval tracks ARE checked in
+# Eval ephemeral outputs (WAVs, results); golden tracks ARE checked in
+eval/*.wav
+eval/*_results.json
+eval/thresholds.json
 !eval/golden/

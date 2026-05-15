@@ -72,6 +72,11 @@ class ComposeRequest(BaseModel):
     cfg_coeff: float | None = Field(default=None, ge=0.0, le=20.0)
     top_k: int | None = Field(default=None, ge=0, le=1000)
     temperature: float | None = Field(default=None, gt=0.0, le=5.0)
+    model: str | None = Field(
+        default=None,
+        max_length=100,
+        description="Claude model override for query parsing and spec refinement.",
+    )
 
 
 @app.function(
@@ -105,8 +110,10 @@ def compose(request: ComposeRequest) -> dict:
                 description=request.description[:80],
             )
 
+            model_kwargs = {"model": request.model} if request.model else {}
+
             with tracer.start_as_current_span("query_parse"):
-                spec = parse_query(request, log)
+                spec = parse_query(request, log, **model_kwargs)
 
             if request.use_melody_conditioning:
                 with tracer.start_as_current_span("retrieval") as retrieval_span:
@@ -124,7 +131,14 @@ def compose(request: ComposeRequest) -> dict:
             }
 
             audio_bytes, score, attempts = _generate_with_scoring(
-                spec, melody_wav, melody_sr, query_vector, gen_params, tracer, log
+                spec,
+                melody_wav,
+                melody_sr,
+                query_vector,
+                gen_params,
+                tracer,
+                log,
+                **model_kwargs,
             )
 
             root_span.set_attribute("compose.attempts", attempts)
@@ -171,6 +185,7 @@ def _generate_with_scoring(
     gen_params: dict,
     tracer,
     log,
+    **claude_kwargs,
 ) -> tuple[bytes | None, float, int]:
     """Generate audio in a retry loop, scoring each attempt against the query.
 
@@ -215,7 +230,9 @@ def _generate_with_scoring(
             return best_audio, best_score, attempt
 
         if attempt < MAX_GENERATION_ATTEMPTS:
-            current_spec = refine_spec(current_spec, sim, history, tracer, log)
+            current_spec = refine_spec(
+                current_spec, sim, history, tracer, log, **claude_kwargs
+            )
             query_vector = _embed_query(current_spec, log)
 
     log.info(
@@ -232,6 +249,7 @@ def refine_spec(
     history: list[dict],
     tracer,
     log,
+    **claude_kwargs,
 ) -> MusicSpec:
     """Refine a MusicSpec via Claude based on CLAP score feedback."""
     from claude_client import call_claude_json
@@ -252,17 +270,11 @@ def refine_spec(
             system=SPEC_REFINER_SYSTEM,
             user_message=user_message,
             log=log,
+            **claude_kwargs,
         )
 
         refined_data["style_hint"] = spec.style_hint
         refined_data["duration_seconds"] = spec.duration_seconds
-
-        if len(refined_data.get("description", "")) > 500:
-            refined_data["description"] = refined_data["description"][:497] + "..."
-
-        for list_field in ("instruments", "mood_tags"):
-            if len(refined_data.get(list_field, [])) > 10:
-                refined_data[list_field] = refined_data[list_field][:10]
 
         refined_spec = MusicSpecCls(**refined_data)
         log.info(
@@ -273,7 +285,7 @@ def refine_spec(
         return refined_spec
 
 
-def parse_query(request: ComposeRequest, log) -> MusicSpec:
+def parse_query(request: ComposeRequest, log, **claude_kwargs) -> MusicSpec:
     """Parse raw user brief into a MusicSpec via Claude."""
     from claude_client import call_claude_json
     from models import MusicSpec
@@ -285,6 +297,7 @@ def parse_query(request: ComposeRequest, log) -> MusicSpec:
         system=QUERY_PARSER_SYSTEM,
         user_message=request.description,
         log=log,
+        **claude_kwargs,
     )
 
     if request.tempo_bpm is not None:
