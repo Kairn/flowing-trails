@@ -187,6 +187,9 @@ def test_retrieve_melody_loads_top1_audio(mock_search):
 
     assert melody_bytes == b"RIFF_WAV_DATA"
     assert sr == 32000
+    assert span.attrs["db.system"] == "qdrant"
+    assert span.attrs["db.operation.name"] == "query"
+    assert span.attrs["db.collection.name"] == "flowing-trails-corpus"
     assert span.attrs["retrieval.result_count"] == 2
     assert span.attrs["retrieval.top_score"] == 0.85
     assert span.attrs["retrieval.melody_loaded"] is True

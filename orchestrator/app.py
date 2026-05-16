@@ -20,6 +20,7 @@ from config import (
     MAX_GENERATION_ATTEMPTS,
     MODAL_SECRET_NAME,
     MUSICGEN_APP_NAME,
+    QDRANT_COLLECTION_NAME,
     VOLUME_MOUNT_PATH,
     VOLUME_NAME,
 )
@@ -329,6 +330,8 @@ def retrieve_melody(spec, span, log) -> tuple[bytes | None, int | None]:
     results = search(query_text)
 
     span.set_attribute("db.system", "qdrant")
+    span.set_attribute("db.operation.name", "query")
+    span.set_attribute("db.collection.name", QDRANT_COLLECTION_NAME)
     span.set_attribute("retrieval.result_count", len(results))
 
     if not results:

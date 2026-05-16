@@ -16,6 +16,8 @@ def _set_genai_span_attrs(
     response_model: str,
     max_tokens: int,
     usage: anthropic.types.Usage,
+    stop_reason: str | None = None,
+    response_id: str | None = None,
 ) -> None:
     """Set OTel GenAI semantic convention attributes on the active span."""
     span = trace.get_current_span()
@@ -26,6 +28,10 @@ def _set_genai_span_attrs(
     span.set_attribute("gen_ai.request.max_tokens", max_tokens)
     span.set_attribute("gen_ai.usage.input_tokens", usage.input_tokens)
     span.set_attribute("gen_ai.usage.output_tokens", usage.output_tokens)
+    if stop_reason:
+        span.set_attribute("gen_ai.response.finish_reasons", [stop_reason])
+    if response_id:
+        span.set_attribute("gen_ai.response.id", response_id)
 
 
 def call_claude_json(
@@ -52,7 +58,14 @@ def call_claude_json(
             f"Claude returned invalid JSON: {e}. Raw response: {raw[:200]}"
         ) from e
 
-    _set_genai_span_attrs(model, response.model, max_tokens, response.usage)
+    _set_genai_span_attrs(
+        model,
+        response.model,
+        max_tokens,
+        response.usage,
+        stop_reason=response.stop_reason,
+        response_id=response.id,
+    )
 
     if log:
         log.info(
