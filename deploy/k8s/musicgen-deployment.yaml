@@ -1,0 +1,80 @@
+# MusicGen melody-large: ~12GB VRAM at inference, A10G provides 24GB headroom
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: musicgen
+  labels:
+    app: flowing-trails
+    component: musicgen
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: musicgen
+  template:
+    metadata:
+      labels:
+        app: flowing-trails
+        component: musicgen
+    spec:
+      containers:
+        - name: musicgen
+          image: ghcr.io/flowing-trails/musicgen:latest
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "4"
+              memory: 16Gi
+              nvidia.com/gpu: "1"
+            limits:
+              memory: 24Gi
+              nvidia.com/gpu: "1"
+          env:
+            - name: MODEL_TAG
+              valueFrom:
+                configMapKeyRef:
+                  name: flowing-trails-config
+                  key: musicgen_model_tag
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: flowing-trails-config
+                  key: otlp_endpoint
+            - name: OTEL_EXPORTER_OTLP_HEADERS
+              valueFrom:
+                secretKeyRef:
+                  name: flowing-trails-secrets
+                  key: otlp_headers
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 120
+            periodSeconds: 30
+      nodeSelector:
+        nvidia.com/gpu.product: NVIDIA-A10G
+      tolerations:
+        - key: nvidia.com/gpu
+          operator: Exists
+          effect: NoSchedule
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: musicgen
+  labels:
+    app: flowing-trails
+    component: musicgen
+spec:
+  selector:
+    component: musicgen
+  ports:
+    - port: 8000
+      targetPort: 8000
