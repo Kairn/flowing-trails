@@ -7,12 +7,14 @@ CLAP text embedding + Qdrant vector search. No separate deployment.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-
-from qdrant_client import QdrantClient
+from typing import TYPE_CHECKING
 
 from clap_utils import embed_text
 from config import QDRANT_COLLECTION_NAME, QDRANT_TOP_K
 from qdrant_utils import make_qdrant_client
+
+if TYPE_CHECKING:
+    from qdrant_client import QdrantClient
 
 
 @dataclass

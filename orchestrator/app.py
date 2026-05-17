@@ -144,6 +144,16 @@ def compose(request: ComposeRequest) -> dict:
 
             root_span.set_attribute("compose.attempts", attempts)
             root_span.set_attribute("compose.final_score", score)
+
+            if audio_bytes is None:
+                from fastapi import HTTPException  # type: ignore
+
+                log.error("compose_failed_no_audio", trace_id=trace_id)
+                raise HTTPException(
+                    status_code=500,
+                    detail=f"Generation failed — no audio produced. trace_id={trace_id}",
+                )
+
             duration_ms = round((time.monotonic() - t0) * 1000, 1)
             log.info(
                 "compose_complete",
@@ -153,13 +163,9 @@ def compose(request: ComposeRequest) -> dict:
                 duration_ms=duration_ms,
             )
 
-            audio_b64 = (
-                base64.b64encode(audio_bytes).decode("ascii") if audio_bytes else None
-            )
-
             return {
                 "spec": spec.model_dump(),
-                "audio_b64": audio_b64,
+                "audio_b64": base64.b64encode(audio_bytes).decode("ascii"),
                 "audio_format": "wav_base64",
                 "trace_id": trace_id,
                 "score": round(score, 4),

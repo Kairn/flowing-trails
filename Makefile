@@ -16,7 +16,7 @@ deploy-all:
 	modal deploy musicgen_service/app.py && modal deploy orchestrator/app.py
 
 corpus-prompts:
-	python retrieval/generate_corpus_prompts.py
+	.venv/bin/python retrieval/generate_corpus_prompts.py
 
 corpus: corpus-prompts
 	modal run retrieval/generate_corpus.py
@@ -31,19 +31,19 @@ eval-full:
 ifndef COMPOSE_URL
 	$(error COMPOSE_URL is required. Run: COMPOSE_URL=https://... make eval-full)
 endif
-	python scripts/run_full_eval.py $(COMPOSE_URL)
+	.venv/bin/python scripts/run_full_eval.py $(COMPOSE_URL)
 
 samples:
 ifndef COMPOSE_URL
 	$(error COMPOSE_URL is required. Run: COMPOSE_URL=https://... make samples)
 endif
-	python scripts/generate_samples.py $(COMPOSE_URL)
+	.venv/bin/python scripts/generate_samples.py $(COMPOSE_URL)
 
 calibrate:
 ifndef COMPOSE_URL
 	$(error COMPOSE_URL is required. Run: COMPOSE_URL=https://... make calibrate)
 endif
-	python scripts/run_calibration.py $(COMPOSE_URL)
+	.venv/bin/python scripts/run_calibration.py $(COMPOSE_URL)
 
 calibrate-analyze:
-	python scripts/analyze_thresholds.py
+	.venv/bin/python scripts/analyze_thresholds.py

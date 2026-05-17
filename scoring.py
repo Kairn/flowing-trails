@@ -20,9 +20,13 @@ def _load_wav(audio_bytes: bytes) -> tuple[torch.Tensor, int]:
         sampwidth = wf.getsampwidth()
         raw = wf.readframes(wf.getnframes())
 
-    dtype = {1: np.int8, 2: np.int16, 4: np.int32}[sampwidth]
-    samples = np.frombuffer(raw, dtype=dtype).astype(np.float32)
-    samples /= float(np.iinfo(dtype).max)
+    if sampwidth == 1:
+        samples = np.frombuffer(raw, dtype=np.uint8).astype(np.float32)
+        samples = (samples - 128.0) / 128.0
+    else:
+        dtype = {2: np.int16, 4: np.int32}[sampwidth]
+        samples = np.frombuffer(raw, dtype=dtype).astype(np.float32)
+        samples /= float(np.iinfo(dtype).max)
 
     if n_channels > 1:
         samples = samples.reshape(-1, n_channels).mean(axis=1)

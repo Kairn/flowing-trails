@@ -33,8 +33,8 @@ Registry is the only handoff point between training and serving.
 Modal endpoint, `POST /generate`. Accepts: prompt string, duration_seconds, optional melody_audio
 bytes, optional seed. Returns: audio bytes + metadata (model version, decoder, latency).
 
-Model: `facebook/musicgen-melody-large` (3.3B). Decoder: Multi-Band Diffusion (MBD) by default,
-configurable flag for A/B benchmarking. VRAM: ~14GB total — fits on A10G (24GB) with headroom.
+Model: `facebook/musicgen-melody-large` (3.3B). Decoder: Multi-Band Diffusion (MBD).
+VRAM: ~14GB total — fits on A10G (24GB) with headroom.
 
 Also exposed as an MCP tool for external use (separate wrapper, not used internally).
 
@@ -120,9 +120,8 @@ POST /compose  {description, tempo_bpm?, instruments?, duration_seconds?, key?,
 
 ## Key Design Decisions
 
-**MBD decoder as default.** Multi-Band Diffusion produces higher perceptual quality than the
-EnCodec decoder at the cost of ~2× latency. We benchmark both — MBD is the production default,
-EnCodec is the comparison baseline in the benchmark table.
+**MBD decoder only.** Multi-Band Diffusion produces higher perceptual quality than the
+EnCodec decoder at the cost of ~2× latency. MBD is hardcoded — no EnCodec path exists.
 
 **CLAP in-process, not a service.** The model is CPU-only and lightweight. Running it in-process
 avoids a network hop on every scoring call in the retry loop. Worth revisiting only if the
@@ -135,8 +134,8 @@ it is not a guarantee of improvement.
 **Similarity threshold empirically calibrated.** CLAP cross-modal similarity for melody-large
 (text-only) centers around 0.45 (mean across 24 calibration prompts, range 0.37–0.58).
 Accept threshold set to p25 (0.40) — triggers retries on the weakest ~25% of generations.
-Threshold is set per model tag in `/eval/thresholds.json` — fine-tuned models need separate
-calibration.
+Fine-tuned models will need separate calibration (run `scripts/run_calibration.py` then
+`scripts/analyze_thresholds.py` to produce a threshold recommendation).
 
 **MCP is external-facing only.** The orchestrator calls services directly via Python/HTTP.
 MCP wrappers are standalone layers around the same deployed endpoints, demonstrable independently

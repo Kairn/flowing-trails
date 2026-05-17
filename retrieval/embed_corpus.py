@@ -36,7 +36,7 @@ image = (
         "torch>=2.4.0",
         "torchaudio>=2.4.0",
         "torchvision>=0.19.0",
-        "laion_clap",
+        "laion-clap",
         "soundfile",
     )
     .add_local_python_source("config")

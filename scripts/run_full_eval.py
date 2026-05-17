@@ -22,12 +22,16 @@ from pathlib import Path
 
 import requests
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from config import DEFAULT_SIMILARITY_THRESHOLD
+
 EVAL_DIR = Path(__file__).resolve().parent.parent / "eval"
 PROMPTS_FILE = EVAL_DIR / "calibration_prompts.json"
 RESULTS_FILE = EVAL_DIR / "eval_results.json"
 
 DEFAULT_MODEL = "claude-haiku-4-5-20251001"
-SIMILARITY_THRESHOLD = 0.40
+SIMILARITY_THRESHOLD = DEFAULT_SIMILARITY_THRESHOLD
 
 
 def run_prompt(endpoint_url: str, entry: dict, model: str) -> dict:
