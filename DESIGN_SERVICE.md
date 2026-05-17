@@ -9,15 +9,15 @@ evolve but the component contracts and platform choices are fixed.
 
 ## Platform Decisions
 
-| Concern | Platform | Why |
-|---|---|---|
-| GPU compute (inference) | Modal | Serverless GPU, scales to zero, no cluster management |
-| Model registry | Hugging Face Hub (private) | Versioned artifacts, tag-driven promotion, clean registry separation from serving |
-| Reference audio corpus | Modal Volume `flowing-trails-corpus` | Co-located with inference, mounted by both indexing job and orchestrator |
-| Text LLM | Anthropic Claude API | Managed, no deployment overhead; different system prompts for different roles |
-| Vector database | Qdrant Cloud (free tier) | CLAP vectors + metadata only (no audio bytes), ~2MB for 1000 tracks |
-| Observability | Grafana Cloud (OTLP direct) | Hosted Tempo + Prometheus + Grafana, no collector needed |
-| CI | GitHub Actions | Eval pipeline, lint, test |
+| Concern                 | Platform                             | Why                                                                               |
+| ----------------------- | ------------------------------------ | --------------------------------------------------------------------------------- |
+| GPU compute (inference) | Modal                                | Serverless GPU, scales to zero, no cluster management                             |
+| Model registry          | Hugging Face Hub (private)           | Versioned artifacts, tag-driven promotion, clean registry separation from serving |
+| Reference audio corpus  | Modal Volume `flowing-trails-corpus` | Co-located with inference, mounted by both indexing job and orchestrator          |
+| Text LLM                | Anthropic Claude API                 | Managed, no deployment overhead; different system prompts for different roles     |
+| Vector database         | Qdrant Cloud (free tier)             | CLAP vectors + metadata only (no audio bytes), ~2MB for 1000 tracks               |
+| Observability           | Grafana Cloud (OTLP direct)          | Hosted Tempo + Prometheus + Grafana, no collector needed                          |
+| CI                      | GitHub Actions                       | Eval pipeline, lint, test                                                         |
 
 ---
 
