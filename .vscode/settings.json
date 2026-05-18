@@ -1,6 +1,8 @@
 {
   "cSpell.words": [
     "audiocraft",
+    "chiptune",
+    "cutscene",
     "dotenv",
     "genai",
     "huggingface",
@@ -8,6 +10,8 @@
     "laion",
     "musicgen",
     "overworld",
-    "Qdrant"
+    "Qdrant",
+    "Sidechain",
+    "Synthwave"
   ]
 }

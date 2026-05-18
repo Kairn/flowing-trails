@@ -5,8 +5,8 @@ Use this when labeling tracks so you don't miss a category you didn't know exist
 track feels borderline between two labels, pick the dominant feel — labels capture intent,
 not exhaustive description.
 
-Schema lives in `DESIGN_TRAINING.md §Labels and Metadata`. Free-form fields (`composer`,
-`notes`) have no glossary; write whatever helps.
+Schema lives in `DESIGN_TRAINING.md §Labels and Metadata`. Free-form fields (`notes`)
+have no glossary; write whatever helps.
 
 For a fully-filled syntax template across varied scene types, see
 `training/source/labels_example.json` (checked into the repo as a public reference).
@@ -110,3 +110,96 @@ The overall stylistic idiom.
 | Field   | Notes                                                                         |
 | ------- | ----------------------------------------------------------------------------- |
 | `notes` | Free-form description. Used as `keywords` in the training sidecar. Or `null`. |
+
+---
+
+## Ear Training Guide — Identifying Instruments
+
+Label by **what the sound imitates**, not what physically produced it. If a PS1 sampled trumpet
+plays a fanfare, that's `brass`. Only use `synth` when the sound is distinctly electronic and
+not imitating any acoustic instrument.
+
+**Practical test:** "If a real orchestra performed this part, what section would play it?"
+
+### Easy identifications (start here)
+
+- **Piano** — almost always identifiable. Percussive attack, sustain, wide range.
+- **Guitar** — plucked or strummed, acoustic warmth or electric crunch. Distinctive attack.
+- **Percussion** — rhythmic hits, kit drums, mallets, ethnic drums. Hard to miss.
+- **Choir** — human voices, sustained vowels, layered harmonies. Distinct from all instruments.
+
+### Strings vs. brass vs. woodwinds
+
+These three are the hardest to separate in VGM. Focus on **attack character** (how the note starts):
+
+| Instrument    | Attack                              | Typical role                                      |
+| ------------- | ----------------------------------- | ------------------------------------------------- |
+| **Strings**   | Smooth swell (bowed) or sharp pluck | Sustaining harmony underneath, lush wide pads     |
+| **Brass**     | Punchy, buzzy, announces itself     | Blasting the main melody, fanfares, stabs         |
+| **Woodwinds** | Airy, breathy onset                 | Solo melody lines, one voice singing over the mix |
+
+Key distinctions:
+- **Strings vs. brass:** Brass is bright, forward, and cuts through the mix. Strings are smoother, blend into harmony, sustain more naturally. In a boss theme, the thing blasting the melody in your face is usually brass; the thing swelling underneath is usually strings.
+- **Woodwinds vs. strings:** Woodwinds sound like a single solo voice (one melody line). Strings come in sections (multiple voices, richer/wider sound). A lone singing melody over quiet backing is often flute or oboe. A lush wide pad underneath is almost always strings.
+
+### When to use `synth`
+
+Only when the sound has no acoustic equivalent — sweeping filter pads, electronic arpeggios, clearly digital leads. If you can name what real instrument it's trying to be, use that instrument instead.
+
+### When unsure
+
+Label only the 1–2 instruments you're confident about. Accurate sparse labels are better than noisy complete ones.
+
+---
+
+## Ear Training Guide — Distinguishing Genres
+
+### Quick decision tree
+
+```
+Distorted electric guitar as a main element?
+  → Yes: rock
+  → No ↓
+
+Rhythm swings (bouncy, uneven, triplet feel)?
+  → Yes: jazz
+  → No ↓
+
+Sounds synthetic/programmed rather than acoustic?
+  → Yes: electronic (or synthwave/ambient — see below)
+  → No: probably orchestral (or folk if ethnic instruments dominate)
+```
+
+### Genre signatures
+
+**Rock** — you feel it in your chest.
+- Distorted electric guitar + heavy straight drum beat (kick-snare-kick-snare in 4/4)
+- Rigid, driving rhythm you can headbang to
+- Simple harmony: power chords, minor keys, 3–4 chords repeating
+- Thick wall-of-sound; guitar distortion fills the frequency spectrum
+- *Dead giveaway:* distorted guitar chugging on power chords
+
+**Jazz** — sounds sophisticated and loose.
+- Swing feel: notes aren't evenly spaced, they have a lilting long-short-long-short bounce
+- Ride cymbal with "ding-da-ding-da-ding" pattern; drums are conversational, not mechanical
+- Extended chords (7ths, 9ths) that would sound "wrong" in rock but resolve naturally here
+- Clean separated instruments with space between them; piano comping (rhythmic chord stabs)
+- *Dead giveaway:* walking bass line (bass playing a new note every beat, stepwise) + swing rhythm
+
+**Electronic** — the sounds themselves are synthetic.
+- Quantized rhythm: perfectly on-grid, no human looseness, loop-based patterns
+- Synth leads and pads that don't imitate real instruments
+- Programmed drums: too perfect, too crispy to be a human drummer
+- Sidechain pumping, sweeping filters, glitchy textures
+- *Dead giveaway:* programmed drums + clearly synthesized lead sounds
+
+**Orchestral** — full ensemble, cinematic.
+- Strings, brass, woodwinds, and percussion working together
+- Dynamic range: quiet passages build to loud climaxes
+- No electronic production artifacts; sounds like a live ensemble (even if sampled)
+
+**Synthwave vs. electronic:** Synthwave has a specific 80s retro aesthetic — gated reverb drums, neon-vibes, retro arpeggios (think Hotline Miami). If it's electronic but doesn't feel retro, use `electronic`.
+
+**Ambient vs. electronic:** Ambient is texture-led with low rhythmic emphasis — soundscapes, drones, atmosphere. If it has a clear beat and melodic synth leads, it's `electronic` not `ambient`.
+
+**Folk:** Prominent ethnic or traditional instruments (Celtic fiddle, shamisen, pan flute, hand drums) that define the track's character rather than just adding color to an orchestral arrangement.
