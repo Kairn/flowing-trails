@@ -11,7 +11,7 @@ deferred to training session.
 Fine-tune `facebook/musicgen-melody-large` (3.3B) on a personal JRPG collection (~1000 tracks)
 to produce a model with strong stylistic affinity for that collection. The model has an
 intentional stylistic bias — defined personality shaped by a specific collection. Diversity
-within the collection (battle, town, ambient, emotional) prevents mode collapse without
+within the collection (battle, town, dungeon, cutscene) prevents mode collapse without
 diluting the style signature.
 
 The same collection feeds both fine-tuning and the Qdrant retrieval index.
@@ -70,16 +70,15 @@ normalizes every file to a uniform target (32 kHz mono 16-bit PCM, -14 LUFS).
 
 ### Human Labels (JSON array, one object per track)
 
-| Field                  | Type                                     | Example                                                          |
-| ---------------------- | ---------------------------------------- | ---------------------------------------------------------------- |
-| `filename`             | string                                   | `"track_001.mp3"`                                                |
-| `scene_type`           | string (enum, see glossary)              | `"battle"`                                                       |
-| `energy`               | string (`low` / `medium` / `high`)       | `"high"`                                                         |
-| `mood_tags`            | array of strings, 2–4 values (see glossary) | `["tense", "urgent", "triumphant"]`                           |
-| `dominant_instruments` | array of strings, 1–4 values (see glossary) | `["brass", "strings", "percussion"]`                          |
-| `genre`                | string (enum, see glossary)              | `"orchestral"`                                                   |
-| `composer`             | string or null                           | `"Motoi Sakuraba"`                                               |
-| `notes`                | string or null                           | `"driving 6/8 battle theme"` (used as `keywords`)                |
+| Field                  | Type                                        | Example                                           |
+| ---------------------- | ------------------------------------------- | ------------------------------------------------- |
+| `filename`             | string                                      | `"track_001.mp3"`                                 |
+| `scene_type`           | string (enum, see glossary)                 | `"battle"`                                        |
+| `energy`               | string (`low` / `medium` / `high`)          | `"high"`                                          |
+| `mood_tags`            | array of strings, 2–4 values (see glossary) | `["tense", "urgent", "triumphant"]`               |
+| `dominant_instruments` | array of strings, 1–4 values (see glossary) | `["brass", "strings", "percussion"]`              |
+| `genre`                | string (enum, see glossary)                 | `"orchestral"`                                    |
+| `notes`                | string or null                              | `"driving 6/8 battle theme"` (used as `keywords`) |
 
 Full vocabulary for every enum field lives in `training/LABELS_GLOSSARY.md`. Mood vocabulary
 extended beyond the original 7 to 11 values (`dark`, `hopeful`, `nostalgic`, `urgent` added)
@@ -95,18 +94,17 @@ Example record:
   "mood_tags": ["tense", "urgent", "triumphant"],
   "dominant_instruments": ["brass", "strings", "percussion"],
   "genre": "orchestral",
-  "composer": "Motoi Sakuraba",
   "notes": "driving 6/8 battle theme"
 }
 ```
 
 ### Machine-Generated (during data prep)
 
-| Field           | Source                                              |
-| --------------- | --------------------------------------------------- |
-| `bpm`           | `librosa.beat.beat_track`                           |
-| `key`           | librosa chroma + Krumhansl-Schmuckler profile       |
-| `duration`      | ffprobe                                             |
+| Field           | Source                                                                                      |
+| --------------- | ------------------------------------------------------------------------------------------- |
+| `bpm`           | `librosa.beat.beat_track`                                                                   |
+| `key`           | librosa chroma + Krumhansl-Schmuckler profile                                               |
+| `duration`      | ffprobe                                                                                     |
 | `chroma_stable` | `audiocraft.modules.chroma.ChromaExtractor` (argmax) — eligibility flag for retrieval index |
 
 ### Training Description (template-generated)
@@ -140,8 +138,7 @@ per-epoch caption variance from a single per-track description.
   "key": "D minor",
   "moods": ["tense", "triumphant"],
   "instrument": "brass and strings",
-  "keywords": "battle, urgent, sakuraba",
-  "artist": "Motoi Sakuraba",
+  "keywords": "battle, urgent",
   "duration": 178.5,
   "sample_rate": 32000,
   "chroma_stable": true
@@ -192,14 +189,14 @@ normalized WAVs; let the dataloader handle cropping.
 
 ### audiocraft Pin
 
-| Dependency | Version                                                  |
-| ---------- | -------------------------------------------------------- |
-| audiocraft | v1.3.0 (SHA `72cb16f9fb239e9cf03f7bd997198c7d7a67a01c`)  |
-| torch      | 2.1.0+cu121                                              |
-| numpy      | 1.26.4 (hard pin)                                        |
-| xformers   | <0.0.23                                                  |
-| Python     | 3.10                                                     |
-| Modal base | `nvidia/cuda:12.1.1-cudnn8-devel-ubuntu22.04`            |
+| Dependency | Version                                                 |
+| ---------- | ------------------------------------------------------- |
+| audiocraft | v1.3.0 (SHA `72cb16f9fb239e9cf03f7bd997198c7d7a67a01c`) |
+| torch      | 2.1.0+cu121                                             |
+| numpy      | 1.26.4 (hard pin)                                       |
+| xformers   | <0.0.23                                                 |
+| Python     | 3.10                                                    |
+| Modal base | `nvidia/cuda:12.1.1-cudnn8-devel-ubuntu22.04`           |
 
 Training image is **separate** from inference image (inference uses torch 2.6).
 
@@ -214,18 +211,18 @@ Training image is **separate** from inference image (inference uses torch 2.6).
 
 ### Required Training Config
 
-| Setting                      | Value      | Purpose                                                   |
-| ---------------------------- | ---------- | --------------------------------------------------------- |
-| `autocast`                   | true       | Mixed precision required to fit 80 GB                     |
-| `autocast_dtype`             | bf16       | fp16 grad scaler unstable at 3.3B                         |
-| `checkpointing`              | torch      | Gradient checkpointing required to fit 80 GB              |
-| `dataset.batch_size`         | 1–2        | Per-step limit from activation memory                     |
-| `optim.grad_accum`           | 16–32      | Effective batch matches Meta's per-GPU                    |
-| `dataset.segment_duration`   | 30         | Pretrained context max; do not change                     |
-| `optim.ema.use`              | false      | Avoids bug #550 (EMA + T5 fine-tune); saves VRAM          |
-| `optim.updates_per_epoch`    | 100–200    | ~5min checkpoint cadence (vs 25min at default)            |
-| `checkpoint.save_last`       | true       |                                                           |
-| `checkpoint.keep_last`       | 2          | ~80 GB rolling storage                                    |
+| Setting                    | Value   | Purpose                                          |
+| -------------------------- | ------- | ------------------------------------------------ |
+| `autocast`                 | true    | Mixed precision required to fit 80 GB            |
+| `autocast_dtype`           | bf16    | fp16 grad scaler unstable at 3.3B                |
+| `checkpointing`            | torch   | Gradient checkpointing required to fit 80 GB     |
+| `dataset.batch_size`       | 1–2     | Per-step limit from activation memory            |
+| `optim.grad_accum`         | 16–32   | Effective batch matches Meta's per-GPU           |
+| `dataset.segment_duration` | 30      | Pretrained context max; do not change            |
+| `optim.ema.use`            | false   | Avoids bug #550 (EMA + T5 fine-tune); saves VRAM |
+| `optim.updates_per_epoch`  | 100–200 | ~5min checkpoint cadence (vs 25min at default)   |
+| `checkpoint.save_last`     | true    |                                                  |
+| `checkpoint.keep_last`     | 2       | ~80 GB rolling storage                           |
 
 Deferred to training session: LR, total epochs, weight_decay, scheduler.
 

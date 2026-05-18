@@ -3,50 +3,80 @@
     "filename": "track_001.mp3",
     "scene_type": "battle",
     "energy": "high",
-    "mood_tags": ["tense", "urgent", "triumphant"],
-    "dominant_instruments": ["brass", "strings", "percussion"],
+    "mood_tags": [
+      "tense",
+      "urgent",
+      "triumphant"
+    ],
+    "dominant_instruments": [
+      "brass",
+      "strings",
+      "percussion"
+    ],
     "genre": "orchestral",
-    "composer": "Motoi Sakuraba",
     "notes": "driving 6/8 battle theme, Star Ocean style"
   },
   {
     "filename": "track_002.mp3",
     "scene_type": "town",
     "energy": "low",
-    "mood_tags": ["peaceful", "nostalgic"],
-    "dominant_instruments": ["piano", "woodwinds"],
+    "mood_tags": [
+      "peaceful",
+      "nostalgic"
+    ],
+    "dominant_instruments": [
+      "piano",
+      "woodwinds"
+    ],
     "genre": "orchestral",
-    "composer": null,
     "notes": "small port town, morning atmosphere"
   },
   {
     "filename": "track_003.mp3",
     "scene_type": "boss",
     "energy": "high",
-    "mood_tags": ["dark", "epic", "tense"],
-    "dominant_instruments": ["choir", "brass", "percussion", "strings"],
+    "mood_tags": [
+      "dark",
+      "epic",
+      "tense"
+    ],
+    "dominant_instruments": [
+      "choir",
+      "brass",
+      "percussion",
+      "strings"
+    ],
     "genre": "orchestral",
-    "composer": "Nobuo Uematsu",
     "notes": "final-boss confrontation, Latin choir"
   },
   {
     "filename": "track_004.mp3",
-    "scene_type": "emotional",
+    "scene_type": "cutscene",
     "energy": "low",
-    "mood_tags": ["melancholic", "hopeful"],
-    "dominant_instruments": ["piano", "strings"],
+    "mood_tags": [
+      "melancholic",
+      "hopeful"
+    ],
+    "dominant_instruments": [
+      "piano",
+      "strings"
+    ],
     "genre": "orchestral",
-    "composer": "Yasunori Mitsuda",
     "notes": "character farewell scene"
   },
   {
     "filename": "track_005.mp3",
     "scene_type": "dungeon",
     "energy": "medium",
-    "mood_tags": ["mysterious", "dark"],
-    "dominant_instruments": ["synth", "percussion"],
+    "mood_tags": [
+      "mysterious",
+      "dark"
+    ],
+    "dominant_instruments": [
+      "synth",
+      "percussion"
+    ],
     "genre": "ambient",
-    "composer": null,
     "notes": "ancient ruins, distant echoes"
   }
 ]
