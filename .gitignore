@@ -250,7 +250,9 @@ eval/thresholds.json
 !eval/golden/
 
 # Training source data (private tracks + labels — treat as secrets)
-training/source/
+training/source/*
+# …except the public example file, which is a schema template
+!training/source/labels_example.json
 # Training venv (separate from main .venv due to audiocraft version pins)
 training/.venv/
 # Prepared training data (generated artifacts, not source)

@@ -40,7 +40,7 @@ treated as secrets). Structure:
 
 ```
 training/source/
-├── labels.csv          (human labels, one row per track)
+├── labels.json         (human labels, one object per track)
 ├── track_001.mp3
 ├── track_002.mp3
 └── ...
@@ -68,18 +68,37 @@ normalizes every file to a uniform target (32 kHz mono 16-bit PCM, -14 LUFS).
 
 ## Labels and Metadata
 
-### Human Labels (CSV, one row per track)
+### Human Labels (JSON array, one object per track)
 
-| Field                  | Format              | Examples                                                                |
-| ---------------------- | ------------------- | ----------------------------------------------------------------------- |
-| `filename`             | string              | track_001.mp3                                                           |
-| `scene_type`           | string              | battle, boss, town, exploration, dungeon, emotional, ambient, credits, menu |
-| `energy`               | low / medium / high | subjective                                                              |
-| `mood_tags`            | list (2–4)          | tense, triumphant, melancholic, mysterious, peaceful, whimsical, epic   |
-| `dominant_instruments` | list (1–4)          | piano, strings, brass, woodwinds, choir, synth, percussion, guitar      |
-| `genre`                | string              | orchestral, chiptune, synthwave, jazz, rock, ambient                    |
-| `composer`             | string or null      | composer name                                                           |
-| `notes`                | string or null      | free-form (used as `keywords`)                                          |
+| Field                  | Type                                     | Example                                                          |
+| ---------------------- | ---------------------------------------- | ---------------------------------------------------------------- |
+| `filename`             | string                                   | `"track_001.mp3"`                                                |
+| `scene_type`           | string (enum, see glossary)              | `"battle"`                                                       |
+| `energy`               | string (`low` / `medium` / `high`)       | `"high"`                                                         |
+| `mood_tags`            | array of strings, 2–4 values (see glossary) | `["tense", "urgent", "triumphant"]`                           |
+| `dominant_instruments` | array of strings, 1–4 values (see glossary) | `["brass", "strings", "percussion"]`                          |
+| `genre`                | string (enum, see glossary)              | `"orchestral"`                                                   |
+| `composer`             | string or null                           | `"Motoi Sakuraba"`                                               |
+| `notes`                | string or null                           | `"driving 6/8 battle theme"` (used as `keywords`)                |
+
+Full vocabulary for every enum field lives in `training/LABELS_GLOSSARY.md`. Mood vocabulary
+extended beyond the original 7 to 11 values (`dark`, `hopeful`, `nostalgic`, `urgent` added)
+for richer per-track captions during training-time augmentation.
+
+Example record:
+
+```json
+{
+  "filename": "track_001.mp3",
+  "scene_type": "battle",
+  "energy": "high",
+  "mood_tags": ["tense", "urgent", "triumphant"],
+  "dominant_instruments": ["brass", "strings", "percussion"],
+  "genre": "orchestral",
+  "composer": "Motoi Sakuraba",
+  "notes": "driving 6/8 battle theme"
+}
+```
 
 ### Machine-Generated (during data prep)
 
@@ -133,7 +152,7 @@ per-epoch caption variance from a single per-track description.
 
 ## Data Preparation Pipeline
 
-Runs locally, CPU-only. Input: source audio + label CSV. Output: normalized WAVs +
+Runs locally, CPU-only. Input: source audio + label JSON. Output: normalized WAVs +
 sidecar JSONs + training manifest. Upload to Modal Volume.
 
 ### Steps
@@ -329,7 +348,7 @@ PROGRESS.md for the session-level breakdown.
 ### Phase A — Data Prep PoC (local)
 
 - Set up `training/.venv/` with audiocraft v1.3.0 + CPU-only torch.
-- Hand-label 5–10 tracks covering main scene types → `training/source/labels.csv`.
+- Hand-label 5–10 tracks covering main scene types → `training/source/labels.json`.
 - Build and run full data prep pipeline (normalize → metadata → chroma → description →
   sidecar → manifest).
 - **Pass:** manifest loads under `audiocraft.data.audio_dataset`; every entry has required
