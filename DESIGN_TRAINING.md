@@ -1,230 +1,386 @@
 # FlowingTrails — Training and Custom Retrieval Design
 
 ## What This Document Covers
-The fine-tuning pipeline, data preparation strategy, checkpoint management, and retrieval index
-migration for the custom VGM model. Platform choices and key design decisions are locked; specific
-hyperparameters and implementation details are deferred to the training session.
+The fine-tuning pipeline, data preparation, checkpoint management, and retrieval index migration
+for the custom VGM model. All architectural decisions locked; LR, epochs, and weight_decay
+deferred to training session.
 
 ---
 
 ## Vision
-Fine-tune `facebook/musicgen-melody-large` (3.3B) on a personal JRPG collection (~1000 tracks) to
-produce a model with strong stylistic affinity for that specific collection. The model will have an
-intentional stylistic bias — not a generic game music model, but one with a defined personality
-shaped by a particular collection. This is a feature, not a limitation.
+Fine-tune `facebook/musicgen-melody-large` (3.3B) on a personal JRPG collection (~1000 tracks)
+to produce a model with strong stylistic affinity for that collection. The model has an
+intentional stylistic bias — defined personality shaped by a specific collection. Diversity
+within the collection (battle, town, ambient, emotional) prevents mode collapse without
+diluting the style signature.
 
-The same collection feeds both fine-tuning and the Qdrant retrieval index, making the full
-pipeline domain-specific end-to-end.
+The same collection feeds both fine-tuning and the Qdrant retrieval index.
 
 ---
 
 ## Platform Decisions
 
-| Concern          | Platform                   | Why                                                                                                     |
-| ---------------- | -------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Training compute | Modal A100-80GB (spot)     | Full fine-tune of 3.3B needs ~50-60GB VRAM; spot pricing reduces cost; Modal already used for inference |
-| Training storage | Modal Volume               | Co-located with compute, large enough for chunked WAVs + checkpoints                                    |
-| Data preparation | Local (CPU only)           | No GPU needed; simpler to debug; free to run                                                            |
-| Model registry   | Hugging Face Hub (private) | Same as inference — tag-driven promotion, clean handoff point                                           |
+| Concern          | Platform                   |
+| ---------------- | -------------------------- |
+| Training compute | Modal A100-80GB (spot)     |
+| Training storage | Modal Volume               |
+| Data preparation | Local (CPU only)           |
+| Model registry   | Hugging Face Hub (private) |
+
+### Local Environment
+
+Data prep and manifest validation depend on audiocraft v1.3.0 (torch 2.1, numpy 1.26.4),
+which conflicts with the main project venv (torch 2.6). A separate venv at `training/.venv/`
+holds the training-specific stack with CPU-only torch to avoid pulling CUDA locally.
+
+### Source Data
+
+Source audio and human labels live in `training/source/` (gitignored — private tracks
+treated as secrets). Structure:
+
+```
+training/source/
+├── labels.csv          (human labels, one row per track)
+├── track_001.mp3
+├── track_002.mp3
+└── ...
+```
+
+Prep pipeline reads from `training/source/`, outputs to `training/prepared/` (also
+gitignored). Prepared data is uploaded to Modal Volume for training.
 
 ---
 
-## Training Data
+## Source Audio Requirements
 
-### Source Collection
-~1000 JRPG tracks, raw mp3. Covers the full mood spectrum: battle, boss, town, exploration,
-dungeon, emotional/story beats, ambient, credits, menu. Vocals excluded manually before
-any processing — no Demucs needed for clean instrumentals. Choir (wordless, chanted) is
-retained; it functions as orchestral texture and does not cause generation artifacts.
+| Requirement     | Value                                            |
+| --------------- | ------------------------------------------------ |
+| Format          | mp3 (or any ffmpeg-readable format)              |
+| Minimum bitrate | 192 kbps (lower has audible artifacts post-prep) |
+| Sample rate     | Any (44.1 / 48 kHz mix — normalized in prep)     |
+| Vocals          | Excluded manually before labeling                |
+| Choir           | Retained (wordless orchestral texture)           |
 
-### Human Labels
-Eddy provides one label file per track before the data preparation pipeline runs. Fields:
+Non-uniform bitrate and sample rate is fine across the source set. The data prep step
+normalizes every file to a uniform target (32 kHz mono 16-bit PCM, -14 LUFS).
 
-| Field                  | Format              | Notes                                                                            |
-| ---------------------- | ------------------- | -------------------------------------------------------------------------------- |
-| `scene_type`           | string              | battle, boss, town, exploration, dungeon, emotional, ambient, credits, menu      |
-| `energy`               | low / medium / high | Subjective gut read                                                              |
-| `mood_tags`            | list (2–4)          | tense, triumphant, melancholic, mysterious, peaceful, whimsical, epic, etc.      |
-| `dominant_instruments` | list (1–4 families) | piano, strings, brass, woodwinds, choir, synth, percussion, guitar               |
-| `composer`             | string or null      | Where known — composers have distinguishable styles within JRPG                  |
-| `notes`                | string or null      | Free-form: unusual structure, tempo changes, anything that would surprise Claude |
+---
 
-Fields intentionally excluded: `has_vocals` (excluded before labeling), `is_loop_friendly`
-(irrelevant after chunking), `source_game` (titles within the same series are not meaningful
-distinguishers; any useful origin context goes in `notes`).
+## Labels and Metadata
 
-### Machine-Generated Metadata
-Applied automatically during data preparation:
+### Human Labels (CSV, one row per track)
 
-| Field              | Tool                  |
-| ------------------ | --------------------- |
-| `bpm`              | librosa beat tracker  |
-| `key`              | librosa key detection |
-| `duration_seconds` | librosa / ffprobe     |
+| Field                  | Format              | Examples                                                                |
+| ---------------------- | ------------------- | ----------------------------------------------------------------------- |
+| `filename`             | string              | track_001.mp3                                                           |
+| `scene_type`           | string              | battle, boss, town, exploration, dungeon, emotional, ambient, credits, menu |
+| `energy`               | low / medium / high | subjective                                                              |
+| `mood_tags`            | list (2–4)          | tense, triumphant, melancholic, mysterious, peaceful, whimsical, epic   |
+| `dominant_instruments` | list (1–4)          | piano, strings, brass, woodwinds, choir, synth, percussion, guitar      |
+| `genre`                | string              | orchestral, chiptune, synthwave, jazz, rock, ambient                    |
+| `composer`             | string or null      | composer name                                                           |
+| `notes`                | string or null      | free-form (used as `keywords`)                                          |
 
-No automated instrument detection — available tools are unreliable for VGM and would add noise
-to labels that Eddy can produce more accurately by ear.
+### Machine-Generated (during data prep)
 
-### Training Caption
-Claude generates the final text description from human labels + machine metadata. Example output:
-*"Triumphant JRPG battle theme by Uematsu, fast tempo (~140 BPM), brass and strings with driving
-percussion, high energy, tense undertone."* The caption is the training signal for the language
-model — quality here directly affects fine-tuning quality.
+| Field           | Source                                              |
+| --------------- | --------------------------------------------------- |
+| `bpm`           | `librosa.beat.beat_track`                           |
+| `key`           | librosa chroma + Krumhansl-Schmuckler profile       |
+| `duration`      | ffprobe                                             |
+| `chroma_stable` | `audiocraft.modules.chroma.ChromaExtractor` (argmax) — eligibility flag for retrieval index |
+
+### Training Description (template-generated)
+
+Short tag-like sentence per track. No LLM required.
+
+Template:
+```
+"{energy_adj} JRPG {scene_type} theme, {moods}"
+```
+- `energy_adj`: high-energy / mid-energy / low-energy
+- `moods`: 2-mood form `"X and Y"`, 3+-mood form `"X, Y, and Z"`
+
+Examples:
+- `"High-energy JRPG battle theme, tense and triumphant"`
+- `"Low-energy JRPG exploration theme, peaceful and melancholic"`
+- `"Mid-energy JRPG dungeon theme, mysterious, dark, and ominous"`
+
+Structured fields (genre, bpm, key, moods, instrument, keywords) live in the sidecar JSON
+and are spliced into the description by audiocraft's training-time condition-merging
+augmentation (p=0.25 merge, p=0.5 description-dropout, p=0.3 word-dropout). This produces
+per-epoch caption variance from a single per-track description.
+
+### Sidecar JSON (one per WAV, at `<wav_path>.json`)
+
+```json
+{
+  "description": "High-energy JRPG battle theme, tense and triumphant",
+  "genre": "orchestral",
+  "bpm": "138",
+  "key": "D minor",
+  "moods": ["tense", "triumphant"],
+  "instrument": "brass and strings",
+  "keywords": "battle, urgent, sakuraba",
+  "artist": "Motoi Sakuraba",
+  "duration": 178.5,
+  "sample_rate": 32000,
+  "chroma_stable": true
+}
+```
 
 ---
 
 ## Data Preparation Pipeline
 
-Runs locally. Input: mp3 files + label file. Output: directory of 30s WAV chunks + manifest JSON.
-That directory is uploaded to Modal Volume and consumed directly by the training job.
+Runs locally, CPU-only. Input: source audio + label CSV. Output: normalized WAVs +
+sidecar JSONs + training manifest. Upload to Modal Volume.
 
-```
-mp3 files
-label file (human labels, one row per track)
-  │
-  ├─ Audio analysis (librosa): BPM, key, duration
-  ├─ Chunking: 30s segments, 5s overlap → WAV files at 32kHz
-  │    Each chunk inherits its parent track's full metadata
-  ├─ Claude API: generate training caption from all metadata
-  └─ Manifest JSON: { "file": "chunk_001.wav", "description": "..." }
-        (audiocraft training format)
+### Steps
 
-Upload manifest + WAVs → Modal Volume
-```
+1. **Audio normalize (ffmpeg, per track):**
+   ```
+   ffmpeg -i in.mp3 -ar 32000 -ac 1 \
+     -af loudnorm=I=-14:TP=-1:LRA=11 \
+     -c:a pcm_s16le out.wav
+   ```
+   Output: 32 kHz mono 16-bit PCM, **full-length**, -14 LUFS.
 
-**Segment length rationale:** 30s is the standard for audiocraft fine-tuning. Longer hurts
-training stability; shorter loses musical context. 5s overlap ensures musically coherent
-boundary regions are not systematically discarded.
+2. **Machine metadata extraction:** bpm, key, duration.
 
-**Expected scale:** ~1000 tracks × ~5 segments = ~5000 training samples.
+3. **Chroma stability scoring:** per-track stability score → `chroma_stable` flag.
+
+4. **Description template:** assemble from labels.
+
+5. **Sidecar JSON:** write per WAV.
+
+6. **Manifest build:**
+   ```
+   python -m audiocraft.data.audio_dataset <wav_folder> egs/vgm/data.jsonl.gz
+   ```
+
+7. **Upload** WAVs + sidecars + manifest to Modal Volume.
+
+### No Pre-Chunking
+
+audiocraft's `AudioDataset` random-crops 30s windows on-the-fly per epoch. Pre-chunking
+to fixed 30s segments would lose this variance and inflate disk usage. Feed full-length
+normalized WAVs; let the dataloader handle cropping.
 
 ---
 
 ## Training Pipeline
 
-### Setup
-Training job runs on Modal, reads chunked WAVs + manifest from Modal Volume.
+### audiocraft Pin
 
-Fine-tuning scope:
-- **Transformer (language model): fine-tuned.** This is where style is learned.
-- **T5 text encoder: frozen.** Would need far more data to improve; risk of degradation.
-- **EnCodec compression model: frozen.** Unfreezing risks audio codec quality degradation.
+| Dependency | Version                                                  |
+| ---------- | -------------------------------------------------------- |
+| audiocraft | v1.3.0 (SHA `72cb16f9fb239e9cf03f7bd997198c7d7a67a01c`)  |
+| torch      | 2.1.0+cu121                                              |
+| numpy      | 1.26.4 (hard pin)                                        |
+| xformers   | <0.0.23                                                  |
+| Python     | 3.10                                                     |
+| Modal base | `nvidia/cuda:12.1.1-cudnn8-devel-ubuntu22.04`            |
 
-Fine-tuning method: **full fine-tune** (no LoRA). audiocraft does not have native LoRA support;
-full fine-tuning is what the framework is designed for and produces a standard checkpoint that
-loads identically to the base model.
+Training image is **separate** from inference image (inference uses torch 2.6).
+
+### Fine-tuning Scope
+
+- **Transformer LM:** fine-tuned.
+- **T5 text encoder:** frozen.
+- **EnCodec compression model:** frozen.
+- **Method:** full fine-tune. LoRA rejected — no published MusicGen LoRA vs full-FT quality
+  comparison, and merging LoRA weights back into audiocraft's `get_pretrained()` format
+  is unsolved (HF→audiocraft converter does not exist upstream).
+
+### Required Training Config
+
+| Setting                      | Value      | Purpose                                                   |
+| ---------------------------- | ---------- | --------------------------------------------------------- |
+| `autocast`                   | true       | Mixed precision required to fit 80 GB                     |
+| `autocast_dtype`             | bf16       | fp16 grad scaler unstable at 3.3B                         |
+| `checkpointing`              | torch      | Gradient checkpointing required to fit 80 GB              |
+| `dataset.batch_size`         | 1–2        | Per-step limit from activation memory                     |
+| `optim.grad_accum`           | 16–32      | Effective batch matches Meta's per-GPU                    |
+| `dataset.segment_duration`   | 30         | Pretrained context max; do not change                     |
+| `optim.ema.use`              | false      | Avoids bug #550 (EMA + T5 fine-tune); saves VRAM          |
+| `optim.updates_per_epoch`    | 100–200    | ~5min checkpoint cadence (vs 25min at default)            |
+| `checkpoint.save_last`       | true       |                                                           |
+| `checkpoint.keep_last`       | 2          | ~80 GB rolling storage                                    |
+
+Deferred to training session: LR, total epochs, weight_decay, scheduler.
 
 ### Checkpoint Strategy
-Two simultaneous checkpoint concerns: **training resilience** and **checkpoint selection**.
 
-**During training (resilience):**
-- Full checkpoint (model weights + optimizer state) saved every 500 steps.
-- Only the latest 2 full checkpoints retained — older ones overwritten. ~40GB rolling.
-- On preemption, Modal restarts the job; it detects the latest checkpoint and resumes.
+- Dora signature-based resume: identical `dora run` command picks up from latest
+  `checkpoint.th`. No `--resume` flag exists; do not pass `--clear`.
+- Persistent Modal Volume mounted at `AUDIOCRAFT_DORA_DIR`.
+- On Modal container exit, `modal.Volume.commit()` flushes the latest checkpoint.
 
-**Per epoch (selection candidates):**
-- Model-only snapshot (no optimizer state, ~7GB fp16) saved at the end of each epoch.
-- All epoch snapshots retained — these are the eval candidates.
-
-**Expected output of a training run:** 2 epoch model snapshots + 2 rolling full checkpoints.
-Total storage: ~55GB on Modal Volume.
-
-### Hyperparameters
-Not locked at design time — determined during training session. Starting points: low learning
-rate (1e-5 range), 2 epochs, batch size 4–8 with gradient accumulation. Starting conservatively
-avoids catastrophic forgetting; epochs can be extended if style shift is insufficient.
+Resume restores: model, optimizer, lr_scheduler, scaler, best_state, epoch counter, history.
+Does NOT restore: dataloader cursor, mid-step grad-accum, RNG. Each resume restarts the
+current epoch from update 0 — losing ≤ updates_per_epoch worth of compute per preemption.
 
 ### Cost
+
 A100-80GB spot on Modal: ~$3–4/hr. Estimated training time per run: 8–20 hours.
-Budget per run: ~$30–80. Expect 3–5 experimental runs before a promotable checkpoint:
-**~$100–400 total training compute.** Data prep is local — free.
+Expect 3–5 experimental runs before a promotable checkpoint: **~$100–400 total**.
 
 ---
 
 ## Checkpoint Promotion
 
-After a training run completes:
+After a training run:
 
-1. **Automated eval:** run CLAP scoring across epoch snapshots using a fixed set of 15–20
-   novel prompts (never used in training). Measure cosine similarity between prompt embedding
-   and generated audio embedding. This is the same metric used in the inference pipeline.
-2. **Human review:** Eddy listens to outputs from the top-scoring checkpoint(s). CLAP similarity
-   is a proxy for coherence — the ear is the ground truth for whether it sounds good.
-3. **Promotion:** winning checkpoint converted to `get_pretrained()`-compatible layout
-   (state_dict.bin + compression_state_dict.bin + config) and pushed to HF Hub with tag
-   `vgm-melody-v{N}`. Inference service picks it up via `MODEL_TAG` env var — no code change.
+1. **Convert** (audiocraft has the official script):
+   ```python
+   from audiocraft.utils import export
+   export.export_lm(xp.folder / 'checkpoint.th', '/out/state_dict.bin')
+   export.export_pretrained_compression_model(
+       'facebook/encodec_32khz', '/out/compression_state_dict.bin')
+   ```
+2. **Upload** both files to private HF Hub repo with tag `vgm-melody-v{N}`.
+3. **Automated eval:** generate from 30–40 fixed eval prompts (held out from training)
+   with deterministic seeds across all candidate checkpoints.
+4. **Human review:** blind A/B/C listening across top candidates; rank per prompt.
+5. **Promotion:** chosen tag set as `MODEL_TAG` in inference service; redeploy.
 
-**Checkpoint format note:** audiocraft's trainer saves in its own format. A conversion step
-is required before HF push to produce the layout expected by `MusicGen.get_pretrained()`.
-This conversion is part of the training pipeline, not a manual step.
+### HF Hub Repo Layout
+
+```
+state_dict.bin                  (~6 GB fp16)
+compression_state_dict.bin      (~1 KB pointer to facebook/encodec_32khz)
+README.md                       (optional)
+```
+
+T5 encoder is NOT bundled — `T5Conditioner` fetches it separately at load time.
+
+### Conversion Gotchas
+
+- `continue_from` does NOT inherit config — must explicitly set `model/lm/model_scale=large`
+  and `conditioner=text2music`. Mismatch → strict `load_state_dict` shape error.
+- The exported `compression_state_dict.bin` is a pointer dict, not the EnCodec weights —
+  the loader pulls EnCodec separately at load time.
 
 ---
 
 ## Retrieval Index Migration
 
-When the fine-tuned model is promoted, the Qdrant index is rebuilt from the personal collection,
-replacing the synthetic bootstrap corpus.
+Gated rollout. The synthetic corpus stays in place until an A/B test confirms real-audio
+melody conditioning provides quality benefit (theory predicts modest gain at best;
+empirical validation required).
 
-**What gets indexed:** all ~1000 original tracks, **full-length** (not training chunks). Retrieval
-conditioning works better from a full musical arc than from a 30s segment.
+### A/B Test Protocol
 
-**Overlap with training data:** complete overlap — all 1000 tracks are both trained on and indexed.
-This is intentional. Melody conditioning extracts chroma features (pitch-over-time only; timbre,
-dynamics, and rhythm discarded). The model does not reproduce conditioning tracks; it generates
-new audio shaped by their melodic contour. Conditioning on a trained track is not memorization —
-it reinforces stylistic alignment, which is desirable.
+Runs after the first fine-tune is promoted, before any full index migration.
 
-**Index format:** same CLAP embedding + metadata schema as the current corpus. Re-indexing is
-idempotent (content-hash point IDs). The service requires no code changes — swapping the index
-contents is transparent to the orchestrator.
+- Index 50 `chroma_stable=true` tracks (15 battle, 15 town, 10 boss, 10 emotional).
+- 20 fixed prompts × 3 arms with identical seeds:
+  - **A:** text-only `generate()`
+  - **B:** `generate_with_chroma()` with top-1 retrieved real track
+  - **C:** `generate_with_chroma()` with random real track (control)
+- Score: CLAP-to-prompt similarity + blind human listening preference.
+
+**Decision rule:** build full index iff B beats both A and C on both metrics.
+
+### If A/B Passes
+
+- Index all `chroma_stable=true` tracks at full length.
+- Same Qdrant schema as current bootstrap corpus (CLAP embedding + metadata).
+- Content-hash IDs ensure idempotent re-indexing.
+- No inference code change — `MODEL_TAG` swap + `use_melody_conditioning=true` default.
+
+### If A/B Fails
+
+Melody conditioning stays disabled. Retrieval infrastructure retained for future use cases
+(style search, sample browsing, training-time augmentation).
 
 ---
 
 ## Eval Strategy
 
-No held-out tracks. Evaluation is text-prompt coherence via CLAP similarity — the score compares
-a text embedding to a generated audio embedding. No reference track is involved.
+### Per-Run Checkpoint Selection
 
-**Ongoing eval:** same approach as current calibration — novel prompts → generate → CLAP score.
-Compare score distributions between base model and fine-tuned model to verify style shift didn't
-degrade prompt coherence.
+- **30–40 fixed eval prompts** spanning all scene categories; held out from training.
+- Generate from each epoch checkpoint deterministically (same seeds, same gen params).
+- **Primary signal:** blind human listening, ranked per prompt, aggregated.
+- **Secondary signal:** CLAP-to-prompt score — used only as a tiebreaker and regression detector.
 
-**Style fidelity check:** CLAP similarity between generated audio and the corpus centroid (mean
-embedding across all indexed tracks). A rising centroid similarity with maintained prompt
-coherence indicates successful stylistic fine-tuning.
+### Ongoing Eval (post-promotion)
 
-**Threshold recalibration:** `DEFAULT_SIMILARITY_THRESHOLD` in `config.py` was calibrated on
-the base model. Re-run `scripts/run_calibration.py` + `scripts/analyze_thresholds.py` after
-promotion and update `eval/thresholds.json` before updating CI.
+- Re-run `scripts/run_calibration.py` + `scripts/analyze_thresholds.py` with new model.
+- Update `eval/thresholds.json` and `DEFAULT_SIMILARITY_THRESHOLD` in `config.py`.
+- Compare prompt-coherence distribution vs base model — confirm style shift didn't
+  degrade text following.
+
+### Class Imbalance
+
+Imbalance across `scene_type` is accepted as a feature — the corpus distribution IS the
+style we are modeling. Manifest writes `weight: 1.0` for every entry; per-track weight
+support is latent for future use if needed.
+
+---
+
+## PoC Phasing
+
+Validate the full path on minimal scope before committing real compute. See M6 tasks in
+PROGRESS.md for the session-level breakdown.
+
+### Phase A — Data Prep PoC (local)
+
+- Set up `training/.venv/` with audiocraft v1.3.0 + CPU-only torch.
+- Hand-label 5–10 tracks covering main scene types → `training/source/labels.csv`.
+- Build and run full data prep pipeline (normalize → metadata → chroma → description →
+  sidecar → manifest).
+- **Pass:** manifest loads under `audiocraft.data.audio_dataset`; every entry has required
+  fields; `MusicDataset.__getitem__` iterates without error.
+
+### Phase B — Conversion Round-trip (Modal, ~15 min)
+
+- Run `export.export_lm` on vanilla `musicgen-melody-large` weights.
+- Upload `state_dict.bin` + `compression_state_dict.bin` to private HF repo
+  (`KairnAI/flowing-trails-musicgen`), tag `base-melody-large-roundtrip`.
+- Inference service loads via `MODEL_TAG` + `snapshot_download()`; generates a sample.
+- **Pass:** output indistinguishable from current vanilla generation (same seed).
+
+### Phase C — Training PoC (Modal A100-80GB, ~15 min)
+
+Uses small model first to validate training code path before burning compute on large.
+
+```
+dora run solver=musicgen/musicgen_base_32khz \
+  model/lm/model_scale=small \
+  continue_from=//pretrained/facebook/musicgen-small \
+  conditioner=text2music \
+  dataset.batch_size=8 dataset.segment_duration=10 \
+  optim.epochs=2 optim.updates_per_epoch=20 \
+  optim.ema.use=false \
+  checkpoint.save_last=true checkpoint.save_every=1 checkpoint.keep_last=3 \
+  generate.every=1 generate.num_samples=2
+```
+
+- Mid-run SIGKILL → relaunch identical command → confirm "Restoring weights and history".
+- Export checkpoint, push to HF, load in inference.
+- **Pass:** training runs end-to-end; resume works; exported checkpoint loads in inference.
+
+### Phase D — Full Run
+
+- Switch to `musicgen-melody-large` + full data + locked training config.
+- Multiple experimental runs; production hyperparams determined empirically.
 
 ---
 
 ## Key Design Decisions
 
-**A100-80GB required for training, A10G sufficient for inference.**
-Full fine-tuning at 3.3B with Adam optimizer states needs ~50–60GB VRAM. The inference service
-stays on A10G — forward passes only need ~14GB. These are separate Modal app configurations.
-
-**Full fine-tune over LoRA.**
-audiocraft does not have native PEFT/LoRA support. Full fine-tuning is what the framework
-is built for, produces a standard checkpoint format, and avoids custom adapter loading code.
-
-**Data prep is local, not on Modal.**
-The preparation pipeline is CPU-only. Running it locally avoids Modal overhead, is simpler to
-debug interactively, and is free. The output artifact (WAVs + manifest) is uploaded once and
-consumed by the training job.
-
-**Stylistic bias is intentional.**
-The model is trained on a single-collection JRPG corpus and is expected to be biased toward
-that style. This is the goal — not a generic model, but one with a defined personality.
-Diversity within the collection (battle, town, ambient, emotional) prevents mode collapse
-without diluting the style signature.
-
-**Checkpoint selection requires human review.**
-CLAP similarity can shortlist candidates but cannot judge aesthetic quality. Eddy listens
-to and approves the checkpoint before it is promoted. This gate is non-negotiable.
-
-**PoC first, full data second.**
-Before processing the full collection, the training pipeline will be verified end-to-end on
-the base model (push vanilla weights → fine-tune on 1 sample → load in inference → confirm
-generation works). Full data prep begins only after the pipeline is confirmed working.
+- **Full FT, not LoRA.** No published MusicGen LoRA vs full-FT quality comparison;
+  HF→audiocraft checkpoint merge is unsolved.
+- **A100-80GB with mandatory memory levers.** bf16 + gradient checkpointing + batch 1–2 +
+  grad_accum 16–32. Multi-GPU buys speed only, not quality at this dataset size.
+- **No pre-chunking.** audiocraft's dataloader random-crops 30s on-the-fly; better
+  generalization than fixed chunks, simpler pipeline, less disk.
+- **Template captions, no LLM.** audiocraft's condition-merging augmentation produces
+  per-epoch variance from a single per-track description.
+- **Stylistic bias is intentional.** No class balancing.
+- **Human is primary eval judge.** CLAP score is a tiebreaker only.
+- **Retrieval index migration is A/B-gated.** Theory predicts modest gain at best.
+- **Checkpoint promotion path validated on base weights before any training.**

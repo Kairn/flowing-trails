@@ -1,4 +1,7 @@
-.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze
+.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze train-env train-prep
+
+TRAIN_PYTHON = training/.venv/bin/python
+TRAIN_PIP = training/.venv/bin/pip
 
 embed:
 	modal run retrieval/embed_corpus.py
@@ -47,3 +50,13 @@ endif
 
 calibrate-analyze:
 	.venv/bin/python scripts/analyze_thresholds.py
+
+# ── Training ─────────────────────────────────────────────────────────────────
+
+train-env:
+	python3.11 -m venv training/.venv
+	$(TRAIN_PIP) install --upgrade pip
+	$(TRAIN_PIP) install -r training/requirements.txt
+
+train-prep:
+	$(TRAIN_PYTHON) training/prepare.py

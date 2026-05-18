@@ -16,7 +16,7 @@ MUSICGEN_APP_NAME = "flowing-trails-musicgen"
 
 # ── Hugging Face ──────────────────────────────────────────────────────────────
 
-HF_MUSICGEN_REPO = "flowing-trails-musicgen"
+HF_MUSICGEN_REPO = "KairnAI/flowing-trails-musicgen"
 
 # Base model references — used by inference service before fine-tuned model exists
 MUSICGEN_BASE_MODEL = "facebook/musicgen-melody-large"

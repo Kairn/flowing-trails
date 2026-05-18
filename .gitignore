@@ -248,3 +248,10 @@ eval/*.wav
 eval/*_results.json
 eval/thresholds.json
 !eval/golden/
+
+# Training source data (private tracks + labels — treat as secrets)
+training/source/
+# Training venv (separate from main .venv due to audiocraft version pins)
+training/.venv/
+# Prepared training data (generated artifacts, not source)
+training/prepared/
