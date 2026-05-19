@@ -83,8 +83,12 @@ What instruments carry the track? "Dominant" means audibly leading, not just pre
 | `woodwinds`  | Flute, clarinet, oboe, bassoon.                                  |
 | `choir`      | Wordless or non-language vocal ensemble (no lyrics).             |
 | `synth`      | Electronic synthesizers — analog or digital, lead or pad.        |
-| `percussion` | Drums, mallets, ethnic percussion when prominent (not just kit). |
-| `guitar`     | Acoustic or electric guitar, lead or rhythm.                     |
+| `percussion`   | Drums, ethnic percussion, unpitched hits when prominent (not just kit).  |
+| `guitar`       | Acoustic or electric guitar, lead or rhythm.                             |
+| `glockenspiel` | Bright, shimmery, high-pitched metallic strikes. Pitched percussion.     |
+| `celesta`      | Soft, warm, bell-like keyboard tone. Dreamy/magical scenes.              |
+| `marimba`      | Warm, woody, rounded tone. Pitched percussion with short natural decay.  |
+| `vibraphone`   | Warm, glowy, smooth metallic tone with optional shimmer. Pitched mallet. |
 
 ---
 
