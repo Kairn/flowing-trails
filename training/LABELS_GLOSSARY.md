@@ -150,6 +150,10 @@ Key distinctions:
 
 Only when the sound has no acoustic equivalent — sweeping filter pads, electronic arpeggios, clearly digital leads. If you can name what real instrument it's trying to be, use that instrument instead.
 
+**Synth-enhanced acoustic sounds:** VGM often layers synth on top of acoustic samples to get extra bite or thickness (sharper brass, denser strings). If the part still "belongs" to an acoustic section — brass fanfare, string pad — label the acoustic instrument. The production sharpens the sound but the musical role is unchanged.
+
+**Synth inspired by acoustic sounds:** Sometimes a sound borrows the *attack* of an acoustic instrument but behaves differently after that. Test the sustain: acoustic instruments run out of energy (bow reverses, mallet strike decays, breath runs out). If the tone holds indefinitely at constant volume or the density doesn't match any acoustic instrument, that's `synth`. Common examples: bell-like tones with unnaturally long sustain (synth bell, not vibraphone), brass-like leads with no buzzy onset and perfectly even tone (synth lead, not brass).
+
 ### When unsure
 
 Label only the 1–2 instruments you're confident about. Accurate sparse labels are better than noisy complete ones.
