@@ -69,3 +69,6 @@ train-manifest:
 
 train-validate:
 	$(TRAIN_PYTHON) training/validate_dataset.py
+
+train-push:
+	$(TRAIN_PYTHON) training/push_to_hub.py $(ARGS)

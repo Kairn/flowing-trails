@@ -4,6 +4,7 @@
     "chiptune",
     "cutscene",
     "dotenv",
+    "ENCODEC",
     "genai",
     "huggingface",
     "JRPG",
