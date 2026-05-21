@@ -59,4 +59,7 @@ train-env:
 	$(TRAIN_PIP) install -r training/requirements.txt
 
 train-prep:
-	$(TRAIN_PYTHON) training/prepare.py
+	$(TRAIN_PYTHON) training/prep_normalize.py
+
+train-describe:
+	$(TRAIN_PYTHON) training/prep_describe.py
