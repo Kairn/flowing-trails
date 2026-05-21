@@ -1,4 +1,4 @@
-.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze train-env train-prep
+.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze train-env train-prep train-describe train-manifest train-validate
 
 TRAIN_PYTHON = training/.venv/bin/python
 TRAIN_PIP = training/.venv/bin/pip
@@ -63,3 +63,9 @@ train-prep:
 
 train-describe:
 	$(TRAIN_PYTHON) training/prep_describe.py
+
+train-manifest:
+	$(TRAIN_PYTHON) training/prep_manifest.py
+
+train-validate:
+	$(TRAIN_PYTHON) training/validate_dataset.py

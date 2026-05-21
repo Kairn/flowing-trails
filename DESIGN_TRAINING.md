@@ -128,7 +128,7 @@ and are spliced into the description by audiocraft's training-time condition-mer
 augmentation (p=0.25 merge, p=0.5 description-dropout, p=0.3 word-dropout). This produces
 per-epoch caption variance from a single per-track description.
 
-### Sidecar JSON (one per WAV, at `<wav_path>.json`)
+### Sidecar JSON (one per WAV, at `<stem>.json`)
 
 ```json
 {

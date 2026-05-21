@@ -84,7 +84,7 @@ def main() -> None:
         meta = metadata[stem]
         sidecar = build_sidecar(entry, meta, score)
 
-        sidecar_path = PREPARED_DIR / f"{stem}.wav.json"
+        sidecar_path = PREPARED_DIR / f"{stem}.json"
         sidecar_path.write_text(json.dumps(sidecar, indent=2) + "\n")
         print(f"  description: {sidecar['description']}")
 
