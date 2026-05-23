@@ -56,6 +56,14 @@ DEFAULT_SIMILARITY_THRESHOLD = 0.40
 
 CLAUDE_MODEL = "claude-sonnet-4-6"
 
+# ── Training ─────────────────────────────────────────────────────────────────
+
+TRAINING_APP_NAME = "flowing-trails-training"
+TRAINING_VOLUME_NAME = "flowing-trails-training"
+TRAINING_VOLUME_MOUNT_PATH = "/dora"
+TRAINING_DATA_PATH = "/dora/data"
+TRAINING_GPU_CONFIG = "a100-80gb"
+
 # ── Observability ─────────────────────────────────────────────────────────────
 
 OTEL_SERVICE_NAME = "flowing-trails"
