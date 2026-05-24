@@ -80,13 +80,13 @@ train-full:
 	modal run training/app.py::TrainingRunner.train --config-name full_large
 
 train-list:
-	modal run training/app.py::TrainingRunner.list_checkpoints
+	modal volume ls flowing-trails-training xps/
 
 train-clean:
-	modal run training/app.py::TrainingRunner.clean_xps
+	modal volume rm flowing-trails-training xps/ -r
 
 train-export:
-	modal run training/app.py::TrainingRunner.export_and_push --xp-sig $(XP_SIG) --tag $(TAG)
+	modal run training/app.py::TrainingUtils.export_and_push --xp-sig $(XP_SIG) --tag $(TAG)
 
 train-promote:
 ifndef TAG

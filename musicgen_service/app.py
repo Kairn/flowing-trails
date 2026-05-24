@@ -75,6 +75,7 @@ image = (
     secrets=[modal.Secret.from_name(MODAL_SECRET_NAME)],
     timeout=300,
     scaledown_window=120,
+    retries=modal.Retries(max_retries=1),
 )
 class MusicGenService:
     @modal.enter()

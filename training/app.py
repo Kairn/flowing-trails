@@ -99,6 +99,82 @@ training_volume = modal.Volume.from_name(TRAINING_VOLUME_NAME, create_if_missing
 
 
 @app.cls(
+    image=image,
+    secrets=[modal.Secret.from_name(MODAL_SECRET_NAME)],
+    volumes={TRAINING_VOLUME_MOUNT_PATH: training_volume},
+    timeout=3600,
+)
+class TrainingUtils:
+    @modal.enter()
+    def setup(self):
+        import logging
+
+        logging.basicConfig(
+            level=logging.INFO, format="%(levelname)s | %(name)s | %(message)s"
+        )
+        self.log = logging.getLogger("flowing-trails.training-utils")
+
+    @modal.method()
+    def export_and_push(self, xp_sig: str, tag: str) -> dict:
+        """Export a Dora checkpoint and push to HF Hub.
+
+        Args:
+            xp_sig: Dora experiment signature (directory name under /dora/xps/).
+            tag: Git tag to create on the HF repo.
+        """
+        import tempfile
+        from pathlib import Path
+
+        from audiocraft.utils.export import export_lm, export_pretrained_compression_model  # type: ignore
+        from huggingface_hub import HfApi
+
+        xp_dir = Path(TRAINING_VOLUME_MOUNT_PATH) / "xps" / xp_sig
+        ckpt_path = xp_dir / "checkpoint.th"
+        if not ckpt_path.is_file():
+            raise FileNotFoundError(f"Checkpoint not found: {ckpt_path}")
+
+        self.log.info("Exporting checkpoint: %s", ckpt_path)
+
+        stage_dir = Path(tempfile.mkdtemp(prefix="ft-export-"))
+        lm_path = stage_dir / "state_dict.bin"
+        comp_path = stage_dir / "compression_state_dict.bin"
+
+        export_lm(ckpt_path, lm_path)
+        self.log.info("Exported LM: %s", lm_path)
+
+        export_pretrained_compression_model(ENCODEC_PRETRAINED, comp_path)
+        self.log.info("Created compression pointer: %s", comp_path)
+
+        import os
+
+        hf_repo = os.environ.get("HF_MUSICGEN_REPO", HF_MUSICGEN_REPO)
+        api = HfApi()
+        api.create_repo(repo_id=hf_repo, private=True, exist_ok=True)
+
+        commit = api.upload_folder(
+            repo_id=hf_repo,
+            folder_path=str(stage_dir),
+            commit_message=f"Push weights: {tag}",
+        )
+        self.log.info("Uploaded to %s: %s", hf_repo, commit.commit_url)
+
+        api.create_tag(
+            repo_id=hf_repo,
+            tag=tag,
+            tag_message=f"Weights snapshot: {tag}",
+            exist_ok=True,
+        )
+        self.log.info("Tagged: %s@%s", hf_repo, tag)
+
+        import shutil
+
+        shutil.rmtree(stage_dir, ignore_errors=True)
+
+        print(f"Pushed {hf_repo}@{tag} — {commit.commit_url}")
+        return {"repo": hf_repo, "tag": tag, "commit_url": str(commit.commit_url)}
+
+
+@app.cls(
     gpu=TRAINING_GPU_CONFIG,
     image=image,
     secrets=[modal.Secret.from_name(MODAL_SECRET_NAME)],
@@ -185,101 +261,6 @@ class TrainingRunner:
         save_audio_meta(manifest_path, wavs)
         training_volume.commit()
         self.log.info("Manifest rebuilt: %s (%d entries)", manifest_path, len(wavs))
-
-    @modal.method()
-    def export_and_push(self, xp_sig: str, tag: str) -> dict:
-        """Export a Dora checkpoint and push to HF Hub.
-
-        Args:
-            xp_sig: Dora experiment signature (directory name under /dora/xps/).
-            tag: Git tag to create on the HF repo.
-        """
-        import tempfile
-        from pathlib import Path
-
-        from audiocraft.utils.export import export_lm, export_pretrained_compression_model  # type: ignore
-        from huggingface_hub import HfApi
-
-        xp_dir = Path(TRAINING_VOLUME_MOUNT_PATH) / "xps" / xp_sig
-        ckpt_path = xp_dir / "checkpoint.th"
-        if not ckpt_path.is_file():
-            raise FileNotFoundError(f"Checkpoint not found: {ckpt_path}")
-
-        self.log.info("Exporting checkpoint: %s", ckpt_path)
-
-        stage_dir = Path(tempfile.mkdtemp(prefix="ft-export-"))
-        lm_path = stage_dir / "state_dict.bin"
-        comp_path = stage_dir / "compression_state_dict.bin"
-
-        export_lm(ckpt_path, lm_path)
-        self.log.info("Exported LM: %s", lm_path)
-
-        export_pretrained_compression_model(ENCODEC_PRETRAINED, comp_path)
-        self.log.info("Created compression pointer: %s", comp_path)
-
-        import os
-
-        hf_repo = os.environ.get("HF_MUSICGEN_REPO", HF_MUSICGEN_REPO)
-        api = HfApi()
-        api.create_repo(repo_id=hf_repo, private=True, exist_ok=True)
-
-        commit = api.upload_folder(
-            repo_id=hf_repo,
-            folder_path=str(stage_dir),
-            commit_message=f"Push weights: {tag}",
-        )
-        self.log.info("Uploaded to %s: %s", hf_repo, commit.commit_url)
-
-        api.create_tag(
-            repo_id=hf_repo,
-            tag=tag,
-            tag_message=f"Weights snapshot: {tag}",
-            exist_ok=True,
-        )
-        self.log.info("Tagged: %s@%s", hf_repo, tag)
-
-        import shutil
-
-        shutil.rmtree(stage_dir, ignore_errors=True)
-
-        print(f"Pushed {hf_repo}@{tag} — {commit.commit_url}")
-        return {"repo": hf_repo, "tag": tag, "commit_url": str(commit.commit_url)}
-
-    @modal.method()
-    def clean_xps(self) -> dict:
-        """Remove all experiment directories from the training volume."""
-        import shutil
-        from pathlib import Path
-
-        xps_dir = Path(TRAINING_VOLUME_MOUNT_PATH) / "xps"
-        removed = []
-        if xps_dir.is_dir():
-            for entry in xps_dir.iterdir():
-                if entry.is_dir():
-                    shutil.rmtree(entry)
-                    removed.append(entry.name)
-                    self.log.info("Removed: %s", entry)
-
-        training_volume.commit()
-        print(f"Cleaned {len(removed)} experiment(s): {removed}")
-        return {"removed": removed}
-
-    @modal.method()
-    def list_checkpoints(self) -> dict:
-        """List experiment directories and their checkpoints on the volume."""
-        import json
-        from pathlib import Path
-
-        xps_dir = Path(TRAINING_VOLUME_MOUNT_PATH) / "xps"
-        experiments = {}
-        if xps_dir.is_dir():
-            for entry in sorted(xps_dir.iterdir()):
-                if entry.is_dir():
-                    ckpts = sorted(entry.glob("checkpoint*.th"))
-                    experiments[entry.name] = [c.name for c in ckpts]
-
-        print(json.dumps(experiments, indent=2))
-        return {"experiments": experiments}
 
     @modal.method()
     def check_env(self) -> dict:

@@ -85,6 +85,7 @@ class ComposeRequest(BaseModel):
     secrets=[modal.Secret.from_name(MODAL_SECRET_NAME)],
     volumes={VOLUME_MOUNT_PATH: corpus_volume},
     timeout=300,
+    retries=modal.Retries(max_retries=1),
 )
 @modal.fastapi_endpoint(method="POST")
 def compose(request: ComposeRequest) -> dict:
