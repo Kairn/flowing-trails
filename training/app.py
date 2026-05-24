@@ -10,6 +10,7 @@ import modal
 
 from config import (
     AUDIOCRAFT_SHA,
+    ENCODEC_PRETRAINED,
     HF_MUSICGEN_REPO,
     MODAL_SECRET_NAME,
     TRAINING_APP_NAME,
@@ -21,7 +22,6 @@ from config import (
 
 AUDIOCRAFT_ROOT = "/opt/audiocraft"
 CONFIGS_DIR = "/opt/training_configs"
-ENCODEC_PRETRAINED = "facebook/encodec_32khz"
 
 app = modal.App(TRAINING_APP_NAME)
 

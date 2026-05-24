@@ -4,9 +4,13 @@ Pass condition: manifest loads, every entry has required sidecar fields,
 MusicDataset.__getitem__ iterates without error for all entries.
 """
 
+import json
 import os
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from config import MUSICGEN_SAMPLE_RATE
 
 ROOT = Path(__file__).parent
 os.environ.setdefault("AUDIOCRAFT_CONFIG", str(ROOT / "audiocraft_env.yaml"))
@@ -42,8 +46,6 @@ def main() -> None:
             print(f"  FAIL: missing sidecar for {m.path}", file=sys.stderr)
             sys.exit(1)
 
-        import json
-
         data = json.loads(sidecar.read_text())
         missing = [f for f in REQUIRED_SIDECAR_FIELDS if f not in data]
         if missing:
@@ -54,7 +56,7 @@ def main() -> None:
     ds = MusicDataset(
         meta,
         segment_duration=None,
-        sample_rate=32000,
+        sample_rate=MUSICGEN_SAMPLE_RATE,
         channels=1,
         shuffle=False,
         num_samples=len(meta),

@@ -75,7 +75,7 @@ normalizes every file to a uniform target (32 kHz mono 16-bit PCM, -14 LUFS).
 | `filename`             | string                                      | `"track_001.mp3"`                                 |
 | `scene_type`           | string (enum, see glossary)                 | `"battle"`                                        |
 | `energy`               | string (`low` / `medium` / `high`)          | `"high"`                                          |
-| `mood_tags`            | array of strings, 2–4 values (see glossary) | `["tense", "urgent", "triumphant"]`               |
+| `mood_tags`            | array of strings, 1–4 values (see glossary) | `["tense", "urgent", "triumphant"]`               |
 | `dominant_instruments` | array of strings, 1–4 values (see glossary) | `["brass", "strings", "percussion"]`              |
 | `genre`                | string (enum, see glossary)                 | `"orchestral"`                                    |
 | `notes`                | string or null                              | `"driving 6/8 battle theme"` (used as `keywords`) |
@@ -104,8 +104,8 @@ Example record:
 | --------------- | ------------------------------------------------------------------------------------------- |
 | `bpm`           | `librosa.beat.beat_track`                                                                   |
 | `key`           | librosa chroma + Krumhansl-Schmuckler profile                                               |
-| `duration`      | ffprobe                                                                                     |
-| `chroma_stable` | `audiocraft.modules.chroma.ChromaExtractor` (argmax) — eligibility flag for retrieval index |
+| `duration`      | `librosa.get_duration`                                                                      |
+| `chroma_score`  | `audiocraft.modules.chroma.ChromaExtractor` (argmax) — fraction of adjacent frames sharing dominant chroma bin |
 
 ### Training Description (template-generated)
 
@@ -141,7 +141,7 @@ per-epoch caption variance from a single per-track description.
   "keywords": "battle, urgent",
   "duration": 178.5,
   "sample_rate": 32000,
-  "chroma_stable": true
+  "chroma_score": 0.82
 }
 ```
 
@@ -164,7 +164,7 @@ sidecar JSONs + training manifest. Upload to Modal Volume.
 
 2. **Machine metadata extraction:** bpm, key, duration.
 
-3. **Chroma stability scoring:** per-track stability score → `chroma_stable` flag.
+3. **Chroma stability scoring:** per-track stability score → `chroma_score` float.
 
 4. **Description template:** assemble from labels.
 
@@ -195,7 +195,7 @@ normalized WAVs; let the dataloader handle cropping.
 | torch      | 2.1.0+cu121                                             |
 | numpy      | 1.26.4 (hard pin)                                       |
 | xformers   | <0.0.23                                                 |
-| Python     | 3.10                                                    |
+| Python     | 3.11                                                    |
 | Modal base | `nvidia/cuda:12.1.1-cudnn8-devel-ubuntu22.04`           |
 
 Training image is **separate** from inference image (inference uses torch 2.6).

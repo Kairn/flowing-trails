@@ -51,7 +51,7 @@ How much physical/sonic momentum is in the track?
 
 ---
 
-## `mood_tags` (pick 2–4, array)
+## `mood_tags` (pick 1–4, array)
 
 Emotional flavor. Pick the 2–4 most dominant. Order doesn't matter.
 

@@ -15,6 +15,9 @@ from pathlib import Path
 import librosa
 import numpy as np
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from config import MUSICGEN_SAMPLE_RATE
+
 ROOT = Path(__file__).parent
 SOURCE_DIR = ROOT / "source"
 PREPARED_DIR = ROOT / "prepared"
@@ -61,7 +64,7 @@ def normalize_audio(src: Path, dst: Path) -> None:
         "-i",
         str(src),
         "-ar",
-        "32000",
+        str(MUSICGEN_SAMPLE_RATE),
         "-ac",
         "1",
         "-af",

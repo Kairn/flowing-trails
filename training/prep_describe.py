@@ -7,7 +7,11 @@ Reads prepared WAVs + labels + machine metadata. For each track:
 """
 
 import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from config import MUSICGEN_SAMPLE_RATE
 
 import torch
 import torchaudio
@@ -16,8 +20,6 @@ from audiocraft.modules.chroma import ChromaExtractor  # type: ignore
 ROOT = Path(__file__).parent
 SOURCE_DIR = ROOT / "source"
 PREPARED_DIR = ROOT / "prepared"
-
-SAMPLE_RATE = 32000
 
 ENERGY_ADJ = {
     "high": "High-energy",
@@ -29,7 +31,7 @@ ENERGY_ADJ = {
 def compute_chroma_score(extractor: ChromaExtractor, wav_path: Path) -> float:
     """Fraction of adjacent frames sharing the same dominant chroma bin."""
     wav, sr = torchaudio.load(wav_path)
-    assert sr == SAMPLE_RATE
+    assert sr == MUSICGEN_SAMPLE_RATE
     with torch.no_grad():
         chroma = extractor(wav.unsqueeze(0))  # (1, T, 12)
     indices = chroma.argmax(dim=-1).squeeze(0)  # (T,)
@@ -63,7 +65,7 @@ def build_sidecar(label: dict, meta: dict, chroma_score: float) -> dict:
         "instrument": join_list(label["dominant_instruments"]),
         "keywords": label["notes"] or "",
         "duration": meta["duration"],
-        "sample_rate": SAMPLE_RATE,
+        "sample_rate": MUSICGEN_SAMPLE_RATE,
         "chroma_score": chroma_score,
     }
 
@@ -71,7 +73,7 @@ def build_sidecar(label: dict, meta: dict, chroma_score: float) -> dict:
 def main() -> None:
     labels = json.loads((SOURCE_DIR / "labels.json").read_text())
     metadata = json.loads((PREPARED_DIR / "machine_metadata.json").read_text())
-    extractor = ChromaExtractor(sample_rate=SAMPLE_RATE, argmax=True)
+    extractor = ChromaExtractor(sample_rate=MUSICGEN_SAMPLE_RATE, argmax=True)
 
     for entry in labels:
         stem = Path(entry["filename"]).stem

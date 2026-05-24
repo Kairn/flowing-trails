@@ -34,11 +34,10 @@ load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 import torch
 from huggingface_hub import HfApi, hf_hub_download
 
-from config import HF_MUSICGEN_REPO
+from config import ENCODEC_PRETRAINED, HF_MUSICGEN_REPO
 
 LM_FILENAME = "state_dict.bin"
 COMPRESSION_FILENAME = "compression_state_dict.bin"
-ENCODEC_PRETRAINED = "facebook/encodec_32khz"
 
 
 def stage_from_hf(source_repo: str, stage_dir: Path) -> None:

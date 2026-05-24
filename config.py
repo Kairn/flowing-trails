@@ -59,6 +59,7 @@ CLAUDE_MODEL = "claude-sonnet-4-6"
 # ── Audiocraft ───────────────────────────────────────────────────────────────
 
 AUDIOCRAFT_SHA = "72cb16f9fb239e9cf03f7bd997198c7d7a67a01c"  # v1.3.0
+ENCODEC_PRETRAINED = "facebook/encodec_32khz"
 
 # ── Training ─────────────────────────────────────────────────────────────────
 
