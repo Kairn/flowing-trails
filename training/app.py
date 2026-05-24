@@ -9,6 +9,7 @@ from __future__ import annotations
 import modal
 
 from config import (
+    HF_MUSICGEN_REPO,
     MODAL_SECRET_NAME,
     TRAINING_APP_NAME,
     TRAINING_DATA_PATH,
@@ -20,6 +21,7 @@ from config import (
 AUDIOCRAFT_SHA = "72cb16f9fb239e9cf03f7bd997198c7d7a67a01c"
 AUDIOCRAFT_ROOT = "/opt/audiocraft"
 CONFIGS_DIR = "/opt/training_configs"
+ENCODEC_PRETRAINED = "facebook/encodec_32khz"
 
 app = modal.App(TRAINING_APP_NAME)
 
@@ -113,6 +115,7 @@ class TrainingRunner:
     def train(self, config_name: str) -> dict:
         """Run training via Dora with the specified config."""
         import subprocess
+        import threading
 
         import yaml
 
@@ -125,12 +128,30 @@ class TrainingRunner:
         cmd = _build_dora_cmd(config)
         self.log.info("Running: %s", " ".join(cmd))
 
-        result = subprocess.run(cmd, cwd=AUDIOCRAFT_ROOT)
+        stop_event = threading.Event()
+        commit_thread = threading.Thread(
+            target=self._periodic_commit,
+            args=(stop_event,),
+            daemon=True,
+        )
+        commit_thread.start()
 
-        training_volume.commit()
-        self.log.info("Volume committed. Return code: %d", result.returncode)
+        try:
+            result = subprocess.run(cmd, cwd=AUDIOCRAFT_ROOT)
+        finally:
+            stop_event.set()
+            commit_thread.join(timeout=5)
+            training_volume.commit()
+            self.log.info("Final volume commit done.")
 
+        self.log.info("Return code: %d", result.returncode)
         return {"returncode": result.returncode, "config": config_name}
+
+    def _periodic_commit(self, stop_event, interval: int = 120):
+        """Background thread: commit volume periodically so checkpoints survive preemption."""
+        while not stop_event.wait(interval):
+            training_volume.commit()
+            self.log.info("Periodic volume commit.")
 
     def _rebuild_manifest(self):
         """Rebuild manifest from volume data so paths are container-valid."""
@@ -158,6 +179,101 @@ class TrainingRunner:
         save_audio_meta(manifest_path, wavs)
         training_volume.commit()
         self.log.info("Manifest rebuilt: %s (%d entries)", manifest_path, len(wavs))
+
+    @modal.method()
+    def export_and_push(self, xp_sig: str, tag: str) -> dict:
+        """Export a Dora checkpoint and push to HF Hub.
+
+        Args:
+            xp_sig: Dora experiment signature (directory name under /dora/xps/).
+            tag: Git tag to create on the HF repo.
+        """
+        import tempfile
+        from pathlib import Path
+
+        from audiocraft.utils.export import export_lm, export_pretrained_compression_model  # type: ignore
+        from huggingface_hub import HfApi
+
+        xp_dir = Path(TRAINING_VOLUME_MOUNT_PATH) / "xps" / xp_sig
+        ckpt_path = xp_dir / "checkpoint.th"
+        if not ckpt_path.is_file():
+            raise FileNotFoundError(f"Checkpoint not found: {ckpt_path}")
+
+        self.log.info("Exporting checkpoint: %s", ckpt_path)
+
+        stage_dir = Path(tempfile.mkdtemp(prefix="ft-export-"))
+        lm_path = stage_dir / "state_dict.bin"
+        comp_path = stage_dir / "compression_state_dict.bin"
+
+        export_lm(ckpt_path, lm_path)
+        self.log.info("Exported LM: %s", lm_path)
+
+        export_pretrained_compression_model(ENCODEC_PRETRAINED, comp_path)
+        self.log.info("Created compression pointer: %s", comp_path)
+
+        import os
+
+        hf_repo = os.environ.get("HF_MUSICGEN_REPO", HF_MUSICGEN_REPO)
+        api = HfApi()
+        api.create_repo(repo_id=hf_repo, private=True, exist_ok=True)
+
+        commit = api.upload_folder(
+            repo_id=hf_repo,
+            folder_path=str(stage_dir),
+            commit_message=f"Push weights: {tag}",
+        )
+        self.log.info("Uploaded to %s: %s", hf_repo, commit.commit_url)
+
+        api.create_tag(
+            repo_id=hf_repo,
+            tag=tag,
+            tag_message=f"Weights snapshot: {tag}",
+            exist_ok=True,
+        )
+        self.log.info("Tagged: %s@%s", hf_repo, tag)
+
+        import shutil
+
+        shutil.rmtree(stage_dir, ignore_errors=True)
+
+        print(f"Pushed {hf_repo}@{tag} — {commit.commit_url}")
+        return {"repo": hf_repo, "tag": tag, "commit_url": str(commit.commit_url)}
+
+    @modal.method()
+    def clean_xps(self) -> dict:
+        """Remove all experiment directories from the training volume."""
+        import shutil
+        from pathlib import Path
+
+        xps_dir = Path(TRAINING_VOLUME_MOUNT_PATH) / "xps"
+        removed = []
+        if xps_dir.is_dir():
+            for entry in xps_dir.iterdir():
+                if entry.is_dir():
+                    shutil.rmtree(entry)
+                    removed.append(entry.name)
+                    self.log.info("Removed: %s", entry)
+
+        training_volume.commit()
+        print(f"Cleaned {len(removed)} experiment(s): {removed}")
+        return {"removed": removed}
+
+    @modal.method()
+    def list_checkpoints(self) -> dict:
+        """List experiment directories and their checkpoints on the volume."""
+        import json
+        from pathlib import Path
+
+        xps_dir = Path(TRAINING_VOLUME_MOUNT_PATH) / "xps"
+        experiments = {}
+        if xps_dir.is_dir():
+            for entry in sorted(xps_dir.iterdir()):
+                if entry.is_dir():
+                    ckpts = sorted(entry.glob("checkpoint*.th"))
+                    experiments[entry.name] = [c.name for c in ckpts]
+
+        print(json.dumps(experiments, indent=2))
+        return {"experiments": experiments}
 
     @modal.method()
     def check_env(self) -> dict:
