@@ -1,0 +1,5 @@
+# AudioCraftEnvironment teams config for Modal containers.
+# Pointed to by AUDIOCRAFT_CONFIG env var.
+default:
+  dora_dir: /dora
+  reference_dir: /dora/reference

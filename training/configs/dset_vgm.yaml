@@ -1,0 +1,11 @@
+# @package __global__
+#
+# VGM training dataset — mono 32kHz WAVs on Modal Volume.
+# Placed at /opt/audiocraft/config/dset/vgm.yaml at image build time.
+datasource:
+  max_sample_rate: 32000
+  max_channels: 1
+  train: /dora/data/data.jsonl.gz
+  valid: /dora/data/data.jsonl.gz
+  evaluate: /dora/data/data.jsonl.gz
+  generate: /dora/data/data.jsonl.gz

@@ -1,4 +1,4 @@
-.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze train-env train-prep train-describe train-manifest train-validate
+.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze train-env train-prep train-describe train-manifest train-validate train-upload train-poc
 
 TRAIN_PYTHON = training/.venv/bin/python
 TRAIN_PIP = training/.venv/bin/pip
@@ -69,6 +69,12 @@ train-manifest:
 
 train-validate:
 	$(TRAIN_PYTHON) training/validate_dataset.py
+
+train-upload:
+	modal volume put flowing-trails-training training/prepared/ /data/
+
+train-poc:
+	modal run training/app.py::TrainingRunner.train --config-name poc_small
 
 train-push:
 	$(TRAIN_PYTHON) training/push_to_hub.py $(ARGS)

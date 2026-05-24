@@ -19,6 +19,7 @@ from config import (
 
 AUDIOCRAFT_SHA = "72cb16f9fb239e9cf03f7bd997198c7d7a67a01c"
 AUDIOCRAFT_ROOT = "/opt/audiocraft"
+CONFIGS_DIR = "/opt/training_configs"
 
 app = modal.App(TRAINING_APP_NAME)
 
@@ -51,6 +52,7 @@ image = (
     .pip_install(
         "xformers<0.0.23",
         "huggingface_hub>=0.20",
+        "transformers<4.46",
         "python-dotenv>=1.0",
         "soundfile",
     )
@@ -58,8 +60,31 @@ image = (
         f"git clone https://github.com/facebookresearch/audiocraft.git {AUDIOCRAFT_ROOT}",
         f"cd {AUDIOCRAFT_ROOT} && git checkout {AUDIOCRAFT_SHA}",
         f"cd {AUDIOCRAFT_ROOT} && pip install -e .",
+        f"mkdir -p {AUDIOCRAFT_ROOT}/config/dset {AUDIOCRAFT_ROOT}/config/teams {CONFIGS_DIR}",
     )
-    .env({"AUDIOCRAFT_DORA_DIR": TRAINING_VOLUME_MOUNT_PATH})
+    .env(
+        {
+            "AUDIOCRAFT_DORA_DIR": TRAINING_VOLUME_MOUNT_PATH,
+            "AUDIOCRAFT_CONFIG": f"{AUDIOCRAFT_ROOT}/config/teams/default.yaml",
+            "AUDIOCRAFT_CLUSTER": "default",
+            "USER": "training",
+        }
+    )
+    .add_local_file(
+        "training/configs/dset_vgm.yaml",
+        f"{AUDIOCRAFT_ROOT}/config/dset/vgm.yaml",
+        copy=True,
+    )
+    .add_local_file(
+        "training/configs/teams_default.yaml",
+        f"{AUDIOCRAFT_ROOT}/config/teams/default.yaml",
+        copy=True,
+    )
+    .add_local_file(
+        "training/configs/poc_small.yaml",
+        f"{CONFIGS_DIR}/poc_small.yaml",
+        copy=True,
+    )
     .add_local_python_source("config")
 )
 
@@ -85,6 +110,56 @@ class TrainingRunner:
         self.log.info("Training runner ready")
 
     @modal.method()
+    def train(self, config_name: str) -> dict:
+        """Run training via Dora with the specified config."""
+        import subprocess
+
+        import yaml
+
+        self._rebuild_manifest()
+
+        config_path = f"{CONFIGS_DIR}/{config_name}.yaml"
+        with open(config_path) as f:
+            config = yaml.safe_load(f)
+
+        cmd = _build_dora_cmd(config)
+        self.log.info("Running: %s", " ".join(cmd))
+
+        result = subprocess.run(cmd, cwd=AUDIOCRAFT_ROOT)
+
+        training_volume.commit()
+        self.log.info("Volume committed. Return code: %d", result.returncode)
+
+        return {"returncode": result.returncode, "config": config_name}
+
+    def _rebuild_manifest(self):
+        """Rebuild manifest from volume data so paths are container-valid."""
+        from pathlib import Path
+
+        from audiocraft.data.audio_dataset import find_audio_files, save_audio_meta  # type: ignore
+
+        data_dir = Path(TRAINING_DATA_PATH)
+        if not data_dir.exists():
+            raise FileNotFoundError(
+                f"Training data not found at {data_dir}. "
+                "Upload first: make train-upload"
+            )
+
+        wavs = find_audio_files(
+            data_dir, [".wav"], progress=True, resolve=True, minimal=True, workers=1
+        )
+        if not wavs:
+            raise FileNotFoundError(f"No WAV files found in {data_dir}")
+
+        for m in wavs:
+            m.weight = 1.0
+
+        manifest_path = data_dir / "data.jsonl.gz"
+        save_audio_meta(manifest_path, wavs)
+        training_volume.commit()
+        self.log.info("Manifest rebuilt: %s (%d entries)", manifest_path, len(wavs))
+
+    @modal.method()
     def check_env(self) -> dict:
         """Verify GPU, torch, audiocraft, and volume are accessible."""
         import os
@@ -108,3 +183,33 @@ class TrainingRunner:
         }
         self.log.info("Environment: %s", info)
         return info
+
+
+def _build_dora_cmd(config: dict) -> list[str]:
+    """Convert training config YAML to dora run CLI arguments."""
+    cmd = ["dora", "run"]
+    for key, value in config.items():
+        if isinstance(value, dict):
+            cmd.extend(_flatten_overrides(value, key))
+        else:
+            cmd.append(f"{key}={_format_value(value)}")
+    return cmd
+
+
+def _flatten_overrides(d: dict, prefix: str) -> list[str]:
+    """Flatten nested dict to Hydra dot-separated overrides."""
+    items = []
+    for key, value in d.items():
+        full_key = f"{prefix}.{key}"
+        if isinstance(value, dict):
+            items.extend(_flatten_overrides(value, full_key))
+        else:
+            items.append(f"{full_key}={_format_value(value)}")
+    return items
+
+
+def _format_value(value: object) -> str:
+    """Format a Python value for Hydra CLI (lowercase booleans)."""
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    return str(value)

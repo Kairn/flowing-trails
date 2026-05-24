@@ -1,0 +1,36 @@
+# PoC training config — musicgen-small, validates training code path.
+# See DESIGN_TRAINING.md Phase C.
+#
+# Top-level keys: Hydra config group selections passed as key=value.
+# Nested keys: value overrides flattened to dot notation for dora run.
+
+solver: musicgen/musicgen_base_32khz
+model/lm/model_scale: small
+conditioner: text2music
+dset: vgm
+
+continue_from: "//pretrained/facebook/musicgen-small"
+channels: 1
+"+dataset.info_fields_required": false
+
+dataset:
+  batch_size: 8
+  segment_duration: 10
+  valid:
+    num_samples: 100
+  generate:
+    num_samples: 2
+
+optim:
+  epochs: 2
+  updates_per_epoch: 20
+  ema:
+    use: false
+
+checkpoint:
+  save_last: true
+  save_every: 1
+  keep_last: 3
+
+generate:
+  every: 1
