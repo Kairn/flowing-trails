@@ -11,6 +11,7 @@ from contextlib import contextmanager
 import modal
 
 from config import (
+    AUDIOCRAFT_SHA,
     GPU_CONFIG,
     HF_MUSICGEN_REPO,
     MODAL_SECRET_NAME,
@@ -24,6 +25,7 @@ app = modal.App(MUSICGEN_APP_NAME)
 image = (
     modal.Image.debian_slim(python_version="3.11")
     .apt_install(
+        "git",
         "pkg-config",
         "ffmpeg",
         "libavformat-dev",
@@ -38,8 +40,22 @@ image = (
         "numpy<2",
         "torch>=2.4.0",
         "torchaudio>=2.4.0",
+    )
+    .run_commands(
+        f"git clone https://github.com/facebookresearch/audiocraft.git /tmp/audiocraft"
+        f" && cd /tmp/audiocraft && git checkout {AUDIOCRAFT_SHA}",
+        "cd /tmp/audiocraft && sed -i"
+        " -e 's/torch==2.1.0/torch>=2.1.0/'"
+        " -e 's/torchaudio>=2.0.0,<2.1.2/torchaudio>=2.0.0/'"
+        " -e 's/xformers<0.0.23/xformers/'"
+        " -e '/torchvision/d'"
+        " -e '/torchtext/d'"
+        " -e '/gradio/d'"
+        " requirements.txt"
+        " && pip install .",
+    )
+    .pip_install(
         "transformers>=4.40.0",
-        "audiocraft",
         "huggingface_hub",
         "soundfile",
         "opentelemetry-api",

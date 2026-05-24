@@ -22,7 +22,7 @@ The same collection feeds both fine-tuning and the Qdrant retrieval index.
 
 | Concern          | Platform                   |
 | ---------------- | -------------------------- |
-| Training compute | Modal A100-80GB (spot)     |
+| Training compute | Modal A100-80GB ($2.50/hr) |
 | Training storage | Modal Volume               |
 | Data preparation | Local (CPU only)           |
 | Model registry   | Hugging Face Hub (private) |
@@ -211,18 +211,21 @@ Training image is **separate** from inference image (inference uses torch 2.6).
 
 ### Required Training Config
 
-| Setting                    | Value   | Purpose                                          |
-| -------------------------- | ------- | ------------------------------------------------ |
-| `autocast`                 | true    | Mixed precision required to fit 80 GB            |
-| `autocast_dtype`           | bf16    | fp16 grad scaler unstable at 3.3B                |
-| `checkpointing`            | torch   | Gradient checkpointing required to fit 80 GB     |
-| `dataset.batch_size`       | 1–2     | Per-step limit from activation memory            |
-| `optim.grad_accum`         | 16–32   | Effective batch matches Meta's per-GPU           |
-| `dataset.segment_duration` | 30      | Pretrained context max; do not change            |
-| `optim.ema.use`            | false   | Avoids bug #550 (EMA + T5 fine-tune); saves VRAM |
-| `optim.updates_per_epoch`  | 100–200 | ~5min checkpoint cadence (vs 25min at default)   |
-| `checkpoint.save_last`     | true    |                                                  |
-| `checkpoint.keep_last`     | 2       | ~80 GB rolling storage                           |
+| Setting                              | Value   | Purpose                                          |
+| ------------------------------------ | ------- | ------------------------------------------------ |
+| `autocast`                           | true    | Mixed precision required to fit 80 GB            |
+| `autocast_dtype`                     | bf16    | fp16 grad scaler unstable at 3.3B                |
+| `transformer_lm.checkpointing`      | torch   | Gradient checkpointing required to fit 80 GB     |
+| `dataset.batch_size`                 | 2       | Per-step limit from activation memory            |
+| `dataset.segment_duration`           | 30      | Pretrained context max; do not change            |
+| `optim.ema.use`                      | false   | Avoids bug #550 (EMA + T5 fine-tune); saves VRAM |
+| `optim.updates_per_epoch`            | 100–200 | Checkpoint cadence; shorter = less preemption loss|
+| `checkpoint.save_last`               | true    |                                                  |
+| `checkpoint.keep_last`               | 5       | Keep all epochs for checkpoint selection          |
+
+Note: audiocraft v1.3.0 has no gradient accumulation support. Effective batch = `batch_size`.
+Meta's original training used batch 192 across 32 GPUs; our batch 2 is small but acceptable
+for fine-tuning. Compensate with conservative LR.
 
 Deferred to training session: LR, total epochs, weight_decay, scheduler.
 
@@ -232,15 +235,30 @@ Deferred to training session: LR, total epochs, weight_decay, scheduler.
   `checkpoint.th`. No `--resume` flag exists; do not pass `--clear`.
 - Persistent Modal Volume mounted at `AUDIOCRAFT_DORA_DIR`.
 - On Modal container exit, `modal.Volume.commit()` flushes the latest checkpoint.
+- Periodic volume commit thread (120s interval) during training for mid-epoch safety.
 
 Resume restores: model, optimizer, lr_scheduler, scaler, best_state, epoch counter, history.
-Does NOT restore: dataloader cursor, mid-step grad-accum, RNG. Each resume restarts the
-current epoch from update 0 — losing ≤ updates_per_epoch worth of compute per preemption.
+Does NOT restore: dataloader cursor, RNG. Each resume restarts the current epoch from
+update 0 — losing ≤ updates_per_epoch worth of compute per preemption.
+
+### Preemption & Retries
+
+All Modal GPU containers are preemptible — there is no opt-out or non-preemptible tier for
+GPUs. Preemption is described as "rare" with no published SLA or rates. Likelihood increases
+with container duration. `modal.Retries(max_retries=3)` on the training class auto-restarts
+on preemption; Dora resumes from the last epoch checkpoint automatically.
 
 ### Cost
 
-A100-80GB spot on Modal: ~$3–4/hr. Estimated training time per run: 8–20 hours.
-Expect 3–5 experimental runs before a promotable checkpoint: **~$100–400 total**.
+A100-80GB on Modal: **$2.50/hr**, billed per-second. No spot/on-demand distinction — all GPU
+is preemptible at this price. Estimated training time per run: 8–20 hours (~$20–50/run).
+Expect 3–5 experimental runs before a promotable checkpoint: **~$60–250 total**.
+
+### Billing
+
+Modal bills postpaid (monthly). A workspace budget acts as a hard cap — containers are killed
+immediately if the budget is exceeded. Check and raise the budget before starting full training
+runs.
 
 ---
 
@@ -274,9 +292,15 @@ T5 encoder is NOT bundled — `T5Conditioner` fetches it separately at load time
 ### Conversion Gotchas
 
 - `continue_from` does NOT inherit config — must explicitly set `model/lm/model_scale=large`
-  and `conditioner=text2music`. Mismatch → strict `load_state_dict` shape error.
+  and `conditioner=chroma2music`. Mismatch → strict `load_state_dict` shape error.
+- Melody models require `solver=musicgen/musicgen_melody_32khz` + `conditioner=chroma2music`.
+  Using `musicgen_base_32khz` + `text2music` omits the `self_wav` conditioner, causing
+  KeyError on `condition_provider.conditioners.self_wav.output_proj.weight`.
 - The exported `compression_state_dict.bin` is a pointer dict, not the EnCodec weights —
   the loader pulls EnCodec separately at load time.
+- Training and inference must use the same audiocraft version (`AUDIOCRAFT_SHA` in
+  `config.py`). Version mismatch causes missing attribute errors (e.g. `layer_drop`)
+  because exported configs reference architecture details specific to the training version.
 
 ---
 
@@ -390,8 +414,9 @@ dora run solver=musicgen/musicgen_base_32khz \
 
 - **Full FT, not LoRA.** No published MusicGen LoRA vs full-FT quality comparison;
   HF→audiocraft checkpoint merge is unsolved.
-- **A100-80GB with mandatory memory levers.** bf16 + gradient checkpointing + batch 1–2 +
-  grad_accum 16–32. Multi-GPU buys speed only, not quality at this dataset size.
+- **A100-80GB with mandatory memory levers.** bf16 + gradient checkpointing + batch 2.
+  audiocraft v1.3.0 has no gradient accumulation; effective batch = batch_size.
+  Multi-GPU buys speed only, not quality at this dataset size.
 - **No pre-chunking.** audiocraft's dataloader random-crops 30s on-the-fly; better
   generalization than fixed chunks, simpler pipeline, less disk.
 - **Template captions, no LLM.** audiocraft's condition-merging augmentation produces

@@ -1,0 +1,44 @@
+# Full training config — musicgen-melody-large on VGM corpus.
+# See DESIGN_TRAINING.md Phase D.
+#
+# Memory levers: bf16 autocast + gradient checkpointing + batch 2, fits A100-80GB.
+# audiocraft v1.3.0 has no gradient accumulation — effective batch = batch_size.
+#
+# Tunable per run: optim.lr, optim.epochs, optim.optimizer, optim.weight_decay.
+
+solver: musicgen/musicgen_melody_32khz
+model/lm/model_scale: large
+conditioner: chroma2music
+dset: vgm
+
+continue_from: "//pretrained/facebook/musicgen-melody-large"
+channels: 1
+"+dataset.info_fields_required": false
+autocast: true
+autocast_dtype: bfloat16
+
+transformer_lm:
+  checkpointing: torch
+
+dataset:
+  batch_size: 2
+  segment_duration: 30
+  valid:
+    num_samples: 100
+  generate:
+    num_samples: 4
+
+optim:
+  epochs: 5
+  updates_per_epoch: 150
+  lr: 1e-4
+  ema:
+    use: false
+
+checkpoint:
+  save_last: true
+  save_every: 1
+  keep_last: 5
+
+generate:
+  every: 1

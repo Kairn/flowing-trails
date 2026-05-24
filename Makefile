@@ -1,4 +1,4 @@
-.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze train-env train-prep train-describe train-manifest train-validate train-upload train-poc train-list train-clean train-export train-promote
+.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze train-env train-prep train-describe train-manifest train-validate train-upload train-poc train-full train-list train-clean train-export train-promote
 
 TRAIN_PYTHON = training/.venv/bin/python
 TRAIN_PIP = training/.venv/bin/pip
@@ -76,6 +76,9 @@ train-upload:
 train-poc:
 	modal run training/app.py::TrainingRunner.train --config-name poc_small
 
+train-full:
+	modal run training/app.py::TrainingRunner.train --config-name full_large
+
 train-list:
 	modal run training/app.py::TrainingRunner.list_checkpoints
 
@@ -89,7 +92,7 @@ train-promote:
 ifndef TAG
 	$(error TAG is required. Run: TAG=poc-small-v1 make train-promote)
 endif
-	modal secret set flowing-trails-secrets MODEL_TAG=$(TAG)
+	modal secret create --force --from-dotenv .env flowing-trails-secrets MODEL_TAG=$(TAG)
 	@echo "MODEL_TAG set to '$(TAG)'. Run 'make deploy-all' to pick it up."
 
 train-push:

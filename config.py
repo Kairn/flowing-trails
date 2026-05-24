@@ -56,6 +56,10 @@ DEFAULT_SIMILARITY_THRESHOLD = 0.40
 
 CLAUDE_MODEL = "claude-sonnet-4-6"
 
+# ── Audiocraft ───────────────────────────────────────────────────────────────
+
+AUDIOCRAFT_SHA = "72cb16f9fb239e9cf03f7bd997198c7d7a67a01c"  # v1.3.0
+
 # ── Training ─────────────────────────────────────────────────────────────────
 
 TRAINING_APP_NAME = "flowing-trails-training"

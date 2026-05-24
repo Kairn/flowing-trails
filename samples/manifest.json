@@ -4,14 +4,14 @@
     "filename": "calm-exploration.wav",
     "brief": "A peaceful exploration theme for wandering through an enchanted forest, with gentle melodies and a sense of wonder",
     "spec": {
-      "description": "A gentle, flowing orchestral piece with soft woodwind melodies drifting over lush string pads and delicate harp arpeggios, evoking the feeling of wandering through a sunlit enchanted forest. Shimmering bells and light pizzicato accents add a sense of magic and wonder, while the unhurried tempo breathes life into every step of exploration.",
-      "genre": "orchestral fantasy",
+      "description": "A gentle, flowing orchestral piece with soft woodwind melodies drifting over lush string pads and delicate harp arpeggios, evoking the magical stillness of an enchanted forest. Shimmering bell tones and light pizzicato strings add a sense of discovery and childlike wonder, while a warm ambient undertone keeps the atmosphere serene and immersive.",
+      "genre": "orchestral fantasy RPG",
       "mood_tags": [
         "peaceful",
-        "wonder",
+        "whimsical",
         "enchanting",
-        "serene",
-        "whimsical"
+        "serene wonder",
+        "magical exploration"
       ],
       "instruments": [
         "flute",
@@ -20,17 +20,18 @@
         "strings",
         "celesta",
         "pizzicato violin",
-        "soft timpani"
+        "soft choir pads",
+        "glockenspiel"
       ],
       "tempo_bpm": 72,
       "key": "G major",
       "energy": "low",
       "duration_seconds": 10.0,
-      "style_hint": "Koji Kondo ambient exploration style, The Legend of Zelda overworld feel, Studio Ghibli orchestral warmth"
+      "style_hint": "Koji Kondo fairy-tale orchestral style, reminiscent of Zelda overworld exploration themes, SNES-to-modern era"
     },
-    "score": 0.493,
+    "score": 0.4025,
     "attempts": 1,
-    "trace_id": "117bbe1a94a45a0004b4d2bc3a8ca303",
+    "trace_id": "168c08a58b3ced7ea625e24daceab683",
     "size_bytes": 640044,
     "use_melody_conditioning": false
   },
@@ -39,34 +40,34 @@
     "filename": "boss-battle.wav",
     "brief": "An intense, driving boss battle theme with heavy percussion, dramatic orchestral hits, and an aggressive tempo",
     "spec": {
-      "description": "A ferocious boss battle theme driven by thunderous taiko drums and aggressive orchestral hits, with surging brass stabs and relentless low-end percussion creating an overwhelming sense of danger. Razor-sharp string ostinatos and war-drum rhythms push the intensity to a breaking point, evoking a climactic showdown against a towering enemy.",
-      "genre": "orchestral action",
+      "description": "An intense, driving boss battle theme featuring thunderous taiko drums and heavy orchestral percussion, punctuated by dramatic brass and string hits that surge with relentless aggression. Driving low-end ostinatos on cello and bass push the tension forward while blaring horns and choir stabs amplify the sense of overwhelming danger. The atmosphere is ferocious and cinematic, built for a climactic confrontation.",
+      "genre": "orchestral action / JRPG boss battle",
       "mood_tags": [
         "intense",
+        "ferocious",
         "dramatic",
-        "aggressive",
-        "menacing",
-        "epic"
+        "battle-ready",
+        "overwhelming tension"
       ],
       "instruments": [
         "taiko drums",
-        "brass",
+        "orchestral brass",
         "strings",
-        "orchestral percussion",
-        "bass drums",
-        "timpani",
+        "choir",
+        "bass drum",
+        "cello ostinato",
         "french horns",
-        "trombones"
+        "timpani"
       ],
-      "tempo_bpm": 178,
+      "tempo_bpm": 175,
       "key": "D minor",
       "energy": "high",
       "duration_seconds": 10.0,
-      "style_hint": "Yoko Shimomura / Masashi Hamauzu dramatic JRPG boss battle orchestral style"
+      "style_hint": "Yoko Shimomura / Hitoshi Sakimoto epic orchestral boss battle style, reminiscent of Final Fantasy XII or Kingdom Hearts"
     },
-    "score": 0.544,
+    "score": 0.5729,
     "attempts": 1,
-    "trace_id": "de2e27be667de0646df9ebff43ee8e24",
+    "trace_id": "b67eec60187dffc2d751a8cb93259f4d",
     "size_bytes": 640044,
     "use_melody_conditioning": false
   },
@@ -75,31 +76,31 @@
     "filename": "retro-town.wav",
     "brief": "A nostalgic 8-bit chiptune town theme reminiscent of classic JRPG menu music, upbeat and catchy",
     "spec": {
-      "description": "Bright and catchy 8-bit chiptune melody with bouncy square wave leads and pulse bass, evoking the warmth of a peaceful JRPG town at dusk. Cheerful arpeggiated accompaniment and a simple triangle wave rhythm section drive an upbeat, loopable groove full of nostalgic charm. Light noise percussion and lively melodic hooks give it an instantly memorable, classic RPG feel.",
-      "genre": "chiptune / JRPG town theme",
+      "description": "A bright and catchy 8-bit chiptune town theme with bouncy square wave melodies layered over a lively pulse wave bassline and crisp noise channel percussion. The music radiates warmth and nostalgia, evoking the feeling of wandering a peaceful RPG village, with loopable phrases and cheerful arpeggiated harmonies that feel instantly memorable.",
+      "genre": "chiptune / JRPG",
       "mood_tags": [
         "nostalgic",
         "upbeat",
         "cheerful",
-        "warm and inviting",
-        "catchy"
+        "whimsical",
+        "warm"
       ],
       "instruments": [
         "square wave lead",
         "pulse wave bass",
         "triangle wave melody",
-        "chiptune arpeggio",
-        "noise channel percussion"
+        "noise channel drums",
+        "chiptune arpeggio"
       ],
-      "tempo_bpm": 132,
+      "tempo_bpm": 148,
       "key": "G major",
       "energy": "medium",
       "duration_seconds": 10.0,
-      "style_hint": "classic NES/SNES era JRPG, Koichi Sugiyama / early Dragon Quest town music style"
+      "style_hint": "NES/Famicom era JRPG, reminiscent of early Dragon Quest and Final Fantasy town themes by Koichi Sugiyama and Nobuo Uematsu"
     },
-    "score": 0.3804,
+    "score": 0.6218,
     "attempts": 1,
-    "trace_id": "188366f84ff66774855601fe625bcd9e",
+    "trace_id": "fc1750859f72c5d53a4abc3ce549076f",
     "size_bytes": 640044,
     "use_melody_conditioning": false
   }

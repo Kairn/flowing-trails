@@ -9,6 +9,7 @@ from __future__ import annotations
 import modal
 
 from config import (
+    AUDIOCRAFT_SHA,
     HF_MUSICGEN_REPO,
     MODAL_SECRET_NAME,
     TRAINING_APP_NAME,
@@ -18,7 +19,6 @@ from config import (
     TRAINING_VOLUME_NAME,
 )
 
-AUDIOCRAFT_SHA = "72cb16f9fb239e9cf03f7bd997198c7d7a67a01c"
 AUDIOCRAFT_ROOT = "/opt/audiocraft"
 CONFIGS_DIR = "/opt/training_configs"
 ENCODEC_PRETRAINED = "facebook/encodec_32khz"
@@ -87,6 +87,11 @@ image = (
         f"{CONFIGS_DIR}/poc_small.yaml",
         copy=True,
     )
+    .add_local_file(
+        "training/configs/full_large.yaml",
+        f"{CONFIGS_DIR}/full_large.yaml",
+        copy=True,
+    )
     .add_local_python_source("config")
 )
 
@@ -99,6 +104,7 @@ training_volume = modal.Volume.from_name(TRAINING_VOLUME_NAME, create_if_missing
     secrets=[modal.Secret.from_name(MODAL_SECRET_NAME)],
     volumes={TRAINING_VOLUME_MOUNT_PATH: training_volume},
     timeout=3600 * 6,
+    retries=modal.Retries(max_retries=3, initial_delay=0.0),
 )
 class TrainingRunner:
     @modal.enter()
