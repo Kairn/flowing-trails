@@ -32,6 +32,7 @@ optim:
   epochs: 5
   updates_per_epoch: 150
   lr: 1e-4
+  warmup: 150
   ema:
     use: false
 
