@@ -257,3 +257,7 @@ training/source/*
 training/.venv/
 # Prepared training data (generated artifacts, not source)
 training/prepared/
+# Export CSVs from Google Sheets (private labeling data)
+training/exports/
+# Playlist URLs (private collection)
+training/playlists.txt

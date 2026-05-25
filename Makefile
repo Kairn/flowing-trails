@@ -1,4 +1,4 @@
-.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze train-env train-prep train-describe train-manifest train-validate train-upload train-poc train-full train-list train-clean train-export train-promote
+.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze train-playlists train-download train-env train-prep train-describe train-manifest train-validate train-upload train-poc train-full train-list train-clean train-export train-promote
 
 TRAIN_PYTHON = training/.venv/bin/python
 TRAIN_PIP = training/.venv/bin/pip
@@ -52,6 +52,12 @@ calibrate-analyze:
 	.venv/bin/python scripts/analyze_thresholds.py
 
 # ── Training ─────────────────────────────────────────────────────────────────
+
+train-playlists:
+	.venv/bin/python training/prep_playlists.py
+
+train-download:
+	.venv/bin/python training/prep_from_exports.py $(ARGS)
 
 train-env:
 	python3.11 -m venv training/.venv
