@@ -1,4 +1,4 @@
-.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze train-playlists train-download train-env train-prep train-describe train-manifest train-validate train-upload train-poc train-full train-list train-clean train-export train-promote
+.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze train-playlists train-download train-env train-prep train-describe train-manifest train-validate train-upload train-poc train-full train-full-h200 train-list train-clean train-export train-promote
 
 TRAIN_PYTHON = training/.venv/bin/python
 TRAIN_PIP = training/.venv/bin/pip
@@ -84,6 +84,9 @@ train-poc:
 
 train-full:
 	modal run training/app.py::TrainingRunner.train --config-name full_large
+
+train-full-h200:
+	FT_GPU=h200 modal run training/app.py::TrainingRunner.train --config-name full_large_h200
 
 train-list:
 	modal volume ls flowing-trails-training xps/

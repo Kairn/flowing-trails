@@ -211,23 +211,29 @@ Training image is **separate** from inference image (inference uses torch 2.6).
 
 ### Required Training Config
 
-| Setting                              | Value   | Purpose                                          |
-| ------------------------------------ | ------- | ------------------------------------------------ |
-| `autocast`                           | true    | Mixed precision required to fit 80 GB            |
-| `autocast_dtype`                     | bf16    | fp16 grad scaler unstable at 3.3B                |
-| `transformer_lm.checkpointing`      | torch   | Gradient checkpointing required to fit 80 GB     |
-| `dataset.batch_size`                 | 2       | Per-step limit from activation memory            |
-| `dataset.segment_duration`           | 30      | Pretrained context max; do not change            |
-| `optim.ema.use`                      | false   | Avoids bug #550 (EMA + T5 fine-tune); saves VRAM |
-| `optim.updates_per_epoch`            | 100–200 | Checkpoint cadence; shorter = less preemption loss|
-| `checkpoint.save_last`               | true    |                                                  |
-| `checkpoint.keep_last`               | 5       | Keep all epochs for checkpoint selection          |
+Two profiles: A100-80GB (conservative) and H200-141GB (quality-optimized).
+
+| Setting                              | A100        | H200        | Purpose                                          |
+| ------------------------------------ | ----------- | ----------- | ------------------------------------------------ |
+| `autocast`                           | true        | true        | Mixed precision required                         |
+| `autocast_dtype`                     | bf16        | bf16        | fp16 grad scaler unstable at 3.3B                |
+| `transformer_lm.checkpointing`      | torch       | torch       | Gradient checkpointing (safety margin on H200)   |
+| `dataset.batch_size`                 | 2           | 4           | H200 headroom enables smoother gradients         |
+| `dataset.segment_duration`           | 30          | 60          | H200 enables longer musical context              |
+| `optim.ema.use`                      | false       | true        | Bug #550 is T5-specific; chroma2music unaffected  |
+| `optim.lr`                           | 1e-4        | 5e-5        | Halved LR to compensate for doubled batch        |
+| `optim.updates_per_epoch`            | 100–500     | 100–250     | Scale to num_tracks / batch_size                 |
+| `checkpoint.save_last`               | true        | true        |                                                  |
+| `checkpoint.keep_last`               | 5           | 5           | Keep all epochs for checkpoint selection          |
 
 Note: audiocraft v1.3.0 has no gradient accumulation support. Effective batch = `batch_size`.
-Meta's original training used batch 192 across 32 GPUs; our batch 2 is small but acceptable
-for fine-tuning. Compensate with conservative LR.
+GPU selected via `FT_GPU` env var in `config.py` (default: `a100-80gb`).
 
-Deferred to training session: LR, total epochs, weight_decay, scheduler.
+### Manifest Weights
+
+Sampling weights are duration-proportional: `weight = track_duration`. Ensures every second
+of audio has roughly equal expected exposure regardless of track length. Both `prep_manifest.py`
+(local) and `_rebuild_manifest` (container) apply this consistently.
 
 ### Checkpoint Strategy
 
@@ -414,9 +420,9 @@ dora run solver=musicgen/musicgen_base_32khz \
 
 - **Full FT, not LoRA.** No published MusicGen LoRA vs full-FT quality comparison;
   HF→audiocraft checkpoint merge is unsolved.
-- **A100-80GB with mandatory memory levers.** bf16 + gradient checkpointing + batch 2.
-  audiocraft v1.3.0 has no gradient accumulation; effective batch = batch_size.
-  Multi-GPU buys speed only, not quality at this dataset size.
+- **Two GPU profiles.** A100-80GB (batch 2, 30s segments) as baseline; H200-141GB
+  (batch 4, 60s segments, EMA) as quality-optimized. Both use bf16 + gradient
+  checkpointing. audiocraft v1.3.0 has no gradient accumulation; effective batch = batch_size.
 - **No pre-chunking.** audiocraft's dataloader random-crops 30s on-the-fly; better
   generalization than fixed chunks, simpler pipeline, less disk.
 - **Template captions, no LLM.** audiocraft's condition-merging augmentation produces

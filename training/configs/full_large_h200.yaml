@@ -1,0 +1,44 @@
+# Full training config — musicgen-melody-large on H200 (141GB VRAM).
+# Unlocks: batch 4, segment_duration 60, EMA.
+# Run via: make train-full-h200
+#
+# vs A100 config: 2x batch, 2x segment length, EMA enabled, halved LR.
+
+solver: musicgen/musicgen_melody_32khz
+model/lm/model_scale: large
+conditioner: chroma2music
+dset: vgm
+
+continue_from: "//pretrained/facebook/musicgen-melody-large"
+channels: 1
+"+dataset.info_fields_required": false
+autocast: true
+autocast_dtype: bfloat16
+
+transformer_lm:
+  checkpointing: torch
+
+dataset:
+  batch_size: 4
+  segment_duration: 60
+  valid:
+    num_samples: 100
+  generate:
+    num_samples: 4
+
+optim:
+  epochs: 2
+  updates_per_epoch: 150
+  lr: 5e-5
+  warmup: 150
+  ema:
+    use: true
+  weight_decay: 0.01
+
+checkpoint:
+  save_last: true
+  save_every: 1
+  keep_last: 5
+
+generate:
+  every: 1

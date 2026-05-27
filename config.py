@@ -1,3 +1,5 @@
+import os
+
 # Central reference for all shared constants across FlowingTrails services.
 # Import with: from config import VOLUME_NAME, APP_NAME, etc.
 #
@@ -67,7 +69,7 @@ TRAINING_APP_NAME = "flowing-trails-training"
 TRAINING_VOLUME_NAME = "flowing-trails-training"
 TRAINING_VOLUME_MOUNT_PATH = "/dora"
 TRAINING_DATA_PATH = "/dora/data"
-TRAINING_GPU_CONFIG = "a100-80gb"
+TRAINING_GPU_CONFIG = os.environ.get("FT_GPU", "a100-80gb")
 
 # ── Observability ─────────────────────────────────────────────────────────────
 
