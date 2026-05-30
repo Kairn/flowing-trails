@@ -68,6 +68,8 @@ Emotional flavor. Pick the 2–4 most dominant. Order doesn't matter.
 | `hopeful`     | Optimistic, forward-looking, gentle uplift. | Pre-victory, dawn scenes. Less concluded than `triumphant`. |
 | `nostalgic`   | Wistful, memory-tinged, bittersweet.        | Childhood town themes. Lighter than `melancholic`.          |
 | `urgent`      | Driving forward, time-pressure, momentum.   | Countdown/escape sequences. More action than `tense`.       |
+| `fateful`     | Decisive, weighty, pivotal inevitability.   | Rival confrontations, plot turning points. Gravitas without requiring `epic` scale. |
+| `joyful`      | Pure happiness, warm elation, celebration.  | Sunny towns, happy events, reunions. More active than `peaceful`, less goofy than `whimsical`. |
 
 ---
 
