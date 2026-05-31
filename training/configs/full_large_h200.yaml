@@ -20,20 +20,24 @@ transformer_lm:
 
 dataset:
   batch_size: 4
-  segment_duration: 60
+  segment_duration: 40
   valid:
     num_samples: 100
   generate:
     num_samples: 4
 
 optim:
-  epochs: 2
-  updates_per_epoch: 150
+  epochs: 5
+  updates_per_epoch: 250
   lr: 5e-5
-  warmup: 150
   ema:
     use: true
-  weight_decay: 0.01
+  adam:
+    weight_decay: 0.01
+
+schedule:
+  cosine:
+    warmup: 150
 
 checkpoint:
   save_last: true
@@ -41,4 +45,4 @@ checkpoint:
   keep_last: 5
 
 generate:
-  every: 1
+  every: 2

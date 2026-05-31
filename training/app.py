@@ -92,6 +92,11 @@ image = (
         f"{CONFIGS_DIR}/full_large.yaml",
         copy=True,
     )
+    .add_local_file(
+        "training/configs/full_large_h200.yaml",
+        f"{CONFIGS_DIR}/full_large_h200.yaml",
+        copy=True,
+    )
     .add_local_python_source("config")
 )
 

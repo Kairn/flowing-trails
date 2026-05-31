@@ -4,7 +4,7 @@
 # Memory levers: bf16 autocast + gradient checkpointing + batch 2, fits A100-80GB.
 # audiocraft v1.3.0 has no gradient accumulation — effective batch = batch_size.
 #
-# Tunable per run: optim.lr, optim.epochs, optim.optimizer, optim.weight_decay.
+# Tunable per run: optim.lr, optim.epochs, optim.optimizer, optim.adam.weight_decay.
 
 solver: musicgen/musicgen_melody_32khz
 model/lm/model_scale: large
@@ -32,9 +32,12 @@ optim:
   epochs: 5
   updates_per_epoch: 150
   lr: 1e-4
-  warmup: 150
   ema:
     use: false
+
+schedule:
+  cosine:
+    warmup: 150
 
 checkpoint:
   save_last: true
