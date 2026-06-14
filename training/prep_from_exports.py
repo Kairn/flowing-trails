@@ -13,6 +13,7 @@ import csv
 import json
 import subprocess
 import sys
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
@@ -21,6 +22,8 @@ EXPORTS_DIR = ROOT / "exports"
 SOURCE_DIR = ROOT / "source"
 
 DEFAULT_WORKERS = 8
+MAX_RETRIES = 3
+RETRY_DELAY = 5
 BOOL_TRUE = {"true", "1", "yes"}
 
 
@@ -71,11 +74,14 @@ def download_track(url: str, output_path: Path) -> bool:
         template,
         url,
     ]
-    try:
-        subprocess.run(cmd, check=True, capture_output=True, text=True)
-        return True
-    except subprocess.CalledProcessError as e:
-        return False
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            subprocess.run(cmd, check=True, capture_output=True, text=True)
+            return True
+        except subprocess.CalledProcessError:
+            if attempt < MAX_RETRIES:
+                time.sleep(RETRY_DELAY * attempt)
+    return False
 
 
 def build_label(row: dict, filename: str) -> dict:

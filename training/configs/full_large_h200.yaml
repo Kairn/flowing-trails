@@ -1,8 +1,8 @@
 # Full training config — musicgen-melody-large on H200 (141GB VRAM).
-# Unlocks: batch 4, segment_duration 60, EMA.
+# Unlocks: batch 4, segment_duration 40, EMA.
 # Run via: make train-full-h200
 #
-# vs A100 config: 2x batch, 2x segment length, EMA enabled, halved LR.
+# 1120 tracks, 46.9 hrs, ~5x exposure per segment over 10 epochs.
 
 solver: musicgen/musicgen_melody_32khz
 model/lm/model_scale: large
@@ -27,8 +27,8 @@ dataset:
     num_samples: 4
 
 optim:
-  epochs: 5
-  updates_per_epoch: 250
+  epochs: 10
+  updates_per_epoch: 528
   lr: 5e-5
   ema:
     use: true
@@ -37,12 +37,12 @@ optim:
 
 schedule:
   cosine:
-    warmup: 150
+    warmup: 300
 
 checkpoint:
   save_last: true
   save_every: 1
-  keep_last: 5
+  keep_last: 10
 
 generate:
   every: 2
