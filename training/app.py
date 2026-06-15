@@ -260,7 +260,7 @@ class TrainingRunner:
             raise FileNotFoundError(f"No WAV files found in {data_dir}")
 
         for m in wavs:
-            m.weight = m.duration
+            m.weight = None
 
         manifest_path = data_dir / "data.jsonl.gz"
         save_audio_meta(manifest_path, wavs)

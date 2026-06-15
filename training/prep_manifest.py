@@ -1,7 +1,8 @@
 """M6-T5: Build audiocraft manifest from prepared WAVs.
 
 Scans training/prepared/ for WAV files, writes data.jsonl.gz manifest
-with duration-proportional weights (AudioDataset.from_meta expects this file).
+(AudioDataset.from_meta expects this file). Sampling is duration-proportional
+by default via audiocraft's sample_on_duration; no extra weight needed.
 """
 
 import sys
@@ -27,7 +28,7 @@ def main() -> None:
         sys.exit(1)
 
     for m in meta:
-        m.weight = m.duration
+        m.weight = None
 
     save_audio_meta(MANIFEST_PATH, meta)
     print(f"\nWrote manifest: {MANIFEST_PATH} ({len(meta)} entries)")
