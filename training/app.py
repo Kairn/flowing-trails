@@ -120,12 +120,14 @@ class TrainingUtils:
         self.log = logging.getLogger("flowing-trails.training-utils")
 
     @modal.method()
-    def export_and_push(self, xp_sig: str, tag: str) -> dict:
+    def export_and_push(self, xp_sig: str, tag: str, epoch: int | None = None) -> dict:
         """Export a Dora checkpoint and push to HF Hub.
 
         Args:
             xp_sig: Dora experiment signature (directory name under /dora/xps/).
             tag: Git tag to create on the HF repo.
+            epoch: Specific epoch to export (e.g. 6 → checkpoint_6.th).
+                   If None, exports the latest checkpoint (checkpoint.th).
         """
         import tempfile
         from pathlib import Path
@@ -134,7 +136,8 @@ class TrainingUtils:
         from huggingface_hub import HfApi
 
         xp_dir = Path(TRAINING_VOLUME_MOUNT_PATH) / "xps" / xp_sig
-        ckpt_path = xp_dir / "checkpoint.th"
+        ckpt_name = f"checkpoint_{epoch}.th" if epoch is not None else "checkpoint.th"
+        ckpt_path = xp_dir / ckpt_name
         if not ckpt_path.is_file():
             raise FileNotFoundError(f"Checkpoint not found: {ckpt_path}")
 

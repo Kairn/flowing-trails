@@ -1,0 +1,118 @@
+[
+  {
+    "id": "cut-melancholic-01",
+    "description": "Low-energy JRPG cutscene theme, melancholic"
+  },
+  {
+    "id": "cut-melancholic-nostalgic-01",
+    "description": "Low-energy JRPG cutscene theme, melancholic and nostalgic"
+  },
+  {
+    "id": "cut-hopeful-01",
+    "description": "Mid-energy JRPG cutscene theme, hopeful"
+  },
+  {
+    "id": "cut-peaceful-01",
+    "description": "Low-energy JRPG cutscene theme, peaceful"
+  },
+  {
+    "id": "cut-epic-01",
+    "description": "High-energy JRPG cutscene theme, epic"
+  },
+  {
+    "id": "cut-epic-triumphant-01",
+    "description": "High-energy JRPG cutscene theme, epic and triumphant"
+  },
+  {
+    "id": "cut-dark-fateful-01",
+    "description": "Mid-energy JRPG cutscene theme, dark and fateful"
+  },
+  {
+    "id": "cut-mysterious-01",
+    "description": "Mid-energy JRPG cutscene theme, mysterious"
+  },
+  {
+    "id": "cut-joyful-01",
+    "description": "Mid-energy JRPG cutscene theme, joyful"
+  },
+  {
+    "id": "cut-tense-01",
+    "description": "Mid-energy JRPG cutscene theme, tense"
+  },
+  {
+    "id": "cut-melancholic-hopeful-01",
+    "description": "Mid-energy JRPG cutscene theme, melancholic and hopeful"
+  },
+  {
+    "id": "cut-peaceful-nostalgic-01",
+    "description": "Low-energy JRPG cutscene theme, peaceful and nostalgic"
+  },
+  {
+    "id": "town-peaceful-01",
+    "description": "Mid-energy JRPG town theme, peaceful"
+  },
+  {
+    "id": "town-whimsical-joyful-01",
+    "description": "Mid-energy JRPG town theme, whimsical and joyful"
+  },
+  {
+    "id": "town-peaceful-nostalgic-01",
+    "description": "Low-energy JRPG town theme, peaceful and nostalgic"
+  },
+  {
+    "id": "town-joyful-01",
+    "description": "Mid-energy JRPG town theme, joyful"
+  },
+  {
+    "id": "dung-mysterious-dark-01",
+    "description": "Mid-energy JRPG dungeon theme, mysterious and dark"
+  },
+  {
+    "id": "dung-tense-01",
+    "description": "Mid-energy JRPG dungeon theme, tense"
+  },
+  {
+    "id": "dung-dark-01",
+    "description": "Low-energy JRPG dungeon theme, dark"
+  },
+  {
+    "id": "dung-mysterious-tense-01",
+    "description": "Mid-energy JRPG dungeon theme, mysterious and tense"
+  },
+  {
+    "id": "boss-epic-dark-01",
+    "description": "High-energy JRPG boss theme, epic and dark"
+  },
+  {
+    "id": "boss-urgent-tense-01",
+    "description": "High-energy JRPG boss theme, urgent and tense"
+  },
+  {
+    "id": "boss-epic-triumphant-01",
+    "description": "High-energy JRPG boss theme, epic and triumphant"
+  },
+  {
+    "id": "battle-tense-urgent-01",
+    "description": "High-energy JRPG battle theme, tense and urgent"
+  },
+  {
+    "id": "battle-epic-01",
+    "description": "High-energy JRPG battle theme, epic"
+  },
+  {
+    "id": "battle-triumphant-01",
+    "description": "High-energy JRPG battle theme, triumphant"
+  },
+  {
+    "id": "expl-peaceful-hopeful-01",
+    "description": "Mid-energy JRPG exploration theme, peaceful and hopeful"
+  },
+  {
+    "id": "expl-mysterious-01",
+    "description": "Mid-energy JRPG exploration theme, mysterious"
+  },
+  {
+    "id": "menu-peaceful-01",
+    "description": "Low-energy JRPG menu theme, peaceful"
+  }
+]

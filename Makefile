@@ -1,4 +1,4 @@
-.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze train-playlists train-download train-env train-prep train-describe train-manifest train-validate train-upload train-poc train-full train-full-h200 train-list train-clean train-export train-promote
+.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze train-playlists train-download train-env train-prep train-describe train-manifest train-validate train-upload train-poc train-full train-full-h200 train-list train-clean train-export train-promote checkpoint-eval
 
 TRAIN_PYTHON = training/.venv/bin/python
 TRAIN_PIP = training/.venv/bin/pip
@@ -95,7 +95,11 @@ train-clean:
 	modal volume rm flowing-trails-training xps/ -r
 
 train-export:
+ifdef EPOCH
+	modal run training/app.py::TrainingUtils.export_and_push --xp-sig $(XP_SIG) --tag $(TAG) --epoch $(EPOCH)
+else
 	modal run training/app.py::TrainingUtils.export_and_push --xp-sig $(XP_SIG) --tag $(TAG)
+endif
 
 train-promote:
 ifndef TAG
@@ -103,6 +107,15 @@ ifndef TAG
 endif
 	modal secret create --force --from-dotenv .env flowing-trails-secrets MODEL_TAG=$(TAG)
 	@echo "MODEL_TAG set to '$(TAG)'. Run 'make deploy-all' to pick it up."
+
+checkpoint-eval:
+ifndef XP_SIG
+	$(error XP_SIG is required. Run: XP_SIG=48bdbba4 EPOCHS=3,6,10 make checkpoint-eval)
+endif
+ifndef EPOCHS
+	$(error EPOCHS is required. Run: XP_SIG=48bdbba4 EPOCHS=3,6,10 make checkpoint-eval)
+endif
+	modal run training/checkpoint_eval.py::CheckpointEvaluator.evaluate_all --xp-sig $(XP_SIG) --epochs $(EPOCHS)
 
 train-push:
 	$(TRAIN_PYTHON) training/push_to_hub.py $(ARGS)
