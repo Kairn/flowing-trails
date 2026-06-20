@@ -50,9 +50,9 @@ CORPUS_AUDIO_SAMPLE_RATE = MUSICGEN_SAMPLE_RATE
 
 MAX_GENERATION_ATTEMPTS = 2
 
-# Calibrated at M3: p25 across 24 prompts (mean 0.45, range 0.37–0.58)
+# Calibrated for vgm-melody-v1: p25 across 25 prompts (mean 0.46, range 0.32–0.56)
 # Recalibrate per MODEL_TAG — see eval/thresholds.json
-DEFAULT_SIMILARITY_THRESHOLD = 0.40
+DEFAULT_SIMILARITY_THRESHOLD = 0.43
 
 # ── Claude API ────────────────────────────────────────────────────────────────
 

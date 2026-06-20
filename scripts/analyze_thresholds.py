@@ -76,7 +76,7 @@ def main() -> None:
         }
 
     thresholds = {
-        "model": "facebook/musicgen-melody-large",
+        "model": "KairnAI/flowing-trails-musicgen@vgm-melody-v1",
         "calibration_samples": len(valid),
         "accept_threshold": accept_threshold,
         "distribution": {
