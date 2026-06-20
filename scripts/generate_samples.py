@@ -35,7 +35,7 @@ def main() -> None:
         request_body = entry["request"]
 
         print(f"[{slug}] Sending request...")
-        resp = requests.post(endpoint_url, json=request_body, timeout=180)
+        resp = requests.post(endpoint_url, json=request_body, timeout=600)
         resp.raise_for_status()
         data = resp.json()
 

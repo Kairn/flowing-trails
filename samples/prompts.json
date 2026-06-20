@@ -1,25 +1,97 @@
 [
   {
-    "slug": "calm-exploration",
+    "slug": "farewell-at-dawn",
     "request": {
-      "description": "A peaceful exploration theme for wandering through an enchanted forest, with gentle melodies and a sense of wonder",
-      "duration_seconds": 10.0,
+      "description": "A bittersweet cutscene theme for a character saying goodbye at sunrise. Gentle piano over sustained strings, building toward a quietly hopeful resolution. Think Nobuo Uematsu's emotional moments — restrained but devastating.",
+      "duration_seconds": 30.0,
       "melody_source": "none"
     }
   },
   {
-    "slug": "boss-battle",
+    "slug": "final-boss-descent",
     "request": {
-      "description": "An intense, driving boss battle theme with heavy percussion, dramatic orchestral hits, and an aggressive tempo",
-      "duration_seconds": 10.0,
+      "description": "The final boss reveals its true form. Thunderous orchestral assault with pounding timpani, aggressive brass stabs, and a dark choral undercurrent. Relentless escalation, no breathing room. Maximum intensity.",
+      "duration_seconds": 30.0,
       "melody_source": "none"
     }
   },
   {
-    "slug": "retro-town",
+    "slug": "sunken-temple",
     "request": {
-      "description": "A nostalgic 8-bit chiptune town theme reminiscent of classic JRPG menu music, upbeat and catchy",
-      "duration_seconds": 10.0,
+      "description": "Exploring a flooded ancient temple deep underground. Eerie reverberant chimes over low pulsing synth drones, sparse metallic percussion that echoes into darkness. Mysterious and foreboding, with moments of strange beauty.",
+      "duration_seconds": 30.0,
+      "melody_source": "none"
+    }
+  },
+  {
+    "slug": "cavalry-charge",
+    "request": {
+      "description": "An army charges across an open battlefield. Galloping percussion drives a triumphant brass melody forward while strings surge underneath. Epic, urgent, and heroic — the tide of battle is turning.",
+      "duration_seconds": 30.0,
+      "melody_source": "none"
+    }
+  },
+  {
+    "slug": "the-betrayal",
+    "request": {
+      "description": "A trusted ally reveals they've been the villain all along. Dark, fateful orchestral piece — low strings carrying a menacing motif, building tension with dissonant brass swells. The moment everything changes.",
+      "duration_seconds": 30.0,
+      "melody_source": "none"
+    }
+  },
+  {
+    "slug": "frozen-labyrinth",
+    "request": {
+      "description": "An ice dungeon with crystalline walls that ring when struck. Cold, glassy synth textures over slow deliberate percussion, with high-pitched bell tones that feel brittle and dangerous. Tense and isolating.",
+      "duration_seconds": 30.0,
+      "melody_source": "none"
+    }
+  },
+  {
+    "slug": "midnight-duel",
+    "request": {
+      "description": "A tense one-on-one sword fight under moonlight. Fast staccato strings trading phrases with sharp brass accents, tight snare patterns, and an undercurrent of urgency. Precise, dangerous, intimate combat.",
+      "duration_seconds": 30.0,
+      "melody_source": "none"
+    }
+  },
+  {
+    "slug": "shadow-throne",
+    "request": {
+      "description": "The dark lord's throne room. Ominous pipe organ chords with deep choir chanting, slow heavy percussion like a heartbeat. Oppressive, grandiose, suffocating dread. A boss you know you might not survive.",
+      "duration_seconds": 30.0,
+      "melody_source": "none"
+    }
+  },
+  {
+    "slug": "last-bastion",
+    "request": {
+      "description": "The final fortress is under siege and the walls are falling. Desperate, driving orchestral battle music — urgent string ostinatos, war drums pounding double-time, brass screaming over the chaos. Heroic defiance against impossible odds.",
+      "duration_seconds": 30.0,
+      "melody_source": "none"
+    }
+  },
+  {
+    "slug": "void-ritual",
+    "request": {
+      "description": "A forbidden summoning ritual in a candlelit chamber. Dark ambient drones layered with distant chanting, unsettling dissonant string harmonics, and deep ritualistic percussion that slowly intensifies. Something terrible is being awakened.",
+      "duration_seconds": 30.0,
+      "melody_source": "none"
+    }
+  },
+  {
+    "slug": "molten-depths",
+    "request": {
+      "description": "A volcanic dungeon where the floor cracks with lava. Heavy, oppressive low brass over rumbling percussion, with sharp metallic strikes and churning synth textures. Hot, suffocating, and relentless — the deeper you go the worse it gets.",
+      "duration_seconds": 30.0,
+      "melody_source": "none"
+    }
+  },
+  {
+    "slug": "the-escape",
+    "request": {
+      "description": "The dungeon is collapsing and you have sixty seconds to get out. Frantic, high-speed chase music with racing string runs, syncopated percussion, and sharp brass punctuation. Pure adrenaline and panic, no time to think.",
+      "duration_seconds": 30.0,
       "melody_source": "none"
     }
   }
