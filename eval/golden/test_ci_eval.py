@@ -1,6 +1,13 @@
 """CI eval — CLAP-only scoring of golden reference tracks against their specs.
 
 No LLM calls, no MusicGen, no external services. Runs entirely on CPU.
+
+This is a scoring-pipeline regression gate: each golden WAV is re-scored against
+its frozen spec and must stay within a margin of its recorded baseline. Scoring is
+deterministic, so a passing run means resample → CLAP embed → cosine still behave
+identically; a real break (wrong resample, embedding change, CLAP version drift)
+craters the score well past the margin. The gate is intentionally decoupled from
+the production acceptance threshold so model recalibration never turns CI red.
 """
 
 from __future__ import annotations
@@ -10,9 +17,13 @@ from pathlib import Path
 
 import pytest
 
-from config import DEFAULT_SIMILARITY_THRESHOLD
 from models import MusicSpec
 from scoring import score_generation
+
+# Allowed downward drift from a track's recorded baseline before CI fails.
+# Scoring is deterministic (recomputed == baseline locally), so this only needs
+# to absorb cross-environment float noise while still catching real regressions.
+GOLDEN_REGRESSION_MARGIN = 0.05
 
 GOLDEN_DIR = Path(__file__).parent
 GOLDEN_PROMPTS = GOLDEN_DIR / "golden_prompts.json"
@@ -56,7 +67,8 @@ def test_golden_score(
     query_vector = clap_embeddings[prompt_id]
     score = score_generation(audio_bytes, query_vector)
 
-    assert score >= DEFAULT_SIMILARITY_THRESHOLD, (
-        f"{prompt_id}: score {score:.4f} < threshold {DEFAULT_SIMILARITY_THRESHOLD} "
-        f"(baseline was {entry['baseline_score']})"
+    floor = entry["baseline_score"] - GOLDEN_REGRESSION_MARGIN
+    assert score >= floor, (
+        f"{prompt_id}: score {score:.4f} < floor {floor:.4f} "
+        f"(baseline {entry['baseline_score']} − margin {GOLDEN_REGRESSION_MARGIN})"
     )

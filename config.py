@@ -23,7 +23,7 @@ HF_MUSICGEN_REPO = "KairnAI/flowing-trails-musicgen"
 # Base model references — used by inference service before fine-tuned model exists
 MUSICGEN_BASE_MODEL = "facebook/musicgen-melody-large"
 
-# Tag convention: fine-tuned checkpoints use "musicgen-vgm-v{N}"
+# Tag convention: fine-tuned checkpoints use "vgm-melody-v{N}" (current: vgm-melody-v1)
 # Inference service pulls by MODEL_TAG env var — swap model = redeploy only
 
 # ── CLAP ──────────────────────────────────────────────────────────────────────

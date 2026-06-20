@@ -24,10 +24,11 @@ evolve but the component contracts and platform choices are fixed.
 ## Components
 
 ### Model Registry
-HF Hub private repo `flowing-trails-musicgen`. Tags: `musicgen-vgm-v{N}` for fine-tuned,
-`base-melody-large` for the base model reference. Inference pulls by tag via
-`MODEL_TAG` env var at startup — swapping model versions is a redeploy with no code change.
-Registry is the only handoff point between training and serving.
+HF Hub private repo `flowing-trails-musicgen`. Tags: `vgm-melody-v{N}` for fine-tuned
+(current production: `vgm-melody-v1`), `base-melody-large-roundtrip` for the mirrored base
+model reference. Inference pulls by tag via `MODEL_TAG` env var at startup — swapping model
+versions is a redeploy with no code change. Registry is the only handoff point between
+training and serving.
 
 ### MusicGen Inference Service
 Modal endpoint, `POST /generate`. Accepts: prompt string, duration_seconds, optional melody_audio
@@ -153,9 +154,8 @@ explicit parameter and reconstructs the span context on the receiving end.
 Modal handles runtime GPU scheduling. The K8s story is documented as design artifacts in `/deploy`:
 
 - `/deploy/k8s/` — production manifests: GPU resource requests, node affinity to GPU node pool,
-  HPA, liveness/readiness probes, PodDisruptionBudget
-- `/deploy/DESIGN.md` — VRAM budget breakdown, why A10G over T4, concurrency rationale, Modal vs
-  K8s tradeoff, what a multi-replica production deployment would look like
+  HPA, liveness/readiness probes, PodDisruptionBudget. VRAM budget and the A10G-over-T4 rationale
+  live inline in the manifest comments.
 
 Narrative: Modal was chosen for development velocity and cost efficiency; the K8s manifests show
 what the production deployment would look like and the reasoning behind each resource decision.
