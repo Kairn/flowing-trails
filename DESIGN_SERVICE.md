@@ -55,9 +55,9 @@ At query time: text query → CLAP embed → Qdrant top-N search → reference t
 includes `corpus_file_path` for melody conditioning; others return metadata only. Qdrant stores
 vectors and metadata — no audio bytes.
 
-Melody conditioning is disabled by default (`use_melody_conditioning=false`). The synthetic
-corpus degrades quality when used as conditioning input — retrieval infra is retained for
-future use with real reference tracks.
+Melody conditioning is disabled by default (`melody_source="none"`). A/B testing (M7-T5) showed
+chroma conditioning hurts the fine-tuned model — it forces reference melodies onto output rather
+than letting the model generate freely. Retrieval infra is retained but not used in production.
 
 Also exposed as an MCP tool for external use.
 
@@ -89,12 +89,12 @@ exporter config.
 
 ```
 POST /compose  {description, tempo_bpm?, instruments?, duration_seconds?, key?,
-                use_melody_conditioning?, cfg_coeff?, top_k?, temperature?}
+                melody_source?, cfg_coeff?, top_k?, temperature?}
   │
   ├─ [span: query_parse]
   │    Claude API → MusicSpec JSON
   │
-  ├─ (if use_melody_conditioning) [span: retrieval]
+  ├─ (if melody_source="retrieval") [span: retrieval]
   │    CLAP.embed_text(spec.clap_text()) → Qdrant top-N → reference_tracks[]
   │    top-1: load audio bytes from Modal Volume via corpus_file_path
   │

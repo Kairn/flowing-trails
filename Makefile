@@ -1,4 +1,4 @@
-.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze train-playlists train-download train-env train-prep train-describe train-manifest train-validate train-upload train-poc train-full train-full-h200 train-list train-clean train-export train-promote checkpoint-eval
+.PHONY: index embed upsert deploy deploy-all corpus corpus-prompts corpus-manifest eval eval-full samples calibrate calibrate-analyze ab-select ab-reset ab-upload ab-index ab-test ab-analyze train-playlists train-download train-env train-prep train-describe train-manifest train-validate train-upload train-poc train-full train-full-h200 train-list train-clean train-export train-promote checkpoint-eval
 
 TRAIN_PYTHON = training/.venv/bin/python
 TRAIN_PIP = training/.venv/bin/pip
@@ -50,6 +50,30 @@ endif
 
 calibrate-analyze:
 	.venv/bin/python scripts/analyze_thresholds.py
+
+# ── Retrieval A/B Test ──────────────────────────────────────────────────────
+
+ab-select:
+	.venv/bin/python scripts/select_ab_tracks.py
+
+ab-reset:
+	.venv/bin/python scripts/reset_qdrant_collection.py
+
+ab-upload:
+	modal volume put flowing-trails-corpus eval/ab_tracks/ /ab_tracks/ --force
+	modal volume put flowing-trails-corpus eval/ab_corpus_manifest.json /corpus_manifest.json --force
+
+ab-index:
+	modal run retrieval/embed_corpus.py && modal run retrieval/index_corpus.py
+
+ab-test:
+ifndef COMPOSE_URL
+	$(error COMPOSE_URL is required. Run: COMPOSE_URL=https://... make ab-test)
+endif
+	.venv/bin/python scripts/run_ab_test.py $(COMPOSE_URL)
+
+ab-analyze:
+	.venv/bin/python scripts/analyze_ab_test.py
 
 # ── Training ─────────────────────────────────────────────────────────────────
 

@@ -33,7 +33,7 @@
     "attempts": 1,
     "trace_id": "168c08a58b3ced7ea625e24daceab683",
     "size_bytes": 640044,
-    "use_melody_conditioning": false
+    "melody_source": "none"
   },
   {
     "slug": "boss-battle",
@@ -69,7 +69,7 @@
     "attempts": 1,
     "trace_id": "b67eec60187dffc2d751a8cb93259f4d",
     "size_bytes": 640044,
-    "use_melody_conditioning": false
+    "melody_source": "none"
   },
   {
     "slug": "retro-town",
@@ -102,6 +102,6 @@
     "attempts": 1,
     "trace_id": "fc1750859f72c5d53a4abc3ce549076f",
     "size_bytes": 640044,
-    "use_melody_conditioning": false
+    "melody_source": "none"
   }
 ]

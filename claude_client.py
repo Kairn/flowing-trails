@@ -50,7 +50,10 @@ def call_claude_json(
         system=system,
         messages=[{"role": "user", "content": user_message}],
     )
-    raw = response.content[0].text
+    raw = response.content[0].text.strip()
+    if raw.startswith("```"):
+        raw = raw.split("\n", 1)[1] if "\n" in raw else raw[3:]
+        raw = raw.rsplit("```", 1)[0]
     try:
         data = json.loads(raw)
     except json.JSONDecodeError as e:

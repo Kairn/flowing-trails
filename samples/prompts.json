@@ -4,7 +4,7 @@
     "request": {
       "description": "A peaceful exploration theme for wandering through an enchanted forest, with gentle melodies and a sense of wonder",
       "duration_seconds": 10.0,
-      "use_melody_conditioning": false
+      "melody_source": "none"
     }
   },
   {
@@ -12,7 +12,7 @@
     "request": {
       "description": "An intense, driving boss battle theme with heavy percussion, dramatic orchestral hits, and an aggressive tempo",
       "duration_seconds": 10.0,
-      "use_melody_conditioning": false
+      "melody_source": "none"
     }
   },
   {
@@ -20,7 +20,7 @@
     "request": {
       "description": "A nostalgic 8-bit chiptune town theme reminiscent of classic JRPG menu music, upbeat and catchy",
       "duration_seconds": 10.0,
-      "use_melody_conditioning": false
+      "melody_source": "none"
     }
   }
 ]

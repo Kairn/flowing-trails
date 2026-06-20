@@ -1,0 +1,717 @@
+[
+  {
+    "id": "ab-001",
+    "corpus_file_path": "ab_tracks/track_1102.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "melancholic",
+      "nostalgic"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 87,
+    "prompt": "Low-energy JRPG cutscene theme, melancholic and nostalgic"
+  },
+  {
+    "id": "ab-002",
+    "corpus_file_path": "ab_tracks/track_1077.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "peaceful",
+      "mysterious",
+      "nostalgic"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 83,
+    "prompt": "Mid-energy JRPG cutscene theme, peaceful, mysterious, and nostalgic"
+  },
+  {
+    "id": "ab-003",
+    "corpus_file_path": "ab_tracks/track_1061.wav",
+    "category": "town",
+    "category_label": "Town",
+    "mood_tags": [
+      "peaceful"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 139,
+    "prompt": "Low-energy JRPG town theme, peaceful"
+  },
+  {
+    "id": "ab-004",
+    "corpus_file_path": "ab_tracks/track_0903.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "nostalgic"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 129,
+    "prompt": "Low-energy JRPG cutscene theme, nostalgic"
+  },
+  {
+    "id": "ab-005",
+    "corpus_file_path": "ab_tracks/track_0417.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "dark",
+      "tense"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "strings"
+    ],
+    "bpm_hint": 83,
+    "prompt": "Low-energy JRPG cutscene theme, dark and tense"
+  },
+  {
+    "id": "ab-006",
+    "corpus_file_path": "ab_tracks/track_0733.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "melancholic",
+      "nostalgic",
+      "hopeful"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 89,
+    "prompt": "Mid-energy JRPG cutscene theme, melancholic, nostalgic, and hopeful"
+  },
+  {
+    "id": "ab-007",
+    "corpus_file_path": "ab_tracks/track_0133.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "melancholic",
+      "peaceful"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 107,
+    "prompt": "Low-energy JRPG cutscene theme, melancholic and peaceful"
+  },
+  {
+    "id": "ab-008",
+    "corpus_file_path": "ab_tracks/track_1098.wav",
+    "category": "town",
+    "category_label": "Town",
+    "mood_tags": [
+      "peaceful"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 80,
+    "prompt": "Low-energy JRPG town theme, peaceful"
+  },
+  {
+    "id": "ab-009",
+    "corpus_file_path": "ab_tracks/track_1031.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "melancholic"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 77,
+    "prompt": "Low-energy JRPG cutscene theme, melancholic"
+  },
+  {
+    "id": "ab-010",
+    "corpus_file_path": "ab_tracks/track_0431.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "melancholic",
+      "nostalgic"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "celesta"
+    ],
+    "bpm_hint": 134,
+    "prompt": "Low-energy JRPG cutscene theme, melancholic and nostalgic"
+  },
+  {
+    "id": "ab-011",
+    "corpus_file_path": "ab_tracks/track_1109.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "melancholic",
+      "nostalgic"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 134,
+    "prompt": "Low-energy JRPG cutscene theme, melancholic and nostalgic"
+  },
+  {
+    "id": "ab-012",
+    "corpus_file_path": "ab_tracks/track_0943.wav",
+    "category": "town",
+    "category_label": "Town",
+    "mood_tags": [
+      "peaceful"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 150,
+    "prompt": "Low-energy JRPG town theme, peaceful"
+  },
+  {
+    "id": "ab-013",
+    "corpus_file_path": "ab_tracks/track_0369.wav",
+    "category": "town",
+    "category_label": "Town",
+    "mood_tags": [
+      "peaceful"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 139,
+    "prompt": "Low-energy JRPG town theme, peaceful"
+  },
+  {
+    "id": "ab-014",
+    "corpus_file_path": "ab_tracks/track_0293.wav",
+    "category": "town",
+    "category_label": "Town",
+    "mood_tags": [
+      "hopeful",
+      "peaceful"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 144,
+    "prompt": "Mid-energy JRPG town theme, hopeful and peaceful"
+  },
+  {
+    "id": "ab-015",
+    "corpus_file_path": "ab_tracks/track_1063.wav",
+    "category": "town",
+    "category_label": "Town",
+    "mood_tags": [
+      "peaceful",
+      "nostalgic"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 117,
+    "prompt": "Mid-energy JRPG town theme, peaceful and nostalgic"
+  },
+  {
+    "id": "ab-016",
+    "corpus_file_path": "ab_tracks/track_0916.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "nostalgic",
+      "melancholic"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 78,
+    "prompt": "Low-energy JRPG cutscene theme, nostalgic and melancholic"
+  },
+  {
+    "id": "ab-017",
+    "corpus_file_path": "ab_tracks/track_0365.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "nostalgic",
+      "hopeful"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 134,
+    "prompt": "Mid-energy JRPG cutscene theme, nostalgic and hopeful"
+  },
+  {
+    "id": "ab-018",
+    "corpus_file_path": "ab_tracks/track_0149.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "melancholic"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "celesta"
+    ],
+    "bpm_hint": 163,
+    "prompt": "Low-energy JRPG cutscene theme, melancholic"
+  },
+  {
+    "id": "ab-019",
+    "corpus_file_path": "ab_tracks/track_1043.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "mysterious",
+      "melancholic",
+      "tense",
+      "dark"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 129,
+    "prompt": "Low-energy JRPG cutscene theme, mysterious, melancholic, tense, and dark"
+  },
+  {
+    "id": "ab-020",
+    "corpus_file_path": "ab_tracks/track_0382.wav",
+    "category": "town",
+    "category_label": "Town",
+    "mood_tags": [
+      "peaceful",
+      "nostalgic"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "woodwinds"
+    ],
+    "bpm_hint": 125,
+    "prompt": "Low-energy JRPG town theme, peaceful and nostalgic"
+  },
+  {
+    "id": "ab-021",
+    "corpus_file_path": "ab_tracks/track_0354.wav",
+    "category": "menu",
+    "category_label": "Menu",
+    "mood_tags": [
+      "hopeful",
+      "nostalgic"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 99,
+    "prompt": "Mid-energy JRPG menu theme, hopeful and nostalgic"
+  },
+  {
+    "id": "ab-022",
+    "corpus_file_path": "ab_tracks/track_0399.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "nostalgic",
+      "melancholic"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "glockenspiel"
+    ],
+    "bpm_hint": 134,
+    "prompt": "Low-energy JRPG cutscene theme, nostalgic and melancholic"
+  },
+  {
+    "id": "ab-023",
+    "corpus_file_path": "ab_tracks/track_0263.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "peaceful",
+      "nostalgic"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 139,
+    "prompt": "Low-energy JRPG cutscene theme, peaceful and nostalgic"
+  },
+  {
+    "id": "ab-024",
+    "corpus_file_path": "ab_tracks/track_0672.wav",
+    "category": "town",
+    "category_label": "Town",
+    "mood_tags": [
+      "peaceful",
+      "nostalgic"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 156,
+    "prompt": "Mid-energy JRPG town theme, peaceful and nostalgic"
+  },
+  {
+    "id": "ab-025",
+    "corpus_file_path": "ab_tracks/track_0388.wav",
+    "category": "town",
+    "category_label": "Town",
+    "mood_tags": [
+      "peaceful",
+      "hopeful"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "marimba"
+    ],
+    "bpm_hint": 134,
+    "prompt": "Low-energy JRPG town theme, peaceful and hopeful"
+  },
+  {
+    "id": "ab-026",
+    "corpus_file_path": "ab_tracks/track_0956.wav",
+    "category": "town",
+    "category_label": "Town",
+    "mood_tags": [
+      "peaceful"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 156,
+    "prompt": "Mid-energy JRPG town theme, peaceful"
+  },
+  {
+    "id": "ab-027",
+    "corpus_file_path": "ab_tracks/track_0451.wav",
+    "category": "town",
+    "category_label": "Town",
+    "mood_tags": [
+      "peaceul",
+      "nostalgic"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 139,
+    "prompt": "Mid-energy JRPG town theme, peaceul and nostalgic"
+  },
+  {
+    "id": "ab-028",
+    "corpus_file_path": "ab_tracks/track_0818.wav",
+    "category": "town",
+    "category_label": "Town",
+    "mood_tags": [
+      "peaceful"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 91,
+    "prompt": "Mid-energy JRPG town theme, peaceful"
+  },
+  {
+    "id": "ab-029",
+    "corpus_file_path": "ab_tracks/track_0091.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "nostalgic",
+      "hopeful"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 114,
+    "prompt": "Mid-energy JRPG cutscene theme, nostalgic and hopeful"
+  },
+  {
+    "id": "ab-030",
+    "corpus_file_path": "ab_tracks/track_0569.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "peaceful",
+      "nostalgic"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 74,
+    "prompt": "Mid-energy JRPG cutscene theme, peaceful and nostalgic"
+  },
+  {
+    "id": "ab-031",
+    "corpus_file_path": "ab_tracks/track_0780.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "hopeful",
+      "nostalgic"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 163,
+    "prompt": "Mid-energy JRPG cutscene theme, hopeful and nostalgic"
+  },
+  {
+    "id": "ab-032",
+    "corpus_file_path": "ab_tracks/track_0300.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "melancholic",
+      "nostalgic"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 134,
+    "prompt": "Low-energy JRPG cutscene theme, melancholic and nostalgic"
+  },
+  {
+    "id": "ab-033",
+    "corpus_file_path": "ab_tracks/track_0568.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "peaceful",
+      "nostalgic"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 72,
+    "prompt": "Low-energy JRPG cutscene theme, peaceful and nostalgic"
+  },
+  {
+    "id": "ab-034",
+    "corpus_file_path": "ab_tracks/track_1078.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "peaceful",
+      "hopeful"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 163,
+    "prompt": "Mid-energy JRPG cutscene theme, peaceful and hopeful"
+  },
+  {
+    "id": "ab-035",
+    "corpus_file_path": "ab_tracks/track_0137.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "nostalgic",
+      "peaceful",
+      "melancholic"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 170,
+    "prompt": "Mid-energy JRPG cutscene theme, nostalgic, peaceful, and melancholic"
+  },
+  {
+    "id": "ab-036",
+    "corpus_file_path": "ab_tracks/track_0403.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "dark",
+      "hopeful"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "woodwinds"
+    ],
+    "bpm_hint": 156,
+    "prompt": "Low-energy JRPG cutscene theme, dark and hopeful"
+  },
+  {
+    "id": "ab-037",
+    "corpus_file_path": "ab_tracks/track_1018.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "peaceful",
+      "nostalgic"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 134,
+    "prompt": "Low-energy JRPG cutscene theme, peaceful and nostalgic"
+  },
+  {
+    "id": "ab-038",
+    "corpus_file_path": "ab_tracks/track_0783.wav",
+    "category": "exploration",
+    "category_label": "Exploration",
+    "mood_tags": [
+      "nostalgic"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 94,
+    "prompt": "Mid-energy JRPG exploration theme, nostalgic"
+  },
+  {
+    "id": "ab-039",
+    "corpus_file_path": "ab_tracks/track_0468.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "nostalgic",
+      "hopeful",
+      "fateful"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 80,
+    "prompt": "Mid-energy JRPG cutscene theme, nostalgic, hopeful, and fateful"
+  },
+  {
+    "id": "ab-040",
+    "corpus_file_path": "ab_tracks/track_0180.wav",
+    "category": "cutscene",
+    "category_label": "Cutscene",
+    "mood_tags": [
+      "melancholic",
+      "dark"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 82,
+    "prompt": "Mid-energy JRPG cutscene theme, melancholic and dark"
+  },
+  {
+    "id": "ab-041",
+    "corpus_file_path": "ab_tracks/track_1069.wav",
+    "category": "dungeon",
+    "category_label": "Dungeon",
+    "mood_tags": [
+      "dark",
+      "nostalgic"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 89,
+    "prompt": "Mid-energy JRPG dungeon theme, dark and nostalgic"
+  },
+  {
+    "id": "ab-042",
+    "corpus_file_path": "ab_tracks/track_0673.wav",
+    "category": "exploration",
+    "category_label": "Exploration",
+    "mood_tags": [
+      "nostalgic"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 89,
+    "prompt": "Mid-energy JRPG exploration theme, nostalgic"
+  },
+  {
+    "id": "ab-043",
+    "corpus_file_path": "ab_tracks/track_0003.wav",
+    "category": "dungeon",
+    "category_label": "Dungeon",
+    "mood_tags": [
+      "mysterious",
+      "peaceful"
+    ],
+    "energy": "low",
+    "instrumentation": [
+      "marimba",
+      "glockenspiel",
+      "strings"
+    ],
+    "bpm_hint": 121,
+    "prompt": "Low-energy JRPG dungeon theme, mysterious and peaceful"
+  },
+  {
+    "id": "ab-044",
+    "corpus_file_path": "ab_tracks/track_1067.wav",
+    "category": "dungeon",
+    "category_label": "Dungeon",
+    "mood_tags": [
+      "mysterious"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 110,
+    "prompt": "Mid-energy JRPG dungeon theme, mysterious"
+  },
+  {
+    "id": "ab-045",
+    "corpus_file_path": "ab_tracks/track_0249.wav",
+    "category": "exploration",
+    "category_label": "Exploration",
+    "mood_tags": [
+      "hopeful"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 110,
+    "prompt": "Mid-energy JRPG exploration theme, hopeful"
+  },
+  {
+    "id": "ab-046",
+    "corpus_file_path": "ab_tracks/track_0106.wav",
+    "category": "dungeon",
+    "category_label": "Dungeon",
+    "mood_tags": [
+      "mysterious",
+      "nostalgic"
+    ],
+    "energy": "low",
+    "instrumentation": [],
+    "bpm_hint": 99,
+    "prompt": "Low-energy JRPG dungeon theme, mysterious and nostalgic"
+  },
+  {
+    "id": "ab-047",
+    "corpus_file_path": "ab_tracks/track_0537.wav",
+    "category": "dungeon",
+    "category_label": "Dungeon",
+    "mood_tags": [
+      "mysterious",
+      "tense",
+      "whimsical"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 121,
+    "prompt": "Mid-energy JRPG dungeon theme, mysterious, tense, and whimsical"
+  },
+  {
+    "id": "ab-048",
+    "corpus_file_path": "ab_tracks/track_0329.wav",
+    "category": "exploration",
+    "category_label": "Exploration",
+    "mood_tags": [
+      "peaceful",
+      "nostalgic"
+    ],
+    "energy": "medium",
+    "instrumentation": [],
+    "bpm_hint": 110,
+    "prompt": "Mid-energy JRPG exploration theme, peaceful and nostalgic"
+  },
+  {
+    "id": "ab-049",
+    "corpus_file_path": "ab_tracks/track_1111.wav",
+    "category": "boss",
+    "category_label": "Boss",
+    "mood_tags": [
+      "fateful",
+      "urgent"
+    ],
+    "energy": "high",
+    "instrumentation": [],
+    "bpm_hint": 94,
+    "prompt": "High-energy JRPG boss theme, fateful and urgent"
+  },
+  {
+    "id": "ab-050",
+    "corpus_file_path": "ab_tracks/track_0385.wav",
+    "category": "battle",
+    "category_label": "Battle",
+    "mood_tags": [
+      "triumphant",
+      "hopeful"
+    ],
+    "energy": "medium",
+    "instrumentation": [
+      "brass",
+      "woodwinds"
+    ],
+    "bpm_hint": 150,
+    "prompt": "Mid-energy JRPG battle theme, triumphant and hopeful"
+  }
+]

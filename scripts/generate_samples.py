@@ -59,9 +59,7 @@ def main() -> None:
                 "attempts": data.get("attempts"),
                 "trace_id": data.get("trace_id"),
                 "size_bytes": len(audio_data),
-                "use_melody_conditioning": request_body.get(
-                    "use_melody_conditioning", False
-                ),
+                "melody_source": request_body.get("melody_source", "none"),
             }
         )
 

@@ -334,12 +334,14 @@ Runs after the first fine-tune is promoted, before any full index migration.
 - Index all `chroma_stable=true` tracks at full length.
 - Same Qdrant schema as current bootstrap corpus (CLAP embedding + metadata).
 - Content-hash IDs ensure idempotent re-indexing.
-- No inference code change — `MODEL_TAG` swap + `use_melody_conditioning=true` default.
+- No inference code change — `MODEL_TAG` swap + `melody_source="retrieval"` default.
 
-### If A/B Fails
+### A/B Result (M7-T5)
 
-Melody conditioning stays disabled. Retrieval infrastructure retained for future use cases
-(style search, sample browsing, training-time augmentation).
+A/B test ran: text-only won (mean CLAP 0.456 vs retrieval 0.411 vs random 0.415).
+Chroma conditioning forces reference melody onto output, constraining the fine-tuned model.
+Melody conditioning stays disabled (`melody_source="none"`). Retrieval infrastructure retained
+for future use cases (style search, sample browsing, training-time augmentation).
 
 ---
 

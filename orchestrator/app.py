@@ -7,8 +7,9 @@ from __future__ import annotations
 
 import base64
 import json
+import random
 import time
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal
 
 import modal
 from pydantic import BaseModel, Field
@@ -69,7 +70,7 @@ class ComposeRequest(BaseModel):
     instruments: list[str] | None = None
     duration_seconds: float | None = Field(default=None, ge=5.0, le=30.0)
     key: str | None = None
-    use_melody_conditioning: bool = False
+    melody_source: Literal["none", "retrieval", "random"] = "none"
     cfg_coeff: float | None = Field(default=None, ge=0.0, le=20.0)
     top_k: int | None = Field(default=None, ge=0, le=1000)
     temperature: float | None = Field(default=None, gt=0.0, le=5.0)
@@ -116,9 +117,12 @@ def compose(request: ComposeRequest) -> dict:
             with tracer.start_as_current_span("query_parse"):
                 spec = parse_query(request, log, **model_kwargs)
 
-            if request.use_melody_conditioning:
+            if request.melody_source == "retrieval":
                 with tracer.start_as_current_span("retrieval") as retrieval_span:
                     melody_wav, melody_sr = retrieve_melody(spec, retrieval_span, log)
+            elif request.melody_source == "random":
+                with tracer.start_as_current_span("random_melody") as random_span:
+                    melody_wav, melody_sr = pick_random_melody(random_span, log)
             else:
                 melody_wav, melody_sr = None, None
                 log.info("melody_conditioning_disabled")
@@ -367,6 +371,31 @@ def retrieve_melody(spec, span, log) -> tuple[bytes | None, int | None]:
     except FileNotFoundError:
         span.set_attribute("retrieval.melody_loaded", False)
         log.warning("retrieve_melody_file_missing", path=melody_path)
+        return None, None
+
+
+def pick_random_melody(span, log) -> tuple[bytes | None, int | None]:
+    """Pick a random WAV from the corpus volume for the random A/B arm."""
+    import glob
+
+    pattern = f"{VOLUME_MOUNT_PATH}/ab_tracks/*.wav"
+    wavs = glob.glob(pattern)
+    span.set_attribute("random_melody.candidates", len(wavs))
+
+    if not wavs:
+        log.warning("random_melody_no_files", pattern=pattern)
+        return None, None
+
+    chosen = random.choice(wavs)
+    span.set_attribute("random_melody.chosen", chosen)
+    log.info("random_melody_chosen", path=chosen)
+
+    try:
+        with open(chosen, "rb") as f:
+            melody_bytes = f.read()
+        return melody_bytes, CORPUS_AUDIO_SAMPLE_RATE
+    except FileNotFoundError:
+        log.warning("random_melody_file_missing", path=chosen)
         return None, None
 
 
