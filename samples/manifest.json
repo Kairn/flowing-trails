@@ -1,107 +1,433 @@
 [
   {
-    "slug": "calm-exploration",
-    "filename": "calm-exploration.wav",
-    "brief": "A peaceful exploration theme for wandering through an enchanted forest, with gentle melodies and a sense of wonder",
+    "slug": "farewell-at-dawn",
+    "filename": "farewell-at-dawn.wav",
+    "brief": "A bittersweet cutscene theme for a character saying goodbye at sunrise. Gentle piano over sustained strings, building toward a quietly hopeful resolution. Think Nobuo Uematsu's emotional moments \u2014 restrained but devastating.",
     "spec": {
-      "description": "A gentle, flowing orchestral piece with soft woodwind melodies drifting over lush string pads and delicate harp arpeggios, evoking the magical stillness of an enchanted forest. Shimmering bell tones and light pizzicato strings add a sense of discovery and childlike wonder, while a warm ambient undertone keeps the atmosphere serene and immersive.",
-      "genre": "orchestral fantasy RPG",
+      "description": "A tender solo piano melody drifts over warm sustained string pads as soft morning light seems to filter through the sound. The piece begins with quiet restraint, sparse notes hanging in the air like unspoken words, before gentle cello harmonics and a swelling violin layer gradually lift it toward a fragile, quietly luminous resolution \u2014 bittersweet and aching, but ultimately hopeful.",
+      "genre": "cinematic JRPG cutscene",
       "mood_tags": [
-        "peaceful",
-        "whimsical",
-        "enchanting",
-        "serene wonder",
-        "magical exploration"
+        "bittersweet",
+        "quietly hopeful",
+        "emotionally restrained",
+        "melancholic warmth",
+        "farewell"
       ],
       "instruments": [
-        "flute",
-        "oboe",
-        "harp",
-        "strings",
-        "celesta",
-        "pizzicato violin",
-        "soft choir pads",
-        "glockenspiel"
+        "solo piano",
+        "sustained strings",
+        "cello",
+        "violin",
+        "soft orchestral pads"
       ],
-      "tempo_bpm": 72,
-      "key": "G major",
+      "tempo_bpm": 58,
+      "key": "E major",
       "energy": "low",
-      "duration_seconds": 10.0,
-      "style_hint": "Koji Kondo fairy-tale orchestral style, reminiscent of Zelda overworld exploration themes, SNES-to-modern era"
+      "duration_seconds": 30.0,
+      "style_hint": "Nobuo Uematsu emotional ballad style, Final Fantasy IX farewell scenes, late 2000s JRPG orchestral scoring"
     },
-    "score": 0.4025,
+    "score": 0.5782,
     "attempts": 1,
-    "trace_id": "168c08a58b3ced7ea625e24daceab683",
-    "size_bytes": 640044,
+    "trace_id": "687cc53edb39bc648dde41f34af108af",
+    "size_bytes": 1920044,
     "melody_source": "none"
   },
   {
-    "slug": "boss-battle",
-    "filename": "boss-battle.wav",
-    "brief": "An intense, driving boss battle theme with heavy percussion, dramatic orchestral hits, and an aggressive tempo",
+    "slug": "final-boss-descent",
+    "filename": "final-boss-descent.wav",
+    "brief": "The final boss reveals its true form. Thunderous orchestral assault with pounding timpani, aggressive brass stabs, and a dark choral undercurrent. Relentless escalation, no breathing room. Maximum intensity.",
     "spec": {
-      "description": "An intense, driving boss battle theme featuring thunderous taiko drums and heavy orchestral percussion, punctuated by dramatic brass and string hits that surge with relentless aggression. Driving low-end ostinatos on cello and bass push the tension forward while blaring horns and choir stabs amplify the sense of overwhelming danger. The atmosphere is ferocious and cinematic, built for a climactic confrontation.",
-      "genre": "orchestral action / JRPG boss battle",
+      "description": "A thunderous orchestral assault erupts as the final boss reveals its true form \u2014 massive brass stabs tear through the mix with savage aggression while pounding timpani and taiko drums drive a relentless, crushing rhythm. A dark, menacing choir swells beneath the chaos, chanting ominous tones that push the tension beyond breaking point. Every layer escalates without mercy, building to overwhelming, apocalyptic intensity with no pause for breath.",
+      "genre": "orchestral epic / boss battle",
       "mood_tags": [
-        "intense",
-        "ferocious",
-        "dramatic",
-        "battle-ready",
-        "overwhelming tension"
+        "apocalyptic dread",
+        "relentless aggression",
+        "dark and menacing",
+        "overwhelming power",
+        "triumphant evil"
       ],
       "instruments": [
-        "taiko drums",
-        "orchestral brass",
-        "strings",
-        "choir",
-        "bass drum",
-        "cello ostinato",
+        "brass ensemble",
         "french horns",
-        "timpani"
+        "trumpets",
+        "trombones",
+        "timpani",
+        "taiko drums",
+        "bass drums",
+        "full orchestra",
+        "dark choir",
+        "strings"
       ],
-      "tempo_bpm": 175,
+      "tempo_bpm": 168,
       "key": "D minor",
       "energy": "high",
-      "duration_seconds": 10.0,
-      "style_hint": "Yoko Shimomura / Hitoshi Sakimoto epic orchestral boss battle style, reminiscent of Final Fantasy XII or Kingdom Hearts"
+      "duration_seconds": 30.0,
+      "style_hint": "Masashi Hamauzu / Hitoshi Sakimoto final boss style, reminiscent of FFXIII or FFXII climactic encounters, late-era JRPG orchestral bombast"
     },
-    "score": 0.5729,
-    "attempts": 1,
-    "trace_id": "b67eec60187dffc2d751a8cb93259f4d",
-    "size_bytes": 640044,
+    "score": 0.5072,
+    "attempts": 2,
+    "trace_id": "8259fe5994d3e0669b8462f5abb92222",
+    "size_bytes": 1920044,
     "melody_source": "none"
   },
   {
-    "slug": "retro-town",
-    "filename": "retro-town.wav",
-    "brief": "A nostalgic 8-bit chiptune town theme reminiscent of classic JRPG menu music, upbeat and catchy",
+    "slug": "sunken-temple",
+    "filename": "sunken-temple.wav",
+    "brief": "Exploring a flooded ancient temple deep underground. Eerie reverberant chimes over low pulsing synth drones, sparse metallic percussion that echoes into darkness. Mysterious and foreboding, with moments of strange beauty.",
     "spec": {
-      "description": "A bright and catchy 8-bit chiptune town theme with bouncy square wave melodies layered over a lively pulse wave bassline and crisp noise channel percussion. The music radiates warmth and nostalgia, evoking the feeling of wandering a peaceful RPG village, with loopable phrases and cheerful arpeggiated harmonies that feel instantly memorable.",
-      "genre": "chiptune / JRPG",
+      "description": "Eerie, reverberant chimes shimmer over slow-moving low synth drones, creating a cavernous underwater atmosphere. Sparse metallic percussion strikes echo into vast darkness, with haunting melodic fragments emerging like light filtering through murky depths. The texture is cold and ancient, blending strange ethereal beauty with a deep sense of foreboding dread.",
+      "genre": "ambient dungeon exploration",
       "mood_tags": [
-        "nostalgic",
-        "upbeat",
-        "cheerful",
-        "whimsical",
-        "warm"
+        "mysterious",
+        "foreboding",
+        "eerie beauty",
+        "cavernous",
+        "ancient and forgotten"
       ],
       "instruments": [
-        "square wave lead",
-        "pulse wave bass",
-        "triangle wave melody",
-        "noise channel drums",
-        "chiptune arpeggio"
+        "tubular bells",
+        "metallic percussion",
+        "bass synth drone",
+        "pad synthesizer",
+        "resonant chimes",
+        "subterranean low rumble"
+      ],
+      "tempo_bpm": 55,
+      "key": "D minor",
+      "energy": "low",
+      "duration_seconds": 30.0,
+      "style_hint": "Metroid Prime ambient exploration, Yasunori Mitsuda dark atmospheric style, waterlogged ancient ruin soundscape"
+    },
+    "score": 0.4901,
+    "attempts": 1,
+    "trace_id": "786d4101e6c5d9ca330bd32b8360c0db",
+    "size_bytes": 1920044,
+    "melody_source": "none"
+  },
+  {
+    "slug": "cavalry-charge",
+    "filename": "cavalry-charge.wav",
+    "brief": "An army charges across an open battlefield. Galloping percussion drives a triumphant brass melody forward while strings surge underneath. Epic, urgent, and heroic \u2014 the tide of battle is turning.",
+    "spec": {
+      "description": "Thunderous orchestral battle charge with driving taiko-style percussion and galloping timpani propelling a bold, triumphant brass fanfare. Surging string sections swell beneath blaring horns and trumpets, evoking thousands of soldiers cresting a hill as the tide of war turns in their favor. Relentless momentum, cinematic scale, and heroic intensity define every bar.",
+      "genre": "orchestral epic / cinematic battle",
+      "mood_tags": [
+        "triumphant",
+        "heroic",
+        "urgent",
+        "epic",
+        "battle-charge"
+      ],
+      "instruments": [
+        "brass section",
+        "trumpets",
+        "French horns",
+        "trombones",
+        "full string orchestra",
+        "timpani",
+        "taiko drums",
+        "snare drum",
+        "orchestral percussion",
+        "cymbals"
       ],
       "tempo_bpm": 148,
-      "key": "G major",
-      "energy": "medium",
-      "duration_seconds": 10.0,
-      "style_hint": "NES/Famicom era JRPG, reminiscent of early Dragon Quest and Final Fantasy town themes by Koichi Sugiyama and Nobuo Uematsu"
+      "key": "D major",
+      "energy": "high",
+      "duration_seconds": 30.0,
+      "style_hint": "Hans Zimmer / Brian Tyler cinematic orchestral style, reminiscent of Total War or Age of Empires battle themes"
     },
-    "score": 0.6218,
+    "score": 0.4644,
     "attempts": 1,
-    "trace_id": "fc1750859f72c5d53a4abc3ce549076f",
-    "size_bytes": 640044,
+    "trace_id": "077d305c03fe54c2a1117c044be0e012",
+    "size_bytes": 1920044,
+    "melody_source": "none"
+  },
+  {
+    "slug": "the-betrayal",
+    "filename": "the-betrayal.wav",
+    "brief": "A trusted ally reveals they've been the villain all along. Dark, fateful orchestral piece \u2014 low strings carrying a menacing motif, building tension with dissonant brass swells. The moment everything changes.",
+    "spec": {
+      "description": "A dark, fateful orchestral revelation unfolds with low cello and contrabass carrying a slow, menacing chromatic motif that twists beneath the surface. Dissonant brass swells rise with cold inevitability as tremolo strings build suffocating tension, punctuated by stabbing horns and a deep tympani pulse. The music captures the precise moment of betrayal \u2014 a world cracking open, familiar themes corrupting into something sinister and irreversible.",
+      "genre": "cinematic orchestral",
+      "mood_tags": [
+        "betrayal",
+        "dark revelation",
+        "menacing",
+        "tragic tension",
+        "fateful dread"
+      ],
+      "instruments": [
+        "cellos",
+        "contrabass",
+        "french horns",
+        "trombones",
+        "tympani",
+        "tremolo strings",
+        "dissonant brass",
+        "bass clarinet"
+      ],
+      "tempo_bpm": 58,
+      "key": "D minor",
+      "energy": "medium",
+      "duration_seconds": 30.0,
+      "style_hint": "Yasunori Mitsuda dark orchestral style, JRPG plot twist cutscene, Final Fantasy cinematic betrayal moment"
+    },
+    "score": 0.4871,
+    "attempts": 1,
+    "trace_id": "1a3165d31f17191f982c3672d7b9fe69",
+    "size_bytes": 1920044,
+    "melody_source": "none"
+  },
+  {
+    "slug": "frozen-labyrinth",
+    "filename": "frozen-labyrinth.wav",
+    "brief": "An ice dungeon with crystalline walls that ring when struck. Cold, glassy synth textures over slow deliberate percussion, with high-pitched bell tones that feel brittle and dangerous. Tense and isolating.",
+    "spec": {
+      "description": "Cold, glassy synth pads drift beneath slow, heavy percussion hits that echo through frozen corridors. High-pitched crystalline bell tones ring out with a brittle, dangerous quality, each note decaying like ice fracturing under pressure. The atmosphere is tense and isolating, with sparse melodic movement and deep sub-bass undertones reinforcing a sense of frigid, oppressive stillness.",
+      "genre": "ambient dungeon",
+      "mood_tags": [
+        "tense",
+        "isolating",
+        "cold and eerie",
+        "brittle danger",
+        "glacial dread"
+      ],
+      "instruments": [
+        "synth pads",
+        "tuned bells",
+        "glockenspiel",
+        "crystal bowls",
+        "deep taiko drums",
+        "sub bass",
+        "reverb-heavy percussion"
+      ],
+      "tempo_bpm": 58,
+      "key": "D minor",
+      "energy": "low",
+      "duration_seconds": 30.0,
+      "style_hint": "JRPG ice dungeon ambient, Yasunori Mitsuda dark atmospheric style, akin to Chrono Cross or Dark Souls environmental music"
+    },
+    "score": 0.4175,
+    "attempts": 2,
+    "trace_id": "bc069d90bae93431f235e76e305ec0fa",
+    "size_bytes": 1920044,
+    "melody_source": "none"
+  },
+  {
+    "slug": "midnight-duel",
+    "filename": "midnight-duel.wav",
+    "brief": "A tense one-on-one sword fight under moonlight. Fast staccato strings trading phrases with sharp brass accents, tight snare patterns, and an undercurrent of urgency. Precise, dangerous, intimate combat.",
+    "spec": {
+      "description": "Fast staccato string figures trade sharp, cutting phrases with aggressive brass stabs over a tight, snapping snare pattern. The texture is lean and precise \u2014 no room to breathe \u2014 with a low pulsing cello undercurrent driving relentless forward momentum. The mood is intimate and lethal, two forces locked in razor-focused combat beneath a cold moonlit sky.",
+      "genre": "cinematic orchestral",
+      "mood_tags": [
+        "tense",
+        "dangerous",
+        "intimate",
+        "urgent",
+        "precise"
+      ],
+      "instruments": [
+        "staccato strings",
+        "brass stabs",
+        "snare drum",
+        "cello",
+        "timpani",
+        "french horn"
+      ],
+      "tempo_bpm": 148,
+      "key": "D minor",
+      "energy": "high",
+      "duration_seconds": 30.0,
+      "style_hint": "Yoko Shimomura action combat style, Final Fantasy XV boss duel, modern cinematic orchestral"
+    },
+    "score": 0.431,
+    "attempts": 1,
+    "trace_id": "71a9f8a8614a67681dc47f0acad456f9",
+    "size_bytes": 1920044,
+    "melody_source": "none"
+  },
+  {
+    "slug": "shadow-throne",
+    "filename": "shadow-throne.wav",
+    "brief": "The dark lord's throne room. Ominous pipe organ chords with deep choir chanting, slow heavy percussion like a heartbeat. Oppressive, grandiose, suffocating dread. A boss you know you might not survive.",
+    "spec": {
+      "description": "Massive pipe organ chords swell with crushing weight as a deep male choir chants in low, reverberant tones, evoking an ancient and merciless evil. A slow, thunderous kettledrum heartbeat pulse drives the tension forward, surrounded by swirling dark orchestral strings and brass stabs that fill the throne room with suffocating grandeur. Every note radiates the presence of an unstoppable, godlike villain.",
+      "genre": "orchestral dark fantasy boss theme",
+      "mood_tags": [
+        "oppressive dread",
+        "grandiose evil",
+        "suffocating tension",
+        "dark and imposing",
+        "desperate struggle"
+      ],
+      "instruments": [
+        "pipe organ",
+        "male choir",
+        "kettledrum",
+        "orchestral strings",
+        "brass",
+        "bass drums",
+        "low woodwinds"
+      ],
+      "tempo_bpm": 52,
+      "key": "D minor",
+      "energy": "high",
+      "duration_seconds": 30.0,
+      "style_hint": "Nobuo Uematsu One-Winged Angel style, JRPG final boss, late-era SNES to PS1 orchestral grandeur"
+    },
+    "score": 0.4711,
+    "attempts": 1,
+    "trace_id": "66aad33a080b211f163d1557bbfec2dc",
+    "size_bytes": 1920044,
+    "melody_source": "none"
+  },
+  {
+    "slug": "last-bastion",
+    "filename": "last-bastion.wav",
+    "brief": "The final fortress is under siege and the walls are falling. Desperate, driving orchestral battle music \u2014 urgent string ostinatos, war drums pounding double-time, brass screaming over the chaos. Heroic defiance against impossible odds.",
+    "spec": {
+      "description": "Urgent string ostinatos drive relentlessly beneath thunderous war drums pounding double-time, while screaming brass fanfares cut through the chaos like battle cries. The texture surges with desperate heroic energy \u2014 massive orchestral swells, crashing cymbals, and low brass clusters painting the image of fortress walls crumbling under siege. Defiant and overwhelming, the music pulses with the last stand of heroes against impossible odds.",
+      "genre": "epic orchestral battle",
+      "mood_tags": [
+        "desperate heroism",
+        "urgent chaos",
+        "triumphant defiance",
+        "intense warfare",
+        "dark grandeur"
+      ],
+      "instruments": [
+        "full string orchestra",
+        "war drums",
+        "taiko drums",
+        "french horns",
+        "trumpets",
+        "trombones",
+        "tuba",
+        "crash cymbals",
+        "timpani",
+        "low brass"
+      ],
+      "tempo_bpm": 168,
+      "key": "D minor",
+      "energy": "high",
+      "duration_seconds": 30.0,
+      "style_hint": "Hans Zimmer meets Nobuo Uematsu \u2014 cinematic JRPG final battle, Final Fantasy / Fire Emblem orchestral tradition, late SNES to PS2 era epic scale"
+    },
+    "score": 0.3596,
+    "attempts": 2,
+    "trace_id": "7c2978fa552810387d5cb8df6636a96e",
+    "size_bytes": 1920044,
+    "melody_source": "none"
+  },
+  {
+    "slug": "void-ritual",
+    "filename": "void-ritual.wav",
+    "brief": "A forbidden summoning ritual in a candlelit chamber. Dark ambient drones layered with distant chanting, unsettling dissonant string harmonics, and deep ritualistic percussion that slowly intensifies. Something terrible is being awakened.",
+    "spec": {
+      "description": "Thick, oppressive dark ambient drones swell beneath dissonant string harmonics scraping at the edge of tonality, while distant wordless chanting echoes through a cold stone chamber. Deep ritualistic taiko-style percussion strikes slowly at first, building with dread-soaked inevitability as something ancient and malevolent stirs awake. The atmosphere is suffocating and ceremonial, layered with low brass undertones and eerie bowed textures.",
+      "genre": "dark ambient / cinematic horror",
+      "mood_tags": [
+        "ominous dread",
+        "ritualistic",
+        "supernatural horror",
+        "slow-building tension",
+        "ancient evil awakening"
+      ],
+      "instruments": [
+        "string ensemble",
+        "bowed bass",
+        "dissonant violins",
+        "deep taiko drums",
+        "low brass",
+        "choir pads",
+        "synth drones",
+        "celesta"
+      ],
+      "tempo_bpm": 52,
+      "key": "D minor",
+      "energy": "low",
+      "duration_seconds": 30.0,
+      "style_hint": "Akira Yamaoka survival horror aesthetic meets orchestral dark fantasy, reminiscent of Shadow Hearts or Castlevania summoning sequences"
+    },
+    "score": 0.5035,
+    "attempts": 1,
+    "trace_id": "9be850f50bf22a246ca5d11bc87e71bc",
+    "size_bytes": 1920044,
+    "melody_source": "none"
+  },
+  {
+    "slug": "molten-depths",
+    "filename": "molten-depths.wav",
+    "brief": "A volcanic dungeon where the floor cracks with lava. Heavy, oppressive low brass over rumbling percussion, with sharp metallic strikes and churning synth textures. Hot, suffocating, and relentless \u2014 the deeper you go the worse it gets.",
+    "spec": {
+      "description": "Heavy oppressive low brass swells over deep rumbling taiko and war drums, punctuated by sharp metallic anvil strikes and grinding industrial synth textures. Churning ostinato strings and molten sub-bass pulses create a suffocating, heat-drenched atmosphere that grows increasingly dense and relentless. Dark and volcanic, like descending into the earth's core.",
+      "genre": "orchestral dark ambient / industrial dungeon",
+      "mood_tags": [
+        "oppressive",
+        "suffocating",
+        "volcanic",
+        "relentless",
+        "ominous dread"
+      ],
+      "instruments": [
+        "low brass",
+        "tuba",
+        "trombones",
+        "taiko drums",
+        "war drums",
+        "metallic percussion",
+        "anvil strikes",
+        "distorted synth bass",
+        "churning synth pads",
+        "tremolo strings"
+      ],
+      "tempo_bpm": 72,
+      "key": "D minor",
+      "energy": "high",
+      "duration_seconds": 30.0,
+      "style_hint": "Yasunori Mitsuda dark dungeon meets industrial orchestral \u2014 JRPG lava dungeon, PS2-era epic orchestration"
+    },
+    "score": 0.4165,
+    "attempts": 2,
+    "trace_id": "6f24a067550d976a8f874e070a8976da",
+    "size_bytes": 1920044,
+    "melody_source": "none"
+  },
+  {
+    "slug": "the-escape",
+    "filename": "the-escape.wav",
+    "brief": "The dungeon is collapsing and you have sixty seconds to get out. Frantic, high-speed chase music with racing string runs, syncopated percussion, and sharp brass punctuation. Pure adrenaline and panic, no time to think.",
+    "spec": {
+      "description": "A frantic high-speed orchestral chase cue driven by blazing string runs that spiral upward in relentless sixteenth-note flurries, punchy syncopated snare and taiko drums hammering an irregular pulse, and sharp staccato brass stabs cutting through the chaos. The texture is dense and suffocating, building in layered intensity with no release, conveying pure adrenaline panic as the walls close in.",
+      "genre": "orchestral action",
+      "mood_tags": [
+        "frantic panic",
+        "desperate urgency",
+        "high-stakes danger",
+        "relentless tension",
+        "adrenaline rush"
+      ],
+      "instruments": [
+        "strings",
+        "brass",
+        "taiko drums",
+        "snare drum",
+        "timpani",
+        "french horn",
+        "violins",
+        "cello"
+      ],
+      "tempo_bpm": 188,
+      "key": "D minor",
+      "energy": "high",
+      "duration_seconds": 30.0,
+      "style_hint": "Hans Zimmer action score meets JRPG dungeon escape, reminiscent of Final Fantasy cave collapse sequences"
+    },
+    "score": 0.4267,
+    "attempts": 2,
+    "trace_id": "26a2ce7e241168d49d1167dd0cbb371a",
+    "size_bytes": 1920044,
     "melody_source": "none"
   }
 ]
