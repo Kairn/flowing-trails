@@ -26,7 +26,7 @@ def main() -> None:
     tracer = get_tracer("verify-otel")
 
     with tracer.start_as_current_span("verify-connection") as parent:
-        parent.set_attribute("test.purpose", "m0-t7-otel-verify")
+        parent.set_attribute("test.purpose", "otel-verify")
         parent.set_attribute("test.timestamp", time.time())
 
         with tracer.start_as_current_span("child-operation") as child:

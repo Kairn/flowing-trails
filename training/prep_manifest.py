@@ -1,4 +1,4 @@
-"""M6-T5: Build audiocraft manifest from prepared WAVs.
+"""Build audiocraft manifest from prepared WAVs.
 
 Scans training/prepared/ for WAV files, writes data.jsonl.gz manifest
 (AudioDataset.from_meta expects this file). Sampling is duration-proportional

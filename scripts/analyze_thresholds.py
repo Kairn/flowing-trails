@@ -11,8 +11,12 @@ from __future__ import annotations
 
 import json
 import statistics
+import sys
 from collections import defaultdict
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from config import HF_MUSICGEN_REPO
 
 EVAL_DIR = Path(__file__).resolve().parent.parent / "eval"
 RESULTS_FILE = EVAL_DIR / "calibration_results.json"
@@ -76,7 +80,7 @@ def main() -> None:
         }
 
     thresholds = {
-        "model": "KairnAI/flowing-trails-musicgen@vgm-melody-v1",
+        "model": f"{HF_MUSICGEN_REPO}@vgm-melody-v1",
         "calibration_samples": len(valid),
         "accept_threshold": accept_threshold,
         "distribution": {
@@ -100,7 +104,7 @@ def main() -> None:
     print(f"Samples:           {len(valid)}")
     print(f"Score range:       {min(all_scores):.4f} – {max(all_scores):.4f}")
     print(f"Mean +/- stdev:    {mean:.4f} +/- {stdev:.4f}")
-    print(f"")
+    print()
     print(f"  p10:  {p10:.4f}")
     print(f"  p25:  {p25:.4f}  <-- accept threshold")
     print(f"  p50:  {p50:.4f}")

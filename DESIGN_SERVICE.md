@@ -34,8 +34,8 @@ training and serving.
 Modal endpoint, `POST /generate`. Accepts: prompt string, duration_seconds, optional melody_audio
 bytes, optional seed. Returns: audio bytes + metadata (model version, decoder, latency).
 
-Model: `facebook/musicgen-melody-large` (3.3B). Decoder: Multi-Band Diffusion (MBD).
-VRAM: ~14GB total — fits on A10G (24GB) with headroom.
+Model: `facebook/musicgen-melody-large` (3.3B), fine-tuned to `vgm-melody-v1` in production.
+Decoder: Multi-Band Diffusion (MBD). VRAM: ~14GB total — fits on A10G (24GB) with headroom.
 
 Also exposed as an MCP tool for external use (separate wrapper, not used internally).
 
@@ -56,7 +56,7 @@ At query time: text query → CLAP embed → Qdrant top-N search → reference t
 includes `corpus_file_path` for melody conditioning; others return metadata only. Qdrant stores
 vectors and metadata — no audio bytes.
 
-Melody conditioning is disabled by default (`melody_source="none"`). A/B testing (M7-T5) showed
+Melody conditioning is disabled by default (`melody_source="none"`). A/B testing showed
 chroma conditioning hurts the fine-tuned model — it forces reference melodies onto output rather
 than letting the model generate freely. Retrieval infra is retained but not used in production.
 
@@ -76,7 +76,7 @@ tool dispatch, OTel span creation, trace context propagation across Modal bounda
 assembly. Can also be run locally calling deployed Modal endpoints via HTTP — same code both ways.
 
 ### Observability
-OTel instrumentation in every service from M0. All spans use GenAI semantic conventions where
+OTel instrumentation in every service. All spans use GenAI semantic conventions where
 applicable. Trace context propagated across Modal function boundaries via explicit `traceparent`
 parameter injection (Modal functions are isolated processes — automatic propagation does not work).
 
@@ -132,11 +132,11 @@ orchestrator becomes multi-process.
 beyond 2 attempts yields diminishing returns. The retry loop demonstrates the agentic pattern;
 it is not a guarantee of improvement.
 
-**Similarity threshold empirically calibrated.** CLAP cross-modal similarity for melody-large
-(text-only) centers around 0.45 (mean across 24 calibration prompts, range 0.37–0.58).
-Accept threshold set to p25 (0.40) — triggers retries on the weakest ~25% of generations.
-Fine-tuned models will need separate calibration (run `scripts/run_calibration.py` then
-`scripts/analyze_thresholds.py` to produce a threshold recommendation).
+**Similarity threshold empirically calibrated.** The accept threshold is the p25 of the CLAP
+score distribution measured against the production model. For `vgm-melody-v1` that is 0.43
+(25 calibration prompts, mean 0.46, range 0.32–0.56) — it triggers retries on the weakest
+~25% of generations. Each model tag is recalibrated separately: run `scripts/run_calibration.py`
+then `scripts/analyze_thresholds.py` to produce a threshold recommendation.
 
 **MCP is external-facing only.** The orchestrator calls services directly via Python/HTTP.
 MCP wrappers are standalone layers around the same deployed endpoints, demonstrable independently

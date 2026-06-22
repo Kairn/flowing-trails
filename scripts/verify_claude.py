@@ -40,7 +40,7 @@ def main() -> None:
     client = anthropic.Anthropic()
 
     with tracer.start_as_current_span("verify-claude-api") as span:
-        span.set_attribute("test.purpose", "m0-t8-claude-verify")
+        span.set_attribute("test.purpose", "claude-verify")
         span.set_attribute("gen_ai.system", "anthropic")
         span.set_attribute("gen_ai.request.model", CLAUDE_MODEL)
 

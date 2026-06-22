@@ -34,7 +34,7 @@ def main() -> None:
     client = make_qdrant_client()
 
     with tracer.start_as_current_span("verify-qdrant-cloud") as span:
-        span.set_attribute("test.purpose", "m0-t9-qdrant-verify")
+        span.set_attribute("test.purpose", "qdrant-verify")
         span.set_attribute("db.system", "qdrant")
         span.set_attribute("db.collection.name", QDRANT_COLLECTION_NAME)
 

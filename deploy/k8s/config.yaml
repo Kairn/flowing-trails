@@ -5,7 +5,7 @@ metadata:
   labels:
     app: flowing-trails
 data:
-  musicgen_model_tag: "melody-large"
+  musicgen_model_tag: "vgm-melody-v1"
   qdrant_url: "https://YOUR_CLUSTER.qdrant.io:6333"
   otlp_endpoint: "https://otlp-gateway-prod-YOUR-REGION.grafana.net/otlp"
 ---

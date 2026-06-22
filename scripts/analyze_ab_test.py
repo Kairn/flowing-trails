@@ -116,9 +116,12 @@ def main() -> None:
     print("DECISION GUIDE")
     print(f"{'=' * 72}")
     print(
-        "If retrieval wins on both CLAP scores AND listening quality → proceed to M7-T6"
+        "If retrieval wins on both CLAP scores AND listening quality → "
+        "build the full retrieval index"
     )
-    print("If retrieval ≈ text-only or worse → skip M7-T6, keep text-only as default")
+    print(
+        "If retrieval ≈ text-only or worse → keep text-only as default, skip index migration"
+    )
     print(
         "If random ≈ retrieval → retrieval is not adding semantic value, just conditioning noise"
     )

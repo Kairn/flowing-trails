@@ -2,13 +2,13 @@
 
 ## What This Document Covers
 The fine-tuning pipeline, data preparation, checkpoint management, and retrieval index migration
-for the custom VGM model. All architectural decisions locked; LR, epochs, and weight_decay
-deferred to training session.
+for the custom VGM model. Reflects the completed fine-tune — architecture and hyperparameters
+are settled; `training/configs/full_large_h200.yaml` is the production config.
 
 ---
 
 ## Vision
-Fine-tune `facebook/musicgen-melody-large` (3.3B) on a personal JRPG collection (~1000 tracks)
+Fine-tune `facebook/musicgen-melody-large` (3.3B) on a personal JRPG collection (1,120 tracks)
 to produce a model with strong stylistic affinity for that collection. The model has an
 intentional stylistic bias — defined personality shaped by a specific collection. Diversity
 within the collection (battle, town, dungeon, cutscene) prevents mode collapse without
@@ -20,12 +20,12 @@ The same collection feeds both fine-tuning and the Qdrant retrieval index.
 
 ## Platform Decisions
 
-| Concern          | Platform                   |
-| ---------------- | -------------------------- |
-| Training compute | Modal A100-80GB ($2.50/hr) |
-| Training storage | Modal Volume               |
-| Data preparation | Local (CPU only)           |
-| Model registry   | Hugging Face Hub (private) |
+| Concern          | Platform                    |
+| ---------------- | --------------------------- |
+| Training compute | Modal H200-141GB ($4.54/hr) |
+| Training storage | Modal Volume                |
+| Data preparation | Local (CPU only)            |
+| Model registry   | Hugging Face Hub (private)  |
 
 ### Local Environment
 
@@ -100,12 +100,12 @@ Example record:
 
 ### Machine-Generated (during data prep)
 
-| Field           | Source                                                                                      |
-| --------------- | ------------------------------------------------------------------------------------------- |
-| `bpm`           | `librosa.beat.beat_track`                                                                   |
-| `key`           | librosa chroma + Krumhansl-Schmuckler profile                                               |
-| `duration`      | `librosa.get_duration`                                                                      |
-| `chroma_score`  | `audiocraft.modules.chroma.ChromaExtractor` (argmax) — fraction of adjacent frames sharing dominant chroma bin |
+| Field          | Source                                                                                                         |
+| -------------- | -------------------------------------------------------------------------------------------------------------- |
+| `bpm`          | `librosa.beat.beat_track`                                                                                      |
+| `key`          | librosa chroma + Krumhansl-Schmuckler profile                                                                  |
+| `duration`     | `librosa.get_duration`                                                                                         |
+| `chroma_score` | `audiocraft.modules.chroma.ChromaExtractor` (argmax) — fraction of adjacent frames sharing dominant chroma bin |
 
 ### Training Description (template-generated)
 
@@ -211,29 +211,33 @@ Training image is **separate** from inference image (inference uses torch 2.6).
 
 ### Required Training Config
 
-Two profiles: A100-80GB (conservative) and H200-141GB (quality-optimized).
+Two profiles: H200-141GB (quality-optimized, used for the production run) and A100-80GB
+(conservative fallback). The H200 column is the config that produced `vgm-melody-v1`.
 
-| Setting                              | A100        | H200        | Purpose                                          |
-| ------------------------------------ | ----------- | ----------- | ------------------------------------------------ |
-| `autocast`                           | true        | true        | Mixed precision required                         |
-| `autocast_dtype`                     | bf16        | bf16        | fp16 grad scaler unstable at 3.3B                |
-| `transformer_lm.checkpointing`      | torch       | torch       | Gradient checkpointing (safety margin on H200)   |
-| `dataset.batch_size`                 | 2           | 4           | H200 headroom enables smoother gradients         |
-| `dataset.segment_duration`           | 30          | 60          | H200 enables longer musical context              |
-| `optim.ema.use`                      | false       | true        | Bug #550 is T5-specific; chroma2music unaffected  |
-| `optim.lr`                           | 1e-4        | 5e-5        | Halved LR to compensate for doubled batch        |
-| `optim.updates_per_epoch`            | 100–500     | 100–250     | Scale to num_tracks / batch_size                 |
-| `checkpoint.save_last`               | true        | true        |                                                  |
-| `checkpoint.keep_last`               | 5           | 5           | Keep all epochs for checkpoint selection          |
+| Setting                        | A100  | H200  | Purpose                                          |
+| ------------------------------ | ----- | ----- | ------------------------------------------------ |
+| `autocast`                     | true  | true  | Mixed precision required                         |
+| `autocast_dtype`               | bf16  | bf16  | fp16 grad scaler unstable at 3.3B                |
+| `transformer_lm.checkpointing` | torch | torch | Gradient checkpointing (safety margin on H200)   |
+| `dataset.batch_size`           | 2     | 4     | H200 headroom enables smoother gradients         |
+| `dataset.segment_duration`     | 30    | 40    | Sweet spot past the 30 s generation cap          |
+| `optim.ema.use`                | false | true  | Bug #550 is T5-specific; chroma2music unaffected |
+| `optim.lr`                     | 1e-4  | 5e-5  | Halved LR to compensate for doubled batch        |
+| `optim.updates_per_epoch`      | 150   | 528   | ~5× per-segment exposure over 10 epochs          |
+| `checkpoint.save_last`         | true  | true  |                                                  |
+| `checkpoint.keep_last`         | 5     | 10    | Keep all epochs for checkpoint selection         |
 
 Note: audiocraft v1.3.0 has no gradient accumulation support. Effective batch = `batch_size`.
-GPU selected via `FT_GPU` env var in `config.py` (default: `a100-80gb`).
+GPU selected via `FT_GPU` env var in `config.py` (default `a100-80gb`; the production run set
+`FT_GPU=h200` via `make train-full-h200`).
 
 ### Manifest Weights
 
-Sampling weights are duration-proportional: `weight = track_duration`. Ensures every second
-of audio has roughly equal expected exposure regardless of track length. Both `prep_manifest.py`
-(local) and `_rebuild_manifest` (container) apply this consistently.
+No per-track sampling weights. audiocraft's `sample_on_duration` already applies linear
+duration weighting, so every second of audio gets roughly equal expected exposure regardless
+of track length. Setting `weight = track_duration` on top of that double-counts duration
+(quadratic oversampling of long tracks) — both `prep_manifest.py` (local) and `_rebuild_manifest`
+(container) leave `weight` unset (`None`).
 
 ### Checkpoint Strategy
 
@@ -256,9 +260,10 @@ on preemption; Dora resumes from the last epoch checkpoint automatically.
 
 ### Cost
 
-A100-80GB on Modal: **$2.50/hr**, billed per-second. No spot/on-demand distinction — all GPU
-is preemptible at this price. Estimated training time per run: 8–20 hours (~$20–50/run).
-Expect 3–5 experimental runs before a promotable checkpoint: **~$60–250 total**.
+H200-141GB on Modal: **~$4.54/hr**, billed per-second, preemptible (no non-preemptible GPU
+tier exists). The production run was 10 epochs × 528 updates at ~2.1 sec/update — **~2.6 hours,
+roughly $12**. H200 is ~2× more cost-efficient than A100 per second of audio trained; the
+A100-80GB profile ($2.50/hr) is kept as a fallback.
 
 ### Billing
 
@@ -336,7 +341,7 @@ Runs after the first fine-tune is promoted, before any full index migration.
 - Content-hash IDs ensure idempotent re-indexing.
 - No inference code change — `MODEL_TAG` swap + `melody_source="retrieval"` default.
 
-### A/B Result (M7-T5)
+### A/B Result
 
 A/B test ran: text-only won (mean CLAP 0.456 vs retrieval 0.411 vs random 0.415).
 Chroma conditioning forces reference melody onto output, constraining the fine-tuned model.
@@ -364,15 +369,14 @@ for future use cases (style search, sample browsing, training-time augmentation)
 ### Class Imbalance
 
 Imbalance across `scene_type` is accepted as a feature — the corpus distribution IS the
-style we are modeling. Manifest writes `weight: 1.0` for every entry; per-track weight
-support is latent for future use if needed.
+style we are modeling. The manifest sets no per-track weight; audiocraft's duration-based
+sampling handles exposure (see Manifest Weights above).
 
 ---
 
 ## PoC Phasing
 
-Validate the full path on minimal scope before committing real compute. See M6 tasks in
-PROGRESS.md for the session-level breakdown.
+Validate the full path on minimal scope before committing real compute.
 
 ### Phase A — Data Prep PoC (local)
 
@@ -387,7 +391,7 @@ PROGRESS.md for the session-level breakdown.
 
 - Run `export.export_lm` on vanilla `musicgen-melody-large` weights.
 - Upload `state_dict.bin` + `compression_state_dict.bin` to private HF repo
-  (`KairnAI/flowing-trails-musicgen`), tag `base-melody-large-roundtrip`.
+  (`flowing-trails-musicgen`), tag `base-melody-large-roundtrip`.
 - Inference service loads via `MODEL_TAG` + `snapshot_download()`; generates a sample.
 - **Pass:** output indistinguishable from current vanilla generation (same seed).
 

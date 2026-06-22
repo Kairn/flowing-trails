@@ -1,4 +1,4 @@
-"""M6-T4: Chroma stability scoring + template descriptions + sidecar JSON.
+"""Chroma stability scoring + template descriptions + sidecar JSON.
 
 Reads prepared WAVs + labels + machine metadata. For each track:
   - Computes chroma stability score via audiocraft ChromaExtractor

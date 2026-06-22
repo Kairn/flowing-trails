@@ -40,7 +40,7 @@ def main() -> None:
     log.info("search_start", query=query)
 
     with tracer.start_as_current_span("verify-retrieval") as span:
-        span.set_attribute("test.purpose", "m2-t2-retrieval-verify")
+        span.set_attribute("test.purpose", "retrieval-verify")
         span.set_attribute("db.system", "qdrant")
         span.set_attribute("retrieval.query", query)
 

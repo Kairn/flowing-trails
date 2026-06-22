@@ -1,7 +1,7 @@
-"""M6-T5: Validate manifest loads under audiocraft MusicDataset.
+"""Validate that the prepared manifest loads under audiocraft MusicDataset.
 
-Pass condition: manifest loads, every entry has required sidecar fields,
-MusicDataset.__getitem__ iterates without error for all entries.
+Checks that the manifest loads, every entry has the required sidecar fields,
+and MusicDataset.__getitem__ iterates without error for all entries.
 """
 
 import json

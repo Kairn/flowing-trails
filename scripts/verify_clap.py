@@ -51,7 +51,7 @@ def cosine_similarity(a: np.ndarray, b: np.ndarray) -> float:
 
 def main() -> None:
     with tracer.start_as_current_span("verify-clap") as span:
-        span.set_attribute("test.purpose", "m0-t10-clap-verify")
+        span.set_attribute("test.purpose", "clap-verify")
         span.set_attribute("test.clap_model", "laion/clap-htsat-unfused")
 
         # 1. Text embedding

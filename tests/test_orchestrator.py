@@ -632,7 +632,7 @@ def test_gen_span_has_score_attribute(mock_score, mock_from_name):
     mock_instance.generate.remote.return_value = SAMPLE_GENERATE_RESULT
     mock_from_name.return_value.return_value = mock_instance
 
-    mock_score.return_value = 0.42
+    mock_score.return_value = 0.45
 
     query_vec = np.zeros(512, dtype=np.float32)
     spec = MusicSpec(description="battle theme", duration_seconds=10.0)
@@ -642,7 +642,7 @@ def test_gen_span_has_score_attribute(mock_score, mock_from_name):
 
     gen_spans = tracer.spans["music_generate"]
     assert len(gen_spans) == 1
-    assert gen_spans[0].attrs["generate.score"] == 0.42
+    assert gen_spans[0].attrs["generate.score"] == 0.45
     assert gen_spans[0].attrs["generate.attempt"] == 1
 
 

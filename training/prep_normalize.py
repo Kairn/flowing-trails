@@ -1,4 +1,4 @@
-"""M6-T3: Audio normalize + machine metadata extraction.
+"""Audio normalize + machine metadata extraction.
 
 Reads source mp3s listed in source/labels.json, normalizes each to
 32kHz mono 16-bit PCM WAV at -14 LUFS via ffmpeg, then extracts
